@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Daniel Banta- Professional Writing Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        .tag {
+            transition: all 0.2s ease-in-out;
+        }
+        .tag:hover {
+            transform: translateY(-2px);
+        }
+        .active-tag {
+            background-color: #0056b3 !important;
+            color: white !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+        .modal-content {
+            transition: transform 0.25s ease;
+        }
+        .card-image {
+            height: 200px;
+            object-fit: cover;
+        }
+        /* Custom styles for the dropdown */
+        summary {
+            list-style: none; /* Removes default marker */
+            cursor: pointer;
+        }
+        summary::-webkit-details-marker {
+            display: none; /* For Safari */
+        }
+        .chevron {
+            transition: transform 0.2s ease-in-out;
+        }
+        details[open] .chevron {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="app" class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Header Section -->
+        <header class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-bold text-gray-800 mb-2">Daniel Banta</h1>
+            <p class="text-lg text-gray-600">Seasoned Writer & Researcher Covering FinTech, Payments, E-Commerce, and Digital Security</p>
+        </header>
+
+        <!-- About Section -->
+        <section class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">About Me</h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+                I am a writer and analyst specializing in the complex intersections of finance, technology, and business. My work transforms intricate technical information into clear, insightful analysis for executive and industry audiences. I excel at finding the narrative within the data, providing strategic insights that help businesses navigate the evolving digital landscape.
+            </p>
+            <button onclick="openModal('colophon-modal')" class="text-blue-600 hover:text-blue-800 font-semibold">
+                Learn how this site was built &rarr;
+            </button>
+        </section>
+
+        <!-- Client Section -->
+        <section class="max-w-5xl mx-auto my-16">
+            <h2 class="text-center text-sm font-semibold text-gray-500 uppercase tracking-widest mb-8">
+                A trusted partner for industry leaders
+            </h2>
+            <div class="mt-6 grid grid-cols-2 gap-y-10 gap-x-8 md:grid-cols-5 items-center">
+                <div class="col-span-1 flex justify-center">
+                    <img class="h-12 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/mastercard.com" alt="Mastercard">
+                </div>
+                <div class="col-span-1 flex justify-center">
+                    <img class="h-12 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/americanexpress.com" alt="American Express">
+                </div>
+                <div class="col-span-1 flex justify-center">
+                    <img class="h-12 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/discover.com" alt="Discover">
+                </div>
+                <div class="col-span-1 flex justify-center">
+                    <img class="h-12 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/ncr.com" alt="NCR">
+                </div>
+                <div class="col-span-1 flex justify-center">
+                    <img class="h-12 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/worldpay.com" alt="Worldpay">
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Portfolio Grid Section -->
+        <main>
+            <h2 id="portfolio-heading" class="text-4xl font-bold text-center text-gray-800 mb-8">All Work</h2>
+
+            <!-- Filtering Section -->
+            <div class="max-w-4xl mx-auto mb-12 relative sticky top-0 z-30 bg-[#f8f9fa] py-4">
+                <!-- Filter Toggle Button -->
+                <div class="text-center">
+                    <button id="filter-toggle-btn" aria-expanded="false" class="inline-flex items-center text-2xl font-bold text-gray-800 hover:text-blue-600 group transition-colors duration-200">
+                        Filter
+                        <svg id="filter-chevron" class="w-5 h-5 ml-2 text-gray-500 transition-transform duration-300 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Filter Panel (Initially Hidden) -->
+                <div id="filter-panel" class="absolute w-full mt-4 bg-white rounded-xl shadow-2xl p-8 z-20 transform transition-all duration-300 origin-top opacity-0 scale-95 pointer-events-none">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                        <!-- Topic Filters -->
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <h4 class="text-lg font-semibold text-gray-700">By Topic</h4>
+                                <button id="clear-topic-filter" class="text-sm text-gray-500 hover:text-blue-600 underline">Clear</button>
+                            </div>
+                            <div id="tag-filters" class="flex flex-wrap gap-2">
+                                <!-- Topic filter buttons will be dynamically inserted here -->
+                            </div>
+                        </div>
+                        <!-- Genre Filters -->
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <h4 class="text-lg font-semibold text-gray-700">By Genre</h4>
+                                <button id="clear-genre-filter" class="text-sm text-gray-500 hover:text-blue-600 underline">Clear</button>
+                            </div>
+                            <div id="genre-filters" class="flex flex-wrap gap-2">
+                                <!-- Genre filter buttons will be dynamically inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center pt-6 mt-6 border-t border-gray-200">
+                        <button id="clear-all-filters-btn" class="text-gray-600 hover:text-blue-600 font-semibold py-2 px-4 underline">
+                            Clear All Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Article cards will be dynamically inserted here -->
+            </div>
+            <div id="pagination-controls" class="text-center mt-12 space-x-4">
+                <button id="see-more-btn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors shadow-md text-lg">See More</button>
+                <button id="see-less-btn" class="bg-gray-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-700 transition-colors shadow-md text-lg hidden">See Less</button>
+            </div>
+            <p id="no-results" class="text-center text-gray-500 text-lg hidden">No articles found matching your criteria.</p>
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="text-center mt-16 pt-8 border-t border-gray-200">
+            <p class="text-gray-500">&copy; 2025 Daniel Banta. All Rights Reserved.</p>
+        </footer>
+
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top-btn" class="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-opacity duration-300 opacity-0 pointer-events-none z-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+    </button>
+
+    <!-- Colophon Modal -->
+    <div id="colophon-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white w-full max-w-2xl rounded-xl shadow-2xl p-8 relative transform scale-95">
+            <button onclick="closeModal('colophon-modal')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">About This Site (Colophon)</h2>
+            <div class="space-y-6 text-gray-700 leading-relaxed">
+                <p>This portfolio is not just a collection of my work; it's a demonstration of my approach: using modern tools to build clean, efficient, and purposeful solutions.</p>
+                <div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Technology Stack</h3>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><span class="font-semibold">Framework:</span> Vanilla HTML, CSS, and JavaScript, styled with Tailwind CSS.</li>
+                        <li><span class="font-semibold">Hosting:</span> Designed for deployment on a modern platform like Netlify or Vercel.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">AI-Assisted Development Log</h3>
+                    <p>I believe in leveraging AI as a powerful collaborator. This project was built using a "human-in-the-loop" approach, where I directed AI tools to accelerate development and then refined the output.</p>
+                    <ul class="list-disc list-inside space-y-2 mt-4 bg-gray-50 p-4 rounded-lg">
+                        <li><span class="font-semibold">Task:</span> Data structuring & summarization. I prompted an LLM to extract metadata and generate initial summaries from my PDFs, which I then edited for voice and accuracy.</li>
+                        <li><span class="font-semibold">Task:</span> Code generation. I described the desired design and filtering logic in plain English and had an AI generate the boilerplate code, which I then integrated and customized.</li>
+                    </ul>
+                </div>
+                <p class="pt-4 border-t border-gray-200">This transparent process showcases a modern workflow that combines human expertise with machine efficiency.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- DATA: The heart of the portfolio ---
+
+        const ASSET_BASE = "./assets";
+        const PDF_DIR = `${ASSET_BASE}/pdfs`;
+        const IMG_DIR = `${ASSET_BASE}/images`;
+
+        // --- EDIT: The 'articles' array is now cleaner.
+        // Hardcoded 'article_url' and 'imageUrl' have been removed where they
+        // can be generated dynamically from the article's 'id'.
+        // Exceptions (external links, placeholders) are kept as-is.
+        const articles = [
+            {
+                id: 'fintech-bubble-profitability-mar-2023',
+                title: 'The Bursting FinTech Bubble Places Primacy on Profitability',
+                publication: 'PYMNTS FinTech Tracker',
+                employer: 'PYMNTS',
+                genre: 'Advertorials',
+                date: '2023-03-01',
+                summary: 'An analysis of the significant shift in the FinTech landscape, where economic headwinds and market corrections are forcing companies, especially in the BNPL sector, to move beyond growth-at-all-costs and focus intensely on achieving sustainable profitability.',
+                tags: ['FinTech', 'BNPL', 'Profitability'],
+            },
+            {
+                id: 'verify-account-identity',
+                title: 'Verifying Account Identity in the Age of Real-Time Payments',
+                publication: 'PaymentsJournal Article',
+                employer: 'PaymentsJournal',
+                genre: 'Advertorials',
+                date: '2019-10-02',
+                summary: 'Account validation is more important than ever in an age of real-time payments. Merchants need the proper technology in place to protect themselves.',
+                // Kept because it's an external link
+                article_url: 'https://www.paymentsjournal.com/verifying-account-identity-in-the-age-of-real-time-payments/',
+                tags: ['Fraud'],
+            },
+            {
+                id: 'fintech-bank-collaboration-jun-2023',
+                title: 'The FinTech-Bank Relationship Shifts Toward Collaboration',
+                publication: 'PYMNTS FinTech Tracker',
+                employer: 'PYMNTS',
+                genre: 'Advertorials',
+                date: '2023-06-01',
+                summary: 'Examines the evolving dynamic between traditional financial institutions and FinTechs, highlighting a strategic move from competition to collaboration. This shift is driven by digital transformation, open banking regulations, and shared security concerns.',
+                tags: ['FinTech', 'Banking', 'Open Banking'],
+            },
+             {
+                id: 'b2b-payments-advertorial-mercator',
+                title: 'Streamlining B2B Payments for the Digital Age',
+                publication: 'Mercator Advisory Group',
+                employer: 'Mercator',
+                genre: 'Advertorials',
+                date: '2022-09-15',
+                summary: 'Discover how our innovative platform is helping businesses automate their B2B payment workflows, reducing costs and improving efficiency. A look into the future of corporate finance.',
+                // Kept because these are placeholder links
+                article_url: '#',
+                imageUrl: 'https://placehold.co/600x400/007bff/FFFFFF?text=Mercator+B2B',
+                tags: ['B2B Payments', 'Automation', 'Advertorial'],
+            },
+            {
+                id: 'fintech-lending-access-may-2023',
+                title: 'FinTechs\' Role in Improving Access to Lending Services',
+                publication: 'PYMNTS FinTech Tracker',
+                employer: 'PYMNTS',
+                genre: 'Advertorials',
+                date: '2023-05-01',
+                summary: 'Explores how FinTech innovations and alternative credit models, such as BNPL, are providing crucial access to lending services for consumers who may be underserved by traditional credit scoring systems, thereby promoting financial inclusion.',
+                tags: ['FinTech', 'Lending', 'Credit', 'BNPL'],
+            },
+            {
+                id: 'restaurants-technology-inflation-jun-2023',
+                title: 'Inflation Puts Technology on the Menu for Restaurants',
+                publication: 'PYMNTS B2B and Digital Payments Tracker',
+                employer: 'PYMNTS',
+                genre: 'Advertorials',
+                date: '2023-06-01',
+                summary: 'Details how restaurants are increasingly adopting automation, digital payment systems, and other technologies to combat the dual pressures of rising inflation and persistent labor shortages, fundamentally changing their operational models.',
+                tags: ['B2B Payments', 'Restaurants', 'Automation', 'Technology'],
+            },
+            {
+                id: 'working-capital-may-jun-2023',
+                title: 'Keeping an Eye on Working Capital',
+                publication: 'PYMNTS B2B and Digital Payments Tracker',
+                employer: 'PYMNTS',
+                genre: 'Advertorials',
+                date: '2023-05-15',
+                summary: 'A deep dive into the critical importance of working capital management for SMBs in a volatile economic climate. The piece covers how digital tools and strategic financial planning can help businesses maintain liquidity and operational stability.',
+                // Kept because these are placeholder links
+                article_url: '#',
+                imageUrl: 'https://placehold.co/600x400/ffc107/343a40?text=Working+Capital',
+                tags: ['B2B Payments', 'Working Capital', 'Cash Flow', 'SMB'],
+            },
+            {
+                id: 'beauty-wellness-transformation-may-2023',
+                title: 'The Digital Transformation of Beauty and Wellness Services',
+                publication: 'PYMNTS B2B and Digital Payments Tracker',
+                employer: 'PYMNTS',
+                genre: 'Advertorials',
+                date: '2023-05-01',
+                summary: 'Analyzes the rapid adoption of digital tools within the beauty and wellness industry, from online booking and integrated payment systems to "treat now, pay later" financing, showcasing a sector-wide move towards a seamless, tech-driven customer experience.',
+                tags: ['B2B Payments', 'Digital Transformation', 'SMB', 'Customer Experience', 'Industry-Specific Payment Solutions'],
+            },
+            {
+                id: 'smb-fraud-threats-remote-work-mar-2023',
+                title: 'How SMBs Can Fight the Fraud Threats of Remote Work',
+                publication: 'PYMNTS B2B and Digital Payments Tracker',
+                employer: 'PYMNTS',
+                genre: 'Advertorials',
+                date: '2023-03-01',
+                summary: 'An exploration of the heightened fraud and security risks for SMBs due to the rise of remote work. It focuses on payment fraud, business email compromise (BEC), and actionable strategies for defense in a decentralized work environment.',
+                tags: ['SMB', 'Fraud', 'Security', 'Remote Work', 'B2B Payments'],
+            },
+            {
+                id: 'healthcare-payments-improvements-jun-2023',
+                title: 'The Healthcare Industry Needs a Dose of Money Mobility',
+                publication: 'PYMNTS Money Mobility Tracker',
+                employer: 'PYMNTS',
+                genre: 'Advertorials',
+                date: '2023-01-15',
+                summary: 'Investigates the pain points in the healthcare payments ecosystem and how innovation can improve the experience.',
+                tags: ['Industry-Specific Payment Solutions', 'Healthcare', 'Cash Flow', 'Digital Payments', 'Customer Experience'],
+            },
+            {
+                id: 'smb-retail-payments-jan-2023',
+                title: 'Tapping The Payments Opportunity In SMB Retail',
+                publication: 'PYMNTS B2B and Digital Payments Tracker',
+                employer: 'PYMNTS',
+                genre: 'Advertorials',
+                date: '2023-01-01',
+                summary: 'Highlights the significant opportunity for small and mid-sized retailers to drive growth and customer loyalty by adopting modern, flexible payment options that meet evolving consumer preferences for digital and contactless transactions.',
+                tags: ['SMB', 'Retail', 'Payments', 'Digital Payments'],
+            },
+            {
+                id: 'smb-cash-flow-2023-nov-dec-2022',
+                title: 'Improving SMBs\' Cash Flow Management In 2023',
+                publication: 'PYMNTS B2B and Digital Payments Tracker',
+                employer: 'PYMNTS',
+                genre: 'Advertorials',
+                date: '2022-11-15',
+                summary: 'A forward-looking piece on the critical nature of cash flow management for SMBs entering 2023. It discusses how technology and strategic partnerships can help businesses navigate economic uncertainty and late payment challenges.',
+                tags: ['SMB', 'Cash Flow', 'B2B Payments', '2023 Outlook'],
+            },
+             {
+                id: 'nonfinancial-brands-embedded-finance-april-2023',
+                title: 'How Nonfinancial Brands Can Benefit From Embedded Finance',
+                publication: 'Embedded Finance Tracker',
+                employer: 'PYMNTS',
+                genre: 'Advertorials',
+                date: '2023-04-01',
+                summary: 'A look at how nonfinancial brands can use embedded finance and BaaS to meet their customer\'s payments needs.',
+                tags: ['SMB', 'Cash Flow', 'B2B Payments', 'embedded finance'],
+            }
+        ];
+
+        // --- APPLICATION LOGIC ---
+        
+        // DOM Elements
+        const portfolioGrid = document.getElementById('portfolio-grid');
+        const tagFiltersContainer = document.getElementById('tag-filters');
+        const genreFiltersContainer = document.getElementById('genre-filters');
+        const clearAllFiltersBtn = document.getElementById('clear-all-filters-btn');
+        const clearTopicFilterBtn = document.getElementById('clear-topic-filter');
+        const clearGenreFilterBtn = document.getElementById('clear-genre-filter');
+        const portfolioHeading = document.getElementById('portfolio-heading');
+        const noResultsMessage = document.getElementById('no-results');
+        const seeMoreBtn = document.getElementById('see-more-btn');
+        const seeLessBtn = document.getElementById('see-less-btn');
+        const paginationControls = document.getElementById('pagination-controls');
+
+        // State
+        const ARTICLES_PER_PAGE = 6;
+        let activeTopicFilters = []; // Changed to an array for multi-select
+        let activeGenreFilter = 'All';
+        let currentArticles = [];
+        let articlesToShow = ARTICLES_PER_PAGE;
+
+        // Function to render article cards to the DOM
+        function renderArticles() {
+            const articlesToDisplay = currentArticles.slice(0, articlesToShow);
+            
+            portfolioGrid.innerHTML = ''; // Clear existing grid
+            
+            if (currentArticles.length === 0) {
+                noResultsMessage.classList.remove('hidden');
+                portfolioGrid.classList.add('hidden');
+                paginationControls.classList.add('hidden');
+                return;
+            } 
+            
+            noResultsMessage.classList.add('hidden');
+            portfolioGrid.classList.remove('hidden');
+            
+            articlesToDisplay.forEach(article => {
+                const card = document.createElement('div');
+
+                // --- EDIT: Logic to dynamically build asset URLs from the ID.
+                // It uses the hardcoded URL if one exists (for exceptions), otherwise it creates one.
+                const imageUrl = article.imageUrl || `${IMG_DIR}/${article.id}.png`;
+                const articleUrl = article.article_url || `${PDF_DIR}/${article.id}.pdf`;
+
+                card.className = 'bg-white rounded-xl shadow-md overflow-hidden transform hover:-translate-y-1 transition-transform duration-300 flex flex-col';
+                card.innerHTML = `
+                    <img class="card-image w-full" src="${imageUrl}" alt="Abstract image representing ${article.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';">
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex-grow">
+                            <p class="text-sm text-gray-500 mb-1">${article.publication} &bull; ${new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</p>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-3">${article.title}</h3>
+                            <p class="text-gray-600 leading-relaxed mb-4">${article.summary}</p>
+                        </div>
+                        <div class="pt-4 mt-auto bg-white">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                ${article.tags.map(tag => `<span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">${tag}</span>`).join('')}
+                            </div>
+                            <div class="flex items-center">
+                                <a href="${articleUrl}" target="_blank" class="font-semibold text-blue-600 hover:text-blue-800">Read More &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                portfolioGrid.appendChild(card);
+            });
+
+            // Handle pagination controls visibility
+            if (currentArticles.length <= ARTICLES_PER_PAGE) {
+                paginationControls.classList.add('hidden');
+            } else {
+                paginationControls.classList.remove('hidden');
+                
+                // "See More" button visibility
+                if (articlesToShow >= currentArticles.length) {
+                    seeMoreBtn.classList.add('hidden');
+                } else {
+                    seeMoreBtn.classList.remove('hidden');
+                }
+
+                // "See Less" button visibility
+                if (articlesToShow > ARTICLES_PER_PAGE) {
+                    seeLessBtn.classList.remove('hidden');
+                } else {
+                    seeLessBtn.classList.add('hidden');
+                }
+            }
+        }
+
+        // Generic function to render filter buttons
+        function renderFilterButtons(container, items) {
+            const allItems = [...new Set(items)].sort();
+            container.innerHTML = allItems.map(item => `
+                <button data-filter="${item}" class="tag bg-white text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-full shadow-sm hover:bg-gray-100">
+                    ${item}
+                </button>
+            `).join('');
+        }
+
+        // Function to apply all active filters and re-render the articles
+        function applyFiltersAndRender() {
+            let filteredArticles = [...articles];
+
+            // Apply Topic filters (multi-select)
+            if (activeTopicFilters.length > 0) {
+                filteredArticles = filteredArticles.filter(article => {
+                    return activeTopicFilters.every(filter => {
+                        if (filter === 'Fraud & Security') {
+                            return article.tags.includes('Fraud') || article.tags.includes('Security');
+                        }
+                        return article.tags.includes(filter);
+                    });
+                });
+            }
+
+            // Apply Genre filter (single-select)
+            if (activeGenreFilter !== 'All') {
+                filteredArticles = filteredArticles.filter(a => a.genre === activeGenreFilter);
+            }
+
+            currentArticles = filteredArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
+            articlesToShow = ARTICLES_PER_PAGE; // Reset pagination
+            
+            if (activeTopicFilters.length === 0 && activeGenreFilter === 'All') {
+                portfolioHeading.textContent = "My Work";
+            } else {
+                portfolioHeading.textContent = "Filtered Results";
+            }
+            
+            renderArticles();
+            updateActiveButtons();
+        }
+
+        // Function to handle "See More" click
+        function handleSeeMore() {
+            articlesToShow += ARTICLES_PER_PAGE;
+            renderArticles();
+        }
+
+        // Function to handle "See Less" click
+        function handleSeeLess() {
+            articlesToShow = ARTICLES_PER_PAGE;
+            renderArticles();
+            window.scrollTo({ top: portfolioGrid.offsetTop - 100, behavior: 'smooth' });
+        }
+        
+        // Updates all filter groups
+        function updateActiveButtons() {
+            // Update multi-select topic buttons
+            const topicButtons = tagFiltersContainer.querySelectorAll('button');
+            topicButtons.forEach(button => {
+                button.classList.toggle('active-tag', activeTopicFilters.includes(button.dataset.filter));
+            });
+            // Update single-select genre buttons
+            const genreButtons = genreFiltersContainer.querySelectorAll('button');
+            genreButtons.forEach(button => {
+                button.classList.toggle('active-tag', button.dataset.filter === activeGenreFilter);
+            });
+        }
+
+        // --- Modal Control ---
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            const modalContent = modal.querySelector('.modal-content');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            const modalContent = modal.querySelector('.modal-content');
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('pointer-events-none'), 250);
+        }
+
+        // --- Initial Setup ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Render all filter buttons
+            const allTags = articles.flatMap(a => a.tags);
+            const allGenres = articles.map(a => a.genre);
+            
+            // Special 'Fraud & Security' filter
+            const topicFilters = ['Fraud & Security', ...allTags];
+            renderFilterButtons(tagFiltersContainer, topicFilters);
+            renderFilterButtons(genreFiltersContainer, allGenres);
+
+            // Set initial state and render
+            applyFiltersAndRender();
+            
+            // --- New Filter Panel Logic ---
+            const filterToggleBtn = document.getElementById('filter-toggle-btn');
+            const filterPanel = document.getElementById('filter-panel');
+            const filterChevron = document.getElementById('filter-chevron');
+
+            const openFilterPanel = () => {
+                filterPanel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                filterChevron.classList.add('rotate-180');
+                filterToggleBtn.setAttribute('aria-expanded', 'true');
+            };
+
+            const closeFilterPanel = () => {
+                filterPanel.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                filterChevron.classList.remove('rotate-180');
+                filterToggleBtn.setAttribute('aria-expanded', 'false');
+            };
+
+            filterToggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isExpanded = filterToggleBtn.getAttribute('aria-expanded') === 'true';
+                isExpanded ? closeFilterPanel() : openFilterPanel();
+            });
+
+            // Close panel when clicking outside
+            document.addEventListener('click', (e) => {
+                const isExpanded = filterToggleBtn.getAttribute('aria-expanded') === 'true';
+                if (isExpanded && !filterPanel.contains(e.target) && !filterToggleBtn.contains(e.target)) {
+                    closeFilterPanel();
+                }
+            });
+
+            // Add event listeners
+            tagFiltersContainer.addEventListener('click', e => {
+                if (e.target.tagName !== 'BUTTON') return;
+                const clickedFilter = e.target.dataset.filter;
+                const filterIndex = activeTopicFilters.indexOf(clickedFilter);
+
+                if (filterIndex > -1) {
+                    activeTopicFilters.splice(filterIndex, 1); // Deselect if already active
+                } else {
+                    activeTopicFilters.push(clickedFilter); // Select if not active
+                }
+                applyFiltersAndRender();
+            });
+
+            genreFiltersContainer.addEventListener('click', e => {
+                if (e.target.tagName !== 'BUTTON') return;
+                activeGenreFilter = activeGenreFilter === e.target.dataset.filter ? 'All' : e.target.dataset.filter;
+                applyFiltersAndRender();
+            });
+
+            clearTopicFilterBtn.addEventListener('click', () => {
+                activeTopicFilters = [];
+                applyFiltersAndRender();
+            });
+
+
+
+            clearGenreFilterBtn.addEventListener('click', () => {
+                activeGenreFilter = 'All';
+                applyFiltersAndRender();
+            });
+
+            clearAllFiltersBtn.addEventListener('click', () => {
+                activeTopicFilters = [];
+                activeGenreFilter = 'All';
+                applyFiltersAndRender();
+            });
+
+            seeMoreBtn.addEventListener('click', handleSeeMore);
+            seeLessBtn.addEventListener('click', handleSeeLess);
+            
+            // --- Back to Top Button Logic ---
+            const backToTopBtn = document.getElementById('back-to-top-btn');
+
+            window.addEventListener('scroll', () => {
+                // Show button after scrolling down 400px
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal('colophon-modal');
+                }
+            });
+
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal(modal.id);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
