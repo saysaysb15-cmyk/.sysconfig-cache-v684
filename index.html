@@ -7,16 +7,25 @@
     <title>Daniel Banta- Professional Writing Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Lora:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Inter', sans-serif; /* A modern, highly readable sans-serif for body text */
             background-color: #f8f9fa;
             color: #343a40;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
+        h1, h2, h3, h4 { /* Using a refined serif for all heading levels */
+            font-family: 'Lora', serif;
+            letter-spacing: -0.02em; /* Tightens up spacing for a more professional look */
+        }
+        h1 {
+            letter-spacing: -0.03em; /* Even tighter for the main title */
+        }
+        .leading-relaxed {
+            line-height: 1.7; /* Increasing line height for better readability of long text blocks */
         }
         .tag {
             transition: all 0.2s ease-in-out;
@@ -116,8 +125,8 @@
                 </div>
 
                 <!-- Filter Panel (Initially Hidden) -->
-                <div id="filter-panel" class="absolute w-full mt-4 bg-white rounded-xl shadow-2xl p-8 z-20 transform transition-all duration-300 origin-top opacity-0 scale-95 pointer-events-none">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                <div id="filter-panel" class="absolute w-full mt-4 bg-white rounded-xl shadow-2xl p-6 z-20 transform transition-all duration-300 origin-top opacity-0 scale-95 pointer-events-none">
+                    <div class="flex flex-col space-y-6">
                         <!-- Topic Filters -->
                         <div>
                             <div class="flex justify-between items-center mb-3">
@@ -139,9 +148,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center pt-6 mt-6 border-t border-gray-200">
+                    <div class="flex justify-between items-center pt-4 mt-4 border-t border-gray-200">
                         <button id="clear-all-filters-btn" class="text-gray-600 hover:text-blue-600 font-semibold py-2 px-4 underline">
                             Clear All Filters
+                        </button>
+                        <button id="close-filter-btn" class="text-gray-400 hover:text-gray-600 transition-colors" aria-label="Close filter panel">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
                     </div>
                 </div>
@@ -397,7 +409,7 @@
                 const imageUrl = article.imageUrl || `${IMG_DIR}/${article.id}.png`;
                 const articleUrl = article.article_url || `${PDF_DIR}/${article.id}.pdf`;
 
-                card.className = 'bg-white rounded-xl shadow-md overflow-hidden transform hover:-translate-y-1 transition-transform duration-300 flex flex-col';
+                card.className = 'bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-105 hover:shadow-xl transition-all duration-300 flex flex-col';
                 card.innerHTML = `
                     <img class="card-image w-full" src="${imageUrl}" alt="Abstract image representing ${article.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';">
                     <div class="p-6 flex-grow flex flex-col">
@@ -548,6 +560,7 @@
             const filterToggleBtn = document.getElementById('filter-toggle-btn');
             const filterPanel = document.getElementById('filter-panel');
             const filterChevron = document.getElementById('filter-chevron');
+            const closeFilterBtn = document.getElementById('close-filter-btn');
 
             const openFilterPanel = () => {
                 filterPanel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
@@ -565,6 +578,10 @@
                 e.stopPropagation();
                 const isExpanded = filterToggleBtn.getAttribute('aria-expanded') === 'true';
                 isExpanded ? closeFilterPanel() : openFilterPanel();
+            });
+
+            closeFilterBtn.addEventListener('click', () => {
+                closeFilterPanel();
             });
 
             // Close panel when clicking outside
