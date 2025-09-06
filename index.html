@@ -63,8 +63,21 @@
             transform: rotate(90deg);
         }
         .is-sticky {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border-bottom: 1px solid #e5e7eb;
+            /* This class now acts as a JS hook. The container itself is transparent. */
+        }
+        .is-sticky #filter-toggle-btn {
+            background-color: #f8f9fa;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-radius: 9999px; /* rounded-full */
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            transition: all 0.2s ease-in-out;
+        }
+        #portfolio-grid {
+            transition: opacity 200ms ease-in-out;
         }
     </style>
 </head>
@@ -90,25 +103,28 @@
         </section>
 
         <!-- Client Section -->
-        <section class="max-w-5xl mx-auto my-16">
+        <section class="max-w-5xl mx-auto my-16 bg-white p-8 rounded-xl shadow-md">
             <h2 class="text-center text-sm font-semibold text-gray-500 uppercase tracking-widest mb-8">
                 A trusted partner for industry leaders
             </h2>
-            <div class="mt-6 grid grid-cols-2 gap-y-10 gap-x-8 md:grid-cols-5 items-center">
+            <div class="grid grid-cols-2 gap-y-10 gap-x-8 md:grid-cols-6 items-center">
                 <div class="col-span-1 flex justify-center">
-                    <img class="h-12 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/mastercard.com" alt="Mastercard">
+                    <img class="h-20 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/mastercard.com" alt="Mastercard">
                 </div>
                 <div class="col-span-1 flex justify-center">
-                    <img class="h-12 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/americanexpress.com" alt="American Express">
+                    <img class="h-20 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/americanexpress.com" alt="American Express">
                 </div>
                 <div class="col-span-1 flex justify-center">
-                    <img class="h-12 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/discover.com" alt="Discover">
+                    <img class="h-20 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/discover.com" alt="Discover">
                 </div>
                 <div class="col-span-1 flex justify-center">
-                    <img class="h-12 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/ncr.com" alt="NCR">
+                    <img class="h-20 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/ncr.com" alt="NCR">
                 </div>
                 <div class="col-span-1 flex justify-center">
-                    <img class="h-12 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/worldpay.com" alt="Worldpay">
+                    <img class="h-20 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/worldpay.com" alt="Worldpay">
+                </div>
+                <div class="col-span-1 flex justify-center">
+                    <img class="h-20 w-auto filter grayscale hover:grayscale-0 transition duration-300 ease-in-out opacity-70 hover:opacity-100" src="https://logo.clearbit.com/forter.com" alt="Forter">
                 </div>
             </div>
         </section>
@@ -119,7 +135,7 @@
             <h2 id="portfolio-heading" class="text-4xl font-bold text-center text-gray-800 mb-8">All Work</h2>
 
             <!-- Filtering Section -->
-            <div class="max-w-4xl mx-auto mb-12 relative sticky top-0 z-30 bg-[#f8f9fa] py-4">
+            <div class="max-w-4xl mx-auto mb-12 relative sticky top-0 z-30 py-4">
                 <!-- Filter Toggle Button -->
                 <div class="text-center">
                     <button id="filter-toggle-btn" aria-expanded="false" class="inline-flex items-center text-2xl font-bold text-gray-800 hover:text-blue-600 group transition-colors duration-200">
@@ -244,6 +260,7 @@
         let activeGenreFilter = 'All';
         let currentArticles = [];
         let articlesToShow = ARTICLES_PER_PAGE;
+        let cardObserver;
 
         // Function to render article cards to the DOM
         function renderArticles() {
@@ -269,12 +286,12 @@
                 const imageUrl = article.imageUrl || `${IMG_DIR}/${article.id}.png`;
                 const articleUrl = article.article_url || `${PDF_DIR}/${article.id}.pdf`;
 
-                card.className = 'bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-105 hover:shadow-xl transition-all duration-300 flex flex-col';
+                card.className = 'article-card bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-105 hover:shadow-xl transition-all duration-500 ease-out flex flex-col opacity-0 translate-y-5';
                 card.innerHTML = `
                     <img class="card-image w-full" src="${imageUrl}" alt="Abstract image representing ${article.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';">
                     <div class="p-6 flex-grow flex flex-col">
                         <div class="flex-grow">
-                            <p class="text-sm text-gray-500 mb-1">${article.publication} &bull; ${new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</p>
+                            <p class="text-sm text-gray-500 mb-1">${article.publication} &bull; ${new Date(article.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</p>
                             <h3 class="text-2xl font-bold text-gray-800 mb-3">${article.title}</h3>
                             <p class="text-gray-600 leading-relaxed mb-4">${article.summary}</p>
                         </div>
@@ -290,6 +307,11 @@
                 `;
                 portfolioGrid.appendChild(card);
             });
+
+            // Observe cards for scroll animations
+            if (cardObserver) {
+                portfolioGrid.querySelectorAll('.article-card').forEach(card => cardObserver.observe(card));
+            }
 
             // Handle pagination controls visibility
             if (currentArticles.length <= ARTICLES_PER_PAGE) {
@@ -324,38 +346,51 @@
         }
 
         // Function to apply all active filters and re-render the articles
-        function applyFiltersAndRender() {
-            let filteredArticles = [...articles];
+        function applyFiltersAndRender(withTransition = false) {
+            const updateContent = () => {
+                let filteredArticles = [...articles];
 
-            // Apply Topic filters (multi-select)
-            if (activeTopicFilters.length > 0) {
-                filteredArticles = filteredArticles.filter(article => {
-                    return activeTopicFilters.every(filter => {
-                        if (filter === 'Fraud & Security') {
-                            return article.tags.includes('Fraud') || article.tags.includes('Security');
-                        }
-                        return article.tags.includes(filter);
+                // Apply Topic filters (multi-select)
+                if (activeTopicFilters.length > 0) {
+                    filteredArticles = filteredArticles.filter(article => {
+                        return activeTopicFilters.every(filter => {
+                            if (filter === 'Fraud & Security') {
+                                return article.tags.includes('Fraud') || article.tags.includes('Security');
+                            }
+                            return article.tags.includes(filter);
+                        });
                     });
-                });
-            }
+                }
 
-            // Apply Genre filter (single-select)
-            if (activeGenreFilter !== 'All') {
-                filteredArticles = filteredArticles.filter(a => a.genre === activeGenreFilter);
-            }
+                // Apply Genre filter (single-select)
+                if (activeGenreFilter !== 'All') {
+                    filteredArticles = filteredArticles.filter(a => a.genre === activeGenreFilter);
+                }
 
-            currentArticles = filteredArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
-            articlesToShow = ARTICLES_PER_PAGE; // Reset pagination
-            
-            if (activeTopicFilters.length === 0 && activeGenreFilter === 'All') {
-                portfolioHeading.textContent = "All Work";
+                currentArticles = filteredArticles.sort((a, b) => new Date(b.date + 'T00:00:00') - new Date(a.date + 'T00:00:00'));
+                articlesToShow = ARTICLES_PER_PAGE; // Reset pagination
+                
+                if (activeTopicFilters.length === 0 && activeGenreFilter === 'All') {
+                    portfolioHeading.textContent = "All Work";
+                } else {
+                    portfolioHeading.textContent = "Filtered Results";
+                }
+                
+                renderArticles();
+                updateURLWithFilters();
+                updateActiveButtons();
+
+                if (withTransition) {
+                    portfolioGrid.style.opacity = 1;
+                }
+            };
+
+            if (withTransition) {
+                portfolioGrid.style.opacity = 0;
+                setTimeout(updateContent, 200);
             } else {
-                portfolioHeading.textContent = "Filtered Results";
+                updateContent();
             }
-            
-            renderArticles();
-            updateURLWithFilters();
-            updateActiveButtons();
         }
 
         // Function to handle "See More" click
@@ -435,6 +470,19 @@
             // Wrap all logic in an IIFE to avoid polluting the global namespace
             (function() {
 
+            // --- Animation on Scroll Logic ---
+            cardObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    // When the element is in view, animate it by removing the initial state classes
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('opacity-0', 'translate-y-5');
+                        observer.unobserve(entry.target); // Stop observing it once it's visible to save resources
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px -100px 0px' // Start animation when the element is 100px up from the bottom of the viewport
+            });
+
             // Render all filter buttons
             const allTags = articles.flatMap(a => a.tags);
             const allGenres = articles.map(a => a.genre);
@@ -494,31 +542,31 @@
                 } else {
                     activeTopicFilters.push(clickedFilter); // Select if not active
                 }
-                applyFiltersAndRender();
+                applyFiltersAndRender(true);
             });
 
             genreFiltersContainer.addEventListener('click', e => {
                 if (e.target.tagName !== 'BUTTON') return;
                 activeGenreFilter = activeGenreFilter === e.target.dataset.filter ? 'All' : e.target.dataset.filter;
-                applyFiltersAndRender();
+                applyFiltersAndRender(true);
             });
 
             clearTopicFilterBtn.addEventListener('click', () => {
                 activeTopicFilters = [];
-                applyFiltersAndRender();
+                applyFiltersAndRender(true);
             });
 
 
 
             clearGenreFilterBtn.addEventListener('click', () => {
                 activeGenreFilter = 'All';
-                applyFiltersAndRender();
+                applyFiltersAndRender(true);
             });
 
             clearAllFiltersBtn.addEventListener('click', () => {
                 activeTopicFilters = [];
                 activeGenreFilter = 'All';
-                applyFiltersAndRender();
+                applyFiltersAndRender(true);
             });
 
             seeMoreBtn.addEventListener('click', handleSeeMore);
