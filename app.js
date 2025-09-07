@@ -62,7 +62,7 @@
                         </div>
                         <div class="pt-4 mt-auto bg-white">
                             <div class="flex items-center">
-                                <a href="${articleUrl}" target="_blank" class="font-semibold text-blue-600 hover:text-blue-800">Read More &rarr;</a>
+                                <a href="${articleUrl}" target="_blank" class="read-more-btn">Read More &rarr;</a>
                             </div>
                         </div>
                     </div>
