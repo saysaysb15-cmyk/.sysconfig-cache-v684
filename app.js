@@ -64,7 +64,7 @@
                         </div>
                         <div class="pt-4 mt-auto bg-white">
                             <div class="flex items-center">
-                                <a href="${articleUrl}" target="_blank" class="read-more-btn">Read More &rarr;</a>
+                                <button onclick="openPdfModal('${articleUrl}', '${article.title.replace(/'/g, "'")}')" class="read-more-btn">Read More &rarr;</button>
                             </div>
                         </div>
                     </div>
@@ -233,6 +233,21 @@
             modal.classList.add('opacity-0');
             modalContent.classList.add('scale-95');
             setTimeout(() => modal.classList.add('pointer-events-none'), 250);
+
+            if (modalId === 'pdf-modal') {
+                const pdfViewer = document.getElementById('pdf-viewer');
+                pdfViewer.src = '';
+            }
+        }
+
+        function openPdfModal(pdfUrl, title) {
+            const pdfViewer = document.getElementById('pdf-viewer');
+            const pdfTitle = document.getElementById('pdf-title');
+            
+            pdfTitle.textContent = title;
+            pdfViewer.src = pdfUrl;
+            
+            openModal('pdf-modal');
         }
 
         // --- Initial Setup ---
@@ -356,7 +371,7 @@
                     // e.intersectionRatio < 1 means the top of the element is no longer visible in the viewport
                     stickyFilterBar.classList.toggle('is-sticky', e.intersectionRatio < 1);
                 },
-                { 
+                {
                     threshold: [1], // Fire event when element is fully in/out of view
                     rootMargin: "-1px 0px 0px 0px" // Trigger just before it's flush with the top
                 }
@@ -382,6 +397,7 @@
             window.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     closeModal('colophon-modal');
+                    closeModal('pdf-modal');
                 }
             });
 
