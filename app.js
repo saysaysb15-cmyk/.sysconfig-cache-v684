@@ -18,6 +18,8 @@
         const seeMoreBtn = document.getElementById('see-more-btn');
         const seeLessBtn = document.getElementById('see-less-btn');
         const paginationControls = document.getElementById('pagination-controls');
+        const activeFiltersContainer = document.getElementById('active-filters-container');
+        const clearActiveFiltersBtn = document.getElementById('clear-active-filters-btn');
 
         // State
         const ARTICLES_PER_PAGE = 6;
@@ -141,6 +143,7 @@
                 renderArticles();
                 updateURLWithFilters();
                 updateActiveButtons();
+                toggleClearActiveFiltersButton();
 
                 if (withTransition) {
                     portfolioGrid.style.opacity = 1;
@@ -180,6 +183,11 @@
             genreButtons.forEach(button => {
                 button.classList.toggle('active-tag', button.dataset.filter === activeGenreFilter);
             });
+        }
+
+        function toggleClearActiveFiltersButton() {
+            const areFiltersActive = activeTopicFilters.length > 0 || activeGenreFilter !== 'All';
+            activeFiltersContainer.classList.toggle('hidden', !areFiltersActive);
         }
 
         // --- URL State Management ---
@@ -273,6 +281,7 @@
                 filterPanel.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
                 filterChevron.classList.remove('rotate-180');
                 filterToggleBtn.setAttribute('aria-expanded', 'false');
+                toggleClearActiveFiltersButton();
             };
 
             filterToggleBtn.addEventListener('click', (e) => {
@@ -326,6 +335,12 @@
             });
 
             clearAllFiltersBtn.addEventListener('click', () => {
+                activeTopicFilters = [];
+                activeGenreFilter = 'All';
+                applyFiltersAndRender(true);
+            });
+
+            clearActiveFiltersBtn.addEventListener('click', () => {
                 activeTopicFilters = [];
                 activeGenreFilter = 'All';
                 applyFiltersAndRender(true);

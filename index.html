@@ -97,6 +97,24 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             transform: translateY(-1px);
         }
+
+        .filter-btn {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .clear-filters-btn {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .clear-filters-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -155,11 +173,17 @@
             <!-- Filtering Section -->
             <div class="max-w-4xl mx-auto mb-12 relative sticky top-0 z-30 py-4">
                 <!-- Filter Toggle Button -->
-                <div class="text-center">
-                    <button id="filter-toggle-btn" aria-expanded="false" class="inline-flex items-center text-2xl font-bold text-gray-800 hover:text-blue-600 group transition-colors duration-200">
+                <div class="text-center flex justify-center items-center space-x-4">
+                    <button id="filter-toggle-btn" aria-expanded="false" class="filter-btn inline-flex items-center text-2xl font-bold text-gray-800 hover:text-blue-600 group transition-colors duration-200">
                         Filter
                         <svg id="filter-chevron" class="w-5 h-5 ml-2 text-gray-500 transition-transform duration-300 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
+                    <!-- Clear Active Filters Button -->
+                    <div id="active-filters-container" class="hidden">
+                        <button id="clear-active-filters-btn" class="clear-filters-btn bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition-colors shadow-md">
+                            Clear All Filters
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Filter Panel (Initially Hidden) -->
