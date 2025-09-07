@@ -61,9 +61,6 @@
                             <p class="text-gray-600 leading-relaxed mb-4">${article.summary}</p>
                         </div>
                         <div class="pt-4 mt-auto bg-white">
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                ${article.tags.map(tag => `<span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">${tag}</span>`).join('')}
-                            </div>
                             <div class="flex items-center">
                                 <a href="${articleUrl}" target="_blank" class="font-semibold text-blue-600 hover:text-blue-800">Read More &rarr;</a>
                             </div>
