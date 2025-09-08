@@ -20,11 +20,15 @@
         const paginationControls = document.getElementById('pagination-controls');
         const activeFiltersContainer = document.getElementById('active-filters-container');
         const clearActiveFiltersBtn = document.getElementById('clear-active-filters-btn');
+        const applyBtnContainer = document.getElementById('apply-btn-container');
+        const applyFiltersBtn = document.getElementById('apply-filters-btn');
 
         // State
         const ARTICLES_PER_PAGE = 6;
-        let activeTopicFilters = []; // Changed to an array for multi-select
+        let activeTopicFilters = [];
         let activeGenreFilter = 'All';
+        let tempTopicFilters = [];
+        let tempGenreFilter = 'All';
         let currentArticles = [];
         let articlesToShow = ARTICLES_PER_PAGE;
         let cardObserver;
@@ -176,12 +180,12 @@
             // Update multi-select topic buttons
             const topicButtons = tagFiltersContainer.querySelectorAll('button');
             topicButtons.forEach(button => {
-                button.classList.toggle('active-tag', activeTopicFilters.includes(button.dataset.filter));
+                button.classList.toggle('active-tag', tempTopicFilters.includes(button.dataset.filter));
             });
             // Update single-select genre buttons
             const genreButtons = genreFiltersContainer.querySelectorAll('button');
             genreButtons.forEach(button => {
-                button.classList.toggle('active-tag', button.dataset.filter === activeGenreFilter);
+                button.classList.toggle('active-tag', button.dataset.filter === tempGenreFilter);
             });
         }
 
@@ -215,6 +219,9 @@
             if (genre) {
                 activeGenreFilter = genre;
             }
+            
+            tempTopicFilters = [...activeTopicFilters];
+            tempGenreFilter = activeGenreFilter;
         }
 
         // --- Modal Control ---
@@ -287,6 +294,12 @@
             const closeFilterBtn = document.getElementById('close-filter-btn');
 
             const openFilterPanel = () => {
+                // Reset temp filters to match active filters whenever panel is opened
+                tempTopicFilters = [...activeTopicFilters];
+                tempGenreFilter = activeGenreFilter;
+                updateActiveButtons();
+                applyBtnContainer.classList.add('hidden'); // Hide apply button initially
+
                 filterPanel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
                 filterChevron.classList.add('rotate-180');
                 filterToggleBtn.setAttribute('aria-expanded', 'true');
@@ -321,44 +334,58 @@
             tagFiltersContainer.addEventListener('click', e => {
                 if (e.target.tagName !== 'BUTTON') return;
                 const clickedFilter = e.target.dataset.filter;
-                const filterIndex = activeTopicFilters.indexOf(clickedFilter);
+                const filterIndex = tempTopicFilters.indexOf(clickedFilter);
 
                 if (filterIndex > -1) {
-                    activeTopicFilters.splice(filterIndex, 1); // Deselect if already active
+                    tempTopicFilters.splice(filterIndex, 1); // Deselect if already active
                 } else {
-                    activeTopicFilters.push(clickedFilter); // Select if not active
+                    tempTopicFilters.push(clickedFilter); // Select if not active
                 }
-                applyFiltersAndRender(true);
+                updateActiveButtons();
+                applyBtnContainer.classList.remove('hidden');
             });
 
             genreFiltersContainer.addEventListener('click', e => {
                 if (e.target.tagName !== 'BUTTON') return;
-                activeGenreFilter = activeGenreFilter === e.target.dataset.filter ? 'All' : e.target.dataset.filter;
+                tempGenreFilter = tempGenreFilter === e.target.dataset.filter ? 'All' : e.target.dataset.filter;
+                updateActiveButtons();
+                applyBtnContainer.classList.remove('hidden');
+            });
+            
+            applyFiltersBtn.addEventListener('click', () => {
+                activeTopicFilters = [...tempTopicFilters];
+                activeGenreFilter = tempGenreFilter;
                 applyFiltersAndRender(true);
+                applyBtnContainer.classList.add('hidden');
+                closeFilterPanel();
             });
 
             clearTopicFilterBtn.addEventListener('click', () => {
-                activeTopicFilters = [];
-                applyFiltersAndRender(true);
+                tempTopicFilters = [];
+                updateActiveButtons();
+                applyBtnContainer.classList.remove('hidden');
             });
 
-
-
             clearGenreFilterBtn.addEventListener('click', () => {
-                activeGenreFilter = 'All';
-                applyFiltersAndRender(true);
+                tempGenreFilter = 'All';
+                updateActiveButtons();
+                applyBtnContainer.classList.remove('hidden');
             });
 
             clearAllFiltersBtn.addEventListener('click', () => {
-                activeTopicFilters = [];
-                activeGenreFilter = 'All';
-                applyFiltersAndRender(true);
+                tempTopicFilters = [];
+                tempGenreFilter = 'All';
+                updateActiveButtons();
+                applyBtnContainer.classList.remove('hidden');
             });
 
             clearActiveFiltersBtn.addEventListener('click', () => {
                 activeTopicFilters = [];
                 activeGenreFilter = 'All';
+                tempTopicFilters = [];
+                tempGenreFilter = 'All';
                 applyFiltersAndRender(true);
+                updateActiveButtons();
             });
 
             seeMoreBtn.addEventListener('click', handleSeeMore);
