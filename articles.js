@@ -1,5 +1,17 @@
 const articles = [
             {
+                id: 'visa-combatting-fraud-news-jun-2019',
+                title: 'Using Artificial Intelligence, Visa Is Combatting Fraud at Nearly the Speed of Light',
+                publication: 'PaymentsJournal',
+                employer: 'PaymentsJournal',
+                genre: 'News & Analysis',
+                date: '2019-06-17',
+                summary: "A brief dive into Visa's cutting-edge efforts to detect and prevent fraud.",
+                article_url: 'https://www.paymentsjournal.com/using-artificial-intelligence-visa-is-combatting-fraud-at-nearly-the-speed-of-light/',
+                tags: ['Fraud', 'Artificial Intelligence', 'Digital Security', 'Emerging Technology'],
+            },
+
+            {
                 id: 'fintech-bubble-profitability-mar-2023',
                 title: 'The Bursting FinTech Bubble Places Primacy on Profitability',
                 publication: 'PYMNTS FinTech Tracker',
@@ -46,7 +58,7 @@ const articles = [
             },
             {
                 id: 'fintech-lending-access-may-2023',
-                title: 'FinTechs\\\' Role in Improving Access to Lending Services',
+                title: "FinTechs' Role in Improving Access to Lending Services",
                 publication: 'PYMNTS FinTech Tracker',
                 employer: 'PYMNTS',
                 genre: 'Advertorials',
@@ -119,7 +131,7 @@ const articles = [
             },
             {
                 id: 'smb-cash-flow-2023-nov-dec-2022',
-                title: 'Improving SMBs\\\' Cash Flow Management In 2023',
+                title: "Improving SMBs' Cash Flow Management In 2023",
                 publication: 'PYMNTS B2B and Digital Payments Tracker',
                 employer: 'PYMNTS',
                 genre: 'Advertorials',
@@ -134,7 +146,7 @@ const articles = [
                 employer: 'PYMNTS',
                 genre: 'Advertorials',
                 date: '2023-04-01',
-                summary: 'A look at how nonfinancial brands can use embedded finance and BaaS to meet their customer\\\'s payments needs.',
+                summary: "A look at how nonfinancial brands can use embedded finance and BaaS to meet their customer's payments needs.",
                 tags: ['SMB', 'Cash Flow', 'B2B Payments', 'embedded finance'],
             }
         ];
