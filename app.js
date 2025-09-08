@@ -68,7 +68,7 @@
                         </div>
                         <div class="pt-4 mt-auto bg-white">
                             <div class="flex items-center">
-                                <button onclick="openPdfModal('${articleUrl}', '${article.title.replace(/'/g, "'")}')" class="read-more-btn">Read More &rarr;</button>
+                                <button onclick="openPdfModal('${articleUrl}', '${article.title.replace(/'/g, "\\")}')" class="read-more-btn">Read More &rarr;</button>
                             </div>
                         </div>
                     </div>
