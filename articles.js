@@ -6,9 +6,9 @@ const articles = [
                 employer: 'PaymentsJournal',
                 genre: 'News & Analysis',
                 date: '2019-08-13',
-                summary: "Explains how Application Programming Interfaces (APIs) are driving the banking industry's shift to digital-first models. It covers how APIs enable open banking, foster innovation through collaboration between banks and fintechs, and streamline payments and other banking operations.",
+                summary: "Explains how Application Programming Interfaces (APIs) are driving the banking industry's shift to digital-first models. It covers how APIs enable open banking, foster innovation through collaboration between banks and FinTechs, and streamline payments and other banking operations.",
                 article_url: 'https://www.paymentsjournal.com/what-are-apis-and-how-are-they-changing-banking/',
-                tags: ['APIs', 'Banking', 'Technology'],
+                tags: ['APIs', 'Banking', 'Emerging Technology'],
             },
             {
                 id: 'visa-mastercard-dispute-explainer-nov-2019',
@@ -19,7 +19,7 @@ const articles = [
                 date: '2019-11-13',
                 summary: 'An overview of Visa and Mastercard’s dispute resolution changes, including Visa Claims Resolution (VCR) and Mastercard Dispute Resolution Initiative (MDRI), and their impact on merchants and consumers.',
                 article_url: 'https://www.paymentsjournal.com/visa-and-mastercard-changed-their-dispute-resolution-process-heres-what-you-need-to-know/',
-                tags: ['Credit', 'Credit Cards'],
+                tags: ['Rules & Regulations', 'Credit Cards'],
             },
             {
                 id: 'fed-real-time-payment-announcement-news-aug-2019',
@@ -28,9 +28,9 @@ const articles = [
                 employer: 'PaymentsJournal',
                 genre: 'News & Analysis',
                 date: '2019-08-05',
-                summary: 'An overview of the Federal Reserve’s decision to build FedNow, a real-time payments network, and its implications for the U.S. payments landscape.',
+                summary: 'An overview of the Federal Reserve’s decision to build FedNow, a real-time payments network, and its implications for the U.S. payments landscape. It covers the Fed\'s speech announcing the roll-out and includes expert analysis from a Mercator senior analyst.',
                 article_url: 'https://www.paymentsjournal.com/fed-to-create-real-time-payment-network/',
-                tags: ['Real-time Payments', 'Payments Innovation'],
+                tags: ['Payments Innovation', 'Emerging Technology'],
             },
             {
                 id: 'visa-combatting-fraud-news-jun-2019',
@@ -41,7 +41,7 @@ const articles = [
                 date: '2019-06-17',
                 summary: "Explains how Visa’s AI-powered system, Visa Advanced Authorization (VAA), reviews every transaction on VisaNet in about one millisecond—analyzing over 500 risk signals to differentiate fraud from good behavior. This ultra-fast risk scoring helps issuers stop roughly $25 billion in fraud annually without slowing down customers or triggering false declines..",
                 article_url: 'https://www.paymentsjournal.com/using-artificial-intelligence-visa-is-combatting-fraud-at-nearly-the-speed-of-light/',
-                tags: ['Fraud', 'Artificial Intelligence', 'Digital Security', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Artificial Intelligence', 'Digital Security', 'Emerging Technology'],
             },
 
             {
@@ -52,7 +52,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-03-01',
                 summary: 'An analysis of the significant shift in the FinTech landscape, where economic headwinds and market corrections are forcing companies, especially in the BNPL sector, to move beyond growth-at-all-costs and focus intensely on achieving sustainable profitability.',
-                tags: ['FinTech', 'BNPL', 'Profitability'],
+                tags: ['FinTech', 'BNPL', 'Lending'],
             },
             {
                 id: 'verify-account-identity-nov-2019',
@@ -63,7 +63,7 @@ const articles = [
                 date: '2019-10-02',
                 summary: 'Explores the critical need for robust account verification in the era of real-time payments. It covers various methods, from traditional pre-notification and trial deposits to advanced multi-layered identity verification solutions, to help merchants prevent fraud and costly errors.',
                 article_url: 'https://www.paymentsjournal.com/verifying-account-identity-in-the-age-of-real-time-payments/',
-                tags: ['Fraud', 'Digital Security', 'Artificial Intelligence', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Digital Security', 'Artificial Intelligence', 'Emerging Technology'],
             },
             {
                 id: 'fintech-bank-collaboration-jun-2023',
@@ -93,7 +93,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-05-01',
                 summary: 'Explores how FinTech innovations and alternative credit models, such as BNPL, are providing crucial access to lending services for consumers who may be underserved by traditional credit scoring systems, thereby promoting financial inclusion.',
-                tags: ['FinTech', 'Lending', 'Credit', 'BNPL'],
+                tags: ['FinTech', 'Lending', 'BNPL'],
             },
             {
                 id: 'restaurants-technology-inflation-jun-2023',
@@ -103,7 +103,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-06-01',
                 summary: 'Details how restaurants are increasingly adopting automation, digital payment systems, and other technologies to combat the dual pressures of rising inflation and persistent labor shortages, fundamentally changing their operational models.',
-                tags: ['Payments', 'Industry-Specific Payment Solutions', 'Digital Payments', 'Technology'],
+                tags: ['Industry-Specific Payment Solutions', 'Digital Payments', 'Emerging Technology'],
             },
             {
                 id: 'consumer-covid-response-news-mar-2020',
@@ -114,7 +114,7 @@ const articles = [
                 date: '2020-03-31',
                 summary: 'Shares early research on how the pandemic reshaped consumer habits, from increased online grocery shopping and food delivery to greater use of contactless payments. Highlights lasting shifts toward digital convenience as businesses adjusted to closures, service cuts, and staff reductions.',
                 article_url: 'https://www.paymentsjournal.com/heres-how-consumers-are-responding-to-covid-19/',
-                tags: ['Payments', 'Consumer Behavior', 'Payments'],
+                tags: ['Consumer Behavior', 'Customer Experience', 'Digital Payments', 'Emerging Technology']
             },
             {
                 id: 'beauty-wellness-transformation-may-2023',
@@ -134,7 +134,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-03-01',
                 summary: 'An exploration of the heightened fraud and security risks for SMBs due to the rise of remote work. It focuses on payment fraud, business email compromise (BEC), and actionable strategies for defense in a decentralized work environment.',
-                tags: ['SMB', 'Fraud', 'Digital Security', 'B2B Payments'],
+                tags: ['SMB', 'Fraud Prevention/Detection', 'Digital Security', 'B2B'],
             },
             {
                 id: 'b2b-e-commerce-marketplaces-report-mar-2021',
@@ -164,7 +164,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-01-01',
                 summary: 'Highlights the significant opportunity for small and mid-sized retailers to drive growth and customer loyalty by adopting modern, flexible payment options that meet evolving consumer preferences for digital and contactless transactions.',
-                tags: ['SMB', 'Retail', 'Payments', 'Digital Payments'],
+                tags: ['SMB', 'Retail', 'Digital Payments'],
             },
             {
                 id: 'smb-cash-flow-2023-nov-dec-2022',
@@ -174,7 +174,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2022-11-15',
                 summary: 'A forward-looking piece on the critical nature of cash flow management for SMBs entering 2023. It discusses how technology and strategic partnerships can help businesses navigate economic uncertainty and late payment challenges.',
-                tags: ['SMB', 'B2B Payments', 'Technology'],
+                tags: ['SMB', 'B2B', 'Emerging Technology'],
             },
              {
                 id: 'nonfinancial-brands-embedded-finance-april-2023',
@@ -184,7 +184,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-04-01',
                 summary: 'Examines how nonfinancial brands are leveraging embedded finance and Banking as a Service (BaaS) to offer financial products like BNPL, branded debit cards, and in-app payments. This strategy helps them increase customer engagement, open new revenue streams, and strengthen their competitive edge.',
-                tags: ['SMB', 'B2B Payments', 'Emerging Technology', 'Embedded Finance & BaaS'],
+                tags: ['SMB', 'B2B', 'Emerging Technology', 'Embedded Finance & BaaS'],
             },
             {
                 id: 'big-tech-is-coming-dec-2019',
@@ -217,7 +217,7 @@ const articles = [
                 date: '2019-07-18',
                 summary: 'This outline Mastercard\'s cutting-edge methods for fighting fraud——ditching passwords-only security in favor of real-time, layered authentication. It weaves together biometrics, device fingerprinting, behavioral profiling, location, and machine learning across the entire user journey. This lets companies flag fraudulent activity pre-transaction, minimize friction through smarter risk scoring, and reduce false positives while stopping fraud before it begins.',
                 article_url: 'https://www.paymentsjournal.com/connected-intelligence-a-holistic-approach-to-fighting-fraud/',
-                tags: ['Fraud', 'Artificial Intelligence', 'Digital Security', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Artificial Intelligence', 'Digital Security', 'Emerging Technology'],
             },
             {
                 id: 'understanding-synthetic-identity-fraud-aug-2019',
@@ -228,6 +228,6 @@ const articles = [
                 date: '2019-08-01',
                 summary: 'Explains how fraudsters create synthetic identities by combining real and fake information to defraud banks and lenders, and explores the technologies and strategies companies can use to detect and prevent this type of fraud.',
                 article_url: 'https://www.paymentsjournal.com/understanding-and-stopping-synthetic-identity-fraud/',
-                tags: ['Fraud', 'Digital Security', 'Artificial Intelligence', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Digital Security', 'Artificial Intelligence', 'Emerging Technology'],
             },
         ];
