@@ -180,6 +180,13 @@
                 updateActiveButtons();
                 toggleClearActiveFiltersButton();
 
+                const researchWarning = document.getElementById('research-warning');
+                if (activeGenreFilter === 'Research') {
+                    researchWarning.classList.remove('hidden');
+                } else {
+                    researchWarning.classList.add('hidden');
+                }
+
                 if (withTransition) {
                     portfolioGrid.style.opacity = 1;
                 }
