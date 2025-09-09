@@ -56,7 +56,7 @@
                 const articleUrl = article.article_url || `${PDF_DIR}/${article.id}.pdf`;
 
                 const card = document.createElement('div');
-                card.className = 'article-card bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-105 hover:shadow-xl transition-all duration-500 ease-out flex flex-col opacity-0 translate-y-5';
+                card.className = 'article-card bg-gray-50 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-all duration-500 ease-out flex flex-col opacity-0 translate-y-5';
 
                 const img = document.createElement('img');
                 img.className = 'card-image w-full';
@@ -92,7 +92,7 @@
                 contentDiv.appendChild(textContentDiv);
 
                 const buttonContainer = document.createElement('div');
-                buttonContainer.className = 'pt-4 mt-auto bg-white';
+                buttonContainer.className = 'pt-4 mt-auto bg-gray-50';
 
                 const buttonInnerContainer = document.createElement('div');
                 buttonInnerContainer.className = 'flex items-center';
