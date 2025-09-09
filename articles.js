@@ -82,8 +82,7 @@ const articles = [
                 employer: 'Mercator',
                 genre: 'Research',
                 date: '2021-03-30',
-                summary: 'A deep dive into the state of the credit industry during COVID and.......',
-                article_url: 'https://javelinstrategy.com/research/2021-credit-card-data-book-part-one-internal-dynamics/',
+                summary: 'This report provides a comprehensive, data-driven look the pandemic\'s impact on the credit industry for companies subscribed to Mercator\'s credit practice. It examines trends around credit card profitability, consumer interest in credit, and lender attitudes on credit policy.',
                 tags: ['Credit Cards', 'Lending', 'Banking'],
             },
             {
