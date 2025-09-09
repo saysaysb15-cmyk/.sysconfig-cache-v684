@@ -339,12 +339,14 @@
                 filterPanel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
                 filterChevron.classList.add('rotate-180');
                 filterToggleBtn.setAttribute('aria-expanded', 'true');
+                document.body.classList.add('overflow-hidden');
             };
 
             const closeFilterPanel = () => {
                 filterPanel.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
                 filterChevron.classList.remove('rotate-180');
                 filterToggleBtn.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('overflow-hidden');
                 toggleClearActiveFiltersButton();
             };
 
