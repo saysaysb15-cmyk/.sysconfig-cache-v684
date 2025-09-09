@@ -157,12 +157,7 @@
                 // Apply Topic filters (multi-select)
                 if (activeTopicFilters.length > 0) {
                     filteredArticles = filteredArticles.filter(article => {
-                        return activeTopicFilters.every(filter => {
-                            if (filter === 'Fraud & Security') {
-                                return article.tags.includes('Fraud') || article.tags.includes('Security');
-                            }
-                            return article.tags.includes(filter);
-                        });
+                        return activeTopicFilters.every(filter => article.tags.includes(filter));
                     });
                 }
 
@@ -317,7 +312,7 @@
             
             // Special 'Fraud & Security' filter
             const uniqueTags = [...new Set(allTags)];
-            renderFilterButtons(tagFiltersContainer, ['Fraud & Security', ...uniqueTags]);
+            renderFilterButtons(tagFiltersContainer, uniqueTags);
             renderFilterButtons(genreFiltersContainer, allGenres);
 
             applyFiltersFromURL(); // Read from URL first to set initial state
