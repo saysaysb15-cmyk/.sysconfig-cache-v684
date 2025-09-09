@@ -55,7 +55,7 @@ const articles = [
                 tags: ['FinTech', 'BNPL', 'Profitability'],
             },
             {
-                id: 'verify-account-identity',
+                id: 'verify-account-identity-nov-2019',
                 title: 'Verifying Account Identity in the Age of Real-Time Payments',
                 publication: 'PaymentsJournal Article',
                 employer: 'PaymentsJournal',
@@ -153,7 +153,7 @@ const articles = [
                 employer: 'PYMNTS',
                 genre: 'Advertorials',
                 date: '2023-01-15',
-                summary: 'Investigates the pain points in the healthcare payments ecosystem and how innovation can improve the experience.',
+                summary: 'Highlights the significant friction in the healthcare payments system, where a reliance on manual processes and paper-based billing creates confusion and delays for patients. It explores how the adoption of digital platforms and real-time payments can improve the patient experience, reduce costs for providers, and increase overall satisfaction.',
                 tags: ['Industry-Specific Payment Solutions', 'Cash Flow', 'Digital Payments', 'Consumer Behavior'],
             },
             {
