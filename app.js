@@ -48,33 +48,69 @@
             
             noResultsMessage.classList.add('hidden');
             portfolioGrid.classList.remove('hidden');
+
+            const fragment = document.createDocumentFragment();
             
             articlesToDisplay.forEach(article => {
-                const card = document.createElement('div');
-
-                // --- EDIT: Logic to dynamically build asset URLs from the ID.
-                // It uses the hardcoded URL if one exists (for exceptions), otherwise it creates one.
                 const imageUrl = article.imageUrl || `${IMG_DIR}/${article.id}.png`;
                 const articleUrl = article.article_url || `${PDF_DIR}/${article.id}.pdf`;
 
-                card.className = 'article-card bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-105 hover:shadow-xl transition-all duration-500 ease-out flex flex-col opacity-0 translate-y-5';
-                card.innerHTML = `
-                    <img class="card-image w-full" src="${imageUrl}" alt="Abstract image representing ${article.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';">
-                    <div class="p-6 flex-grow flex flex-col">
-                        <div class="flex-grow">
-                            <p class="text-sm text-gray-500 mb-1">${article.publication} &bull; ${new Date(article.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</p>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-3">${article.title}</h3>
-                            <p class="text-gray-600 leading-relaxed mb-4">${article.summary}</p>
-                        </div>
-                        <div class="pt-4 mt-auto bg-white">
-                            <div class="flex items-center">
-                                <button onclick="openPdfModal('${articleUrl}', '${article.title.replace(/'/g, "\\")}')" class="read-more-btn">Read More &rarr;</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                portfolioGrid.appendChild(card);
+                const card = document.createElement('div');
+                card.className = 'article-card bg-gray-50 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-all duration-500 ease-out flex flex-col opacity-0 translate-y-5';
+
+                const img = document.createElement('img');
+                img.className = 'card-image w-full';
+                img.src = imageUrl;
+                img.alt = `Abstract image representing ${article.title}`;
+                img.onerror = function() {
+                    this.onerror=null;
+                    this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';
+                };
+                card.appendChild(img);
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'p-6 flex-grow flex flex-col';
+
+                const textContentDiv = document.createElement('div');
+                textContentDiv.className = 'flex-grow';
+
+                const publicationP = document.createElement('p');
+                publicationP.className = 'text-sm text-gray-500 mb-1';
+                publicationP.textContent = `${article.publication} • ${new Date(article.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}`;
+                textContentDiv.appendChild(publicationP);
+
+                const titleH3 = document.createElement('h3');
+                titleH3.className = 'text-2xl font-bold text-gray-800 mb-3';
+                titleH3.textContent = article.title;
+                textContentDiv.appendChild(titleH3);
+
+                const summaryP = document.createElement('p');
+                summaryP.className = 'text-gray-600 leading-relaxed mb-4';
+                summaryP.textContent = article.summary;
+                textContentDiv.appendChild(summaryP);
+
+                contentDiv.appendChild(textContentDiv);
+
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'pt-4 mt-auto bg-gray-50';
+
+                const buttonInnerContainer = document.createElement('div');
+                buttonInnerContainer.className = 'flex items-center';
+
+                const readMoreBtn = document.createElement('button');
+                readMoreBtn.className = 'read-more-btn';
+                readMoreBtn.textContent = 'Read More →';
+                readMoreBtn.addEventListener('click', () => openPdfModal(articleUrl, article.title));
+
+                buttonInnerContainer.appendChild(readMoreBtn);
+                buttonContainer.appendChild(buttonInnerContainer);
+                contentDiv.appendChild(buttonContainer);
+
+                card.appendChild(contentDiv);
+                fragment.appendChild(card);
             });
+
+            portfolioGrid.appendChild(fragment);
 
             // Observe cards for scroll animations
             if (cardObserver) {
