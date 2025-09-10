@@ -337,7 +337,7 @@ const articles = [
                 date: '2023-06-01',
                 summary: 'Outlines the growing threat of bank fraud and the cybersecurity solutions financial institutions are using to combat it. With fraud losses mounting, banks are increasingly turning to advanced technologies like AI, machine learning, and biometric authentication to protect their customers and themselves from sophisticated cyberattacks.',
                 article_url: '',
-                tags: ['Fraud Prevention/Detection', 'Cybersecurity', 'Digital Banking'],
+                tags: ['Fraud Prevention/Detection', 'Cybersecurity', 'Mobile Banking'],
             },
             {
                 id: 'core-modernization-cloud-migration-banks-oct-2022',
