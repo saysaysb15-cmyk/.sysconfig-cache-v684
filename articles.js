@@ -241,4 +241,15 @@ const articles = [
                 article_url: 'https://www.paymentsjournal.com/3-payments-trends-to-keep-track-of-in-2020/',
                 tags: ['Retail', 'Fraud Prevention/Detection', 'Emerging Technology'],
             },
+            {
+                id: 'cyber-attack-architecture-nudata-jan-2020',
+                title: 'The Architecture of an Attack: NuData Breaks Down Account Takeover Attacks',
+                publication: 'PaymentsJournal',
+                employer: 'PaymentsJournal',
+                genre: 'Advertorials',
+                date: '2019-01-15',
+                summary: 'add me Gemini!',
+                article_url: 'https://www.paymentsjournal.com/the-architecture-of-an-attack-nudata-breaks-down-account-takeover-attacks/',
+                tags: ['Fraud Prevention/Detection', 'Emerging Technology', 'Artificial Intelligence', 'Digital Security'],
+            },
         ];
