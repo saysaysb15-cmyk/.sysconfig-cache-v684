@@ -451,6 +451,22 @@
             );
             observer.observe(stickyFilterBar);
 
+            // --- Contact Me Button Logic ---
+            const contactBtn = document.getElementById('contact-btn');
+            const emailInfo = document.getElementById('email-info');
+            const contactContainer = document.getElementById('contact-container');
+
+            contactBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                emailInfo.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!contactContainer.contains(e.target)) {
+                    emailInfo.classList.add('hidden');
+                }
+            });
+
             // --- Back to Top Button Logic ---
             const backToTopBtn = document.getElementById('back-to-top-btn');
 
