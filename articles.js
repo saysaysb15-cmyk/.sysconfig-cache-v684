@@ -348,6 +348,6 @@ const articles = [
                 date: '2022-10-01',
                 summary: 'Explains why modernizing legacy core banking systems is critical for financial institutions to compete in the digital age. By migrating to the cloud, banks can enable embedded finance solutions, improve operational efficiency, and offer the seamless, personalized experiences that customers now expect. The article also discusses the challenges of cloud migration and the importance of choosing the right partner for a successful transition.',
                 article_url: '',
-                tags: ['Emerging Technology', 'Banking', 'Payments Innovation'],
+                tags: ['Emerging Technology', 'Banks & Traditional FIs', 'Embedded Finance & BaaS','Payments Innovation'],
             },
         ];
