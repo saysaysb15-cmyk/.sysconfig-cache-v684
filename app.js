@@ -157,12 +157,7 @@
                 // Apply Topic filters (multi-select)
                 if (activeTopicFilters.length > 0) {
                     filteredArticles = filteredArticles.filter(article => {
-                        return activeTopicFilters.every(filter => {
-                            if (filter === 'Fraud & Security') {
-                                return article.tags.includes('Fraud') || article.tags.includes('Security');
-                            }
-                            return article.tags.includes(filter);
-                        });
+                        return activeTopicFilters.every(filter => article.tags.includes(filter));
                     });
                 }
 
@@ -184,6 +179,13 @@
                 updateURLWithFilters();
                 updateActiveButtons();
                 toggleClearActiveFiltersButton();
+
+                const researchWarning = document.getElementById('research-warning');
+                if (activeGenreFilter === 'Research') {
+                    researchWarning.classList.remove('hidden');
+                } else {
+                    researchWarning.classList.add('hidden');
+                }
 
                 if (withTransition) {
                     portfolioGrid.style.opacity = 1;
@@ -317,7 +319,7 @@
             
             // Special 'Fraud & Security' filter
             const uniqueTags = [...new Set(allTags)];
-            renderFilterButtons(tagFiltersContainer, ['Fraud & Security', ...uniqueTags]);
+            renderFilterButtons(tagFiltersContainer, uniqueTags);
             renderFilterButtons(genreFiltersContainer, allGenres);
 
             applyFiltersFromURL(); // Read from URL first to set initial state
@@ -340,6 +342,12 @@
                 filterChevron.classList.add('rotate-180');
                 filterToggleBtn.setAttribute('aria-expanded', 'true');
                 document.body.classList.add('overflow-hidden');
+
+                // Scroll to the filter panel after it becomes visible
+                setTimeout(() => {
+                    const filterPanelTop = filterPanel.getBoundingClientRect().top + window.scrollY;
+                    window.scrollTo({ top: filterPanelTop - 20, behavior: 'smooth' });
+                }, 100);
             };
 
             const closeFilterPanel = () => {
@@ -442,6 +450,22 @@
                 }
             );
             observer.observe(stickyFilterBar);
+
+            // --- Contact Me Button Logic ---
+            const contactBtn = document.getElementById('contact-btn');
+            const emailInfo = document.getElementById('email-info');
+            const contactContainer = document.getElementById('contact-container');
+
+            contactBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                emailInfo.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!contactContainer.contains(e.target)) {
+                    emailInfo.classList.add('hidden');
+                }
+            });
 
             // --- Back to Top Button Logic ---
             const backToTopBtn = document.getElementById('back-to-top-btn');

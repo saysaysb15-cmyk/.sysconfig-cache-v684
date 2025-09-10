@@ -8,7 +8,7 @@ const articles = [
                 date: '2019-08-13',
                 summary: "Explains how Application Programming Interfaces (APIs) are driving the banking industry's shift to digital-first models. It covers how APIs enable open banking, foster innovation through collaboration between banks and FinTechs, and streamline payments and other banking operations.",
                 article_url: 'https://www.paymentsjournal.com/what-are-apis-and-how-are-they-changing-banking/',
-                tags: ['APIs', 'Banking', 'Emerging Technology'],
+                tags: ['APIs', 'Mobile Banking', 'Emerging Technology'],
             },
             {
                 id: 'visa-mastercard-dispute-explainer-nov-2019',
@@ -52,7 +52,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-03-01',
                 summary: 'An analysis of the significant shift in the FinTech landscape, where economic headwinds and market corrections are forcing companies, especially in the BNPL sector, to move beyond growth-at-all-costs and focus intensely on achieving sustainable profitability.',
-                tags: ['FinTech', 'BNPL', 'Lending'],
+                tags: ['FinTech', 'Traditional & Alternative Credit'],
             },
             {
                 id: 'verify-account-identity-nov-2019',
@@ -73,7 +73,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-06-01',
                 summary: 'Examines the evolving dynamic between traditional financial institutions and FinTechs, highlighting a strategic move from competition to collaboration. This shift is driven by digital transformation, open banking regulations, and shared security concerns.',
-                tags: ['FinTech', 'Banking', 'Embedded Finance & BaaS', 'Emerging Technology'],
+                tags: ['FinTech', 'Mobile Banking', 'Embedded Finance & BaaS', 'Emerging Technology'],
             },
             {
                 id: 'credit-book-report-mercator-research-mar-2021',
@@ -83,7 +83,7 @@ const articles = [
                 genre: 'Research',
                 date: '2021-03-30',
                 summary: 'This report provides a comprehensive, data-driven look the pandemic\'s impact on the credit industry for companies subscribed to Mercator\'s credit practice. It examines trends around credit card profitability, consumer interest in credit, and lender attitudes on credit policy.',
-                tags: ['Credit Cards', 'Lending', 'Banking'],
+                tags: ['Credit Cards', 'Traditional & Alternative Credit', 'Banks & Traditional FIs', 'Consumer Behavior'],
             },
             {
                 id: 'fintech-lending-access-may-2023',
@@ -93,7 +93,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-05-01',
                 summary: 'Explores how FinTech innovations and alternative credit models, such as BNPL, are providing crucial access to lending services for consumers who may be underserved by traditional credit scoring systems, thereby promoting financial inclusion.',
-                tags: ['FinTech', 'Lending', 'BNPL'],
+                tags: ['FinTech', 'Traditional & Alternative Credit'],
             },
             {
                 id: 'restaurants-technology-inflation-jun-2023',
@@ -154,7 +154,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-01-15',
                 summary: 'Highlights the significant friction in the healthcare payments system, where a reliance on manual processes and paper-based billing creates confusion and delays for patients. It explores how the adoption of digital platforms and real-time payments can improve the patient experience, reduce costs for providers, and increase overall satisfaction.',
-                tags: ['Industry-Specific Payment Solutions', 'Cash Flow', 'Digital Payments', 'Consumer Behavior'],
+                tags: ['Industry-Specific Payment Solutions', 'Back-Office Solutions', 'Digital Payments', 'Consumer Behavior'],
             },
             {
                 id: 'smb-retail-payments-jan-2023',
@@ -174,7 +174,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2022-11-15',
                 summary: 'A forward-looking piece on the critical nature of cash flow management for SMBs entering 2023. It discusses how technology and strategic partnerships can help businesses navigate economic uncertainty and late payment challenges.',
-                tags: ['SMB', 'B2B', 'Emerging Technology'],
+                tags: ['SMB', 'B2B', 'Back-Office Solutions', 'Emerging Technology'],
             },
              {
                 id: 'nonfinancial-brands-embedded-finance-april-2023',
@@ -206,7 +206,7 @@ const articles = [
                 date: '2019-10-22',
                 summary: 'Highlights how financial institutions can seize high-stress customer touchpoints—like lost or compromised cards—to strengthen loyalty. Featuring insights from Mercator Advisory Group, the piece shows how mobile apps can streamline card shutdowns, real-time charge tracking, and clear alerts.',
                 article_url: 'https://www.paymentsjournal.com/improving-customer-experience-in-the-moments-that-matter/',
-                tags: ['Banking', 'FinTech', 'Customer Experience', 'Consumer Behavior', 'Mobile Banking'],
+                tags: ['FinTech', 'Customer Experience', 'Consumer Behavior', 'Mobile Banking'],
             },
             {
                 id: 'connected-intelligence-fighting-fraud-july-2019',
