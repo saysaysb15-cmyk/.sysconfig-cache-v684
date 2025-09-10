@@ -157,12 +157,7 @@
                 // Apply Topic filters (multi-select)
                 if (activeTopicFilters.length > 0) {
                     filteredArticles = filteredArticles.filter(article => {
-                        return activeTopicFilters.every(filter => {
-                            if (filter === 'Fraud & Security') {
-                                return article.tags.includes('Fraud') || article.tags.includes('Security');
-                            }
-                            return article.tags.includes(filter);
-                        });
+                        return activeTopicFilters.every(filter => article.tags.includes(filter));
                     });
                 }
 
@@ -184,6 +179,13 @@
                 updateURLWithFilters();
                 updateActiveButtons();
                 toggleClearActiveFiltersButton();
+
+                const researchWarning = document.getElementById('research-warning');
+                if (activeGenreFilter === 'Research') {
+                    researchWarning.classList.remove('hidden');
+                } else {
+                    researchWarning.classList.add('hidden');
+                }
 
                 if (withTransition) {
                     portfolioGrid.style.opacity = 1;
@@ -317,7 +319,7 @@
             
             // Special 'Fraud & Security' filter
             const uniqueTags = [...new Set(allTags)];
-            renderFilterButtons(tagFiltersContainer, ['Fraud & Security', ...uniqueTags]);
+            renderFilterButtons(tagFiltersContainer, uniqueTags);
             renderFilterButtons(genreFiltersContainer, allGenres);
 
             applyFiltersFromURL(); // Read from URL first to set initial state
@@ -328,6 +330,7 @@
             const filterPanel = document.getElementById('filter-panel');
             const filterChevron = document.getElementById('filter-chevron');
             const closeFilterBtn = document.getElementById('close-filter-btn');
+            const filterOverlay = document.getElementById('filter-overlay');
 
             const openFilterPanel = () => {
                 // Reset temp filters to match active filters whenever panel is opened
@@ -337,13 +340,23 @@
                 applyBtnContainer.classList.add('hidden'); // Hide apply button initially
 
                 filterPanel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                filterPanel.classList.add('is-open');
+                filterOverlay.classList.remove('opacity-0', 'pointer-events-none');
                 filterChevron.classList.add('rotate-180');
                 filterToggleBtn.setAttribute('aria-expanded', 'true');
                 document.body.classList.add('overflow-hidden');
+
+                // Scroll to the filter panel after it becomes visible
+                setTimeout(() => {
+                    const filterPanelTop = filterPanel.getBoundingClientRect().top + window.scrollY;
+                    window.scrollTo({ top: filterPanelTop - 20, behavior: 'smooth' });
+                }, 100);
             };
 
             const closeFilterPanel = () => {
                 filterPanel.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                filterPanel.classList.remove('is-open');
+                filterOverlay.classList.add('opacity-0', 'pointer-events-none');
                 filterChevron.classList.remove('rotate-180');
                 filterToggleBtn.setAttribute('aria-expanded', 'false');
                 document.body.classList.remove('overflow-hidden');
@@ -442,6 +455,47 @@
                 }
             );
             observer.observe(stickyFilterBar);
+
+            // --- Contact Me Button Logic ---
+            const contactBtn = document.getElementById('contact-btn');
+            const emailInfo = document.getElementById('email-info');
+            const contactContainer = document.getElementById('contact-container');
+
+            contactBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                emailInfo.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!contactContainer.contains(e.target)) {
+                    emailInfo.classList.add('hidden');
+                }
+            });
+
+            // --- Copy Email Logic ---
+            const copyEmailBtn = document.getElementById('copy-email-btn');
+            const emailAddress = document.getElementById('email-address').textContent;
+            const copyTooltip = document.getElementById('copy-tooltip');
+
+            copyEmailBtn.addEventListener('mouseenter', () => {
+                if (copyTooltip.textContent !== 'Copied!') {
+                    copyTooltip.textContent = 'Copy to clipboard';
+                }
+                copyTooltip.classList.remove('opacity-0');
+            });
+
+            copyEmailBtn.addEventListener('mouseleave', () => {
+                copyTooltip.classList.add('opacity-0');
+            });
+
+            copyEmailBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(emailAddress).then(() => {
+                    copyTooltip.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyTooltip.textContent = 'Copy to clipboard';
+                    }, 2000);
+                });
+            });
 
             // --- Back to Top Button Logic ---
             const backToTopBtn = document.getElementById('back-to-top-btn');

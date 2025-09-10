@@ -84,7 +84,8 @@
                     </div>
 
                     <!-- Filter Panel (Initially Hidden) -->
-                    <div id="filter-panel" class="absolute w-full mt-4 bg-white rounded-xl shadow-2xl p-6 z-20 transform transition-all duration-300 origin-top opacity-0 scale-95 pointer-events-none left-1/2 -translate-x-1/2 max-w-4xl">
+                    <div id="filter-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+                    <div id="filter-panel" class="absolute w-full mt-4 bg-white rounded-xl shadow-2xl p-6 z-50 transform transition-all duration-300 origin-top opacity-0 scale-95 pointer-events-none left-1/2 -translate-x-1/2 max-w-4xl">
                         <div class="flex flex-col space-y-6">
                             <!-- Genre Filters -->
                             <div>
@@ -96,6 +97,7 @@
                                     <!-- Genre filter buttons will be dynamically inserted here -->
                                 </div>
                             </div>
+                            <hr class="my-6 border-gray-200">
                             <!-- Topic Filters -->
                             <div>
                                 <div class="flex justify-between items-center mb-3">
@@ -123,6 +125,15 @@
                     </div>
                 </div>
 
+                <div id="research-warning" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-8 rounded-md shadow-md">
+                    <p class="font-bold">Authorial Note:</p>
+                    <p>Mercator was acquired by Escalent (the parent company of Javelin) after I left. And although senior analysts are credited, I was the sole author of these reports (effectively ghostwriting on their behalf). Full versions are behind a paywall. 'Read More' takes you to a PDF of the public landing page. To view the official landing pages, please visit the links below:</p>
+                    <ul class="list-disc list-inside mt-2">
+                        <li><a href="https://javelinstrategy.com/research/2021-credit-card-data-book-part-one-internal-dynamics" target="_blank" class="underline">Credit Report</a></li>
+                        <li><a href="https://javelinstrategy.com/research/b2b-e-commerce-challenges-and-opportunities-caused-digital-acceleration" target="_blank" class="underline">B2B Marketplace Report</a></li>
+                    </ul>
+                </div>
+
                 <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Article cards will be dynamically inserted here -->
                 </div>
@@ -138,6 +149,21 @@
             <p class="text-gray-500">&copy; 2025 Daniel Banta. All Rights Reserved.</p>
         </footer>
 
+    </div>
+
+    <!-- Contact Me Button -->
+    <div id="contact-container" class="fixed bottom-8 left-8 z-50">
+        <button id="contact-btn" class="bg-gray-700 text-white py-3 px-5 rounded-full shadow-lg hover:bg-gray-800 transition-all duration-300 flex items-center space-x-2 transform hover:scale-105">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            <span>Contact Me</span>
+        </button>
+        <div id="email-info" class="hidden absolute bottom-full left-0 w-max mb-2 bg-white p-3 rounded-lg shadow-lg border border-gray-200 flex items-center space-x-2">
+            <p id="email-address" class="text-gray-800 font-semibold">danielbanta123@gmail.com</p>
+            <button id="copy-email-btn" class="relative text-gray-500 hover:text-gray-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span id="copy-tooltip" class="absolute -top-8 left-1/2 -translate-x-1/2 w-max bg-gray-700 text-white text-xs rounded py-1 px-2 opacity-0 transition-opacity">Copy to clipboard</span>
+            </button>
+        </div>
     </div>
 
     <!-- Back to Top Button -->
