@@ -53,6 +53,9 @@
         .is-sticky {
             /* This class now acts as a JS hook. The container itself is transparent. */
         }
+        #filter-panel.is-open {
+            border-top: 4px solid #e5e7eb; /* border-gray-200 */
+        }
         .is-sticky #filter-toggle-btn {
             background-color: #f8f9fa;
             padding-left: 1.5rem;

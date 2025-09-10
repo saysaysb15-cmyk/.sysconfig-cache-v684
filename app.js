@@ -330,6 +330,7 @@
             const filterPanel = document.getElementById('filter-panel');
             const filterChevron = document.getElementById('filter-chevron');
             const closeFilterBtn = document.getElementById('close-filter-btn');
+            const filterOverlay = document.getElementById('filter-overlay');
 
             const openFilterPanel = () => {
                 // Reset temp filters to match active filters whenever panel is opened
@@ -339,6 +340,8 @@
                 applyBtnContainer.classList.add('hidden'); // Hide apply button initially
 
                 filterPanel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                filterPanel.classList.add('is-open');
+                filterOverlay.classList.remove('opacity-0', 'pointer-events-none');
                 filterChevron.classList.add('rotate-180');
                 filterToggleBtn.setAttribute('aria-expanded', 'true');
                 document.body.classList.add('overflow-hidden');
@@ -352,6 +355,8 @@
 
             const closeFilterPanel = () => {
                 filterPanel.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                filterPanel.classList.remove('is-open');
+                filterOverlay.classList.add('opacity-0', 'pointer-events-none');
                 filterChevron.classList.remove('rotate-180');
                 filterToggleBtn.setAttribute('aria-expanded', 'false');
                 document.body.classList.remove('overflow-hidden');
