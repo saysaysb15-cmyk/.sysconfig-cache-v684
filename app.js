@@ -342,6 +342,12 @@
                 filterChevron.classList.add('rotate-180');
                 filterToggleBtn.setAttribute('aria-expanded', 'true');
                 document.body.classList.add('overflow-hidden');
+
+                // Scroll to the filter panel after it becomes visible
+                setTimeout(() => {
+                    const filterPanelTop = filterPanel.getBoundingClientRect().top + window.scrollY;
+                    window.scrollTo({ top: filterPanelTop - 20, behavior: 'smooth' });
+                }, 100);
             };
 
             const closeFilterPanel = () => {
