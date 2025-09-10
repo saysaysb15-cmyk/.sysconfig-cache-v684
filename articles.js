@@ -102,7 +102,7 @@ const articles = [
                 employer: 'PYMNTS',
                 genre: 'Advertorials',
                 date: '2023-06-01',
-                summary: 'Details how restaurants are increasingly adopting automation, digital payment systems, and other technologies to combat the dual pressures of rising inflation and persistent labor shortages, fundamentally changing their operational models.',
+                summary: 'Investigates how soaring inflation and labor shortages are forcing restaurants to accelerate their adoption of technology. From AI-powered drive-thrus and robotic automation to digital ordering and personalized loyalty programs, technology is no longer a luxury but a critical tool for survival and growth in a challenging economic climate.',
                 tags: ['Industry-Specific Payment Solutions', 'Digital Payments', 'Emerging Technology'],
             },
             {
@@ -292,20 +292,9 @@ const articles = [
                 employer: 'PYMNTS',
                 genre: 'Advertorials',
                 date: '2022-11-01',
-                summary: 'Details the challenges and opportunities in modernizing campus payment systems. With students expecting seamless, mobile-first experiences, universities are moving away from legacy systems and adopting unified platforms that can handle everything from tuition and dining to event tickets and laundry, often going cashless to improve efficiency and security.',
+                summary: 'Details the challenges and opportunities in modernizing campus payment systems. With students expecting seamlss, mobile-first experiences, universities are moving away from legacy systems and adopting unified platforms that can handle everything from tuition and dining to event tickets and laundry, often going cashless to improve efficiency and security.',
                 article_url: '',
-                tags: ['Payments', 'Higher Education', 'B2B'],
-            },
-            {
-                id: 'inflation-technology-restaurants-june-2023',
-                title: 'Inflation Puts Technology on the Menu for Restaurants',
-                publication: 'PYMNTS B2B and Digital Payments Tracker',
-                employer: 'PYMNTS',
-                genre: 'Advertorials',
-                date: '2023-06-01',
-                summary: 'Investigates how soaring inflation and labor shortages are forcing restaurants to accelerate their adoption of technology. From AI-powered drive-thrus and robotic automation to digital ordering and personalized loyalty programs, technology is no longer a luxury but a critical tool for survival and growth in a challenging economic climate.',
-                article_url: '',
-                tags: ['Restaurants', 'Technology', 'Inflation'],
+                tags: ['Emerging Technology', 'Industry-Specific Payment Solutions', 'Digital Payments', 'Customer Experience'],
             },
             {
                 id: 'minimizing-subscription-churn-nov-2022',
@@ -316,7 +305,7 @@ const articles = [
                 date: '2022-11-01',
                 summary: 'Focuses on the strategies subscription-based businesses can use to reduce customer churn in an increasingly competitive market. It highlights the importance of a frictionless customer experience, from easy billing and payment options to personalized content and the ability to pause subscriptions, as key to retaining subscribers.',
                 article_url: '',
-                tags: ['Subscription Commerce', 'Customer Experience', 'Churn'],
+                tags: ['Industry-Specific Payment Solutions', 'Digital Payments', 'Customer Experience'],
             },
             {
                 id: 'money-mobility-property-managers-feb-2023',
@@ -327,7 +316,7 @@ const articles = [
                 date: '2023-02-01',
                 summary: 'Explores how digital payment solutions are helping property managers navigate a difficult economic environment. With rising rents and increasing competition, online platforms that streamline rent collection, vendor payments, and security deposit refunds are essential for improving operational efficiency and tenant satisfaction.',
                 article_url: '',
-                tags: ['Money Mobility', 'Property Management', 'Real Estate'],
+                tags: ['Digital Payments', 'FinTech', 'Customer Experience', 'Industry-Specific Payment Solutions'],
             },
             {
                 id: 'money-mobility-insurance-industry-jan-2023',
@@ -337,8 +326,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-01-01',
                 summary: 'Analyzes the insurance industry\'s slow but steady adoption of digital payment solutions. As consumer demand for faster, more convenient claims processing grows, insurers are leveraging money mobility to speed up disbursements, reduce fraud, and improve the overall customer experience in a competitive market.',
-                article_url: '',
-                tags: ['Money Mobility', 'Insurance', 'FinTech'],
+                tags: ['Industry-Specific Payment Solutions', 'Digital Payments', 'FinTech'],
             },
             {
                 id: 'stopping-bank-fraud-cybersecurity-june-2023',
@@ -349,7 +337,7 @@ const articles = [
                 date: '2023-06-01',
                 summary: 'Outlines the growing threat of bank fraud and the cybersecurity solutions financial institutions are using to combat it. With fraud losses mounting, banks are increasingly turning to advanced technologies like AI, machine learning, and biometric authentication to protect their customers and themselves from sophisticated cyberattacks.',
                 article_url: '',
-                tags: ['Bank Fraud', 'Cybersecurity', 'Digital Banking'],
+                tags: ['Fraud Prevention/Detection', 'Cybersecurity', 'Digital Banking'],
             },
             {
                 id: 'core-modernization-cloud-migration-banks-oct-2022',
@@ -360,6 +348,6 @@ const articles = [
                 date: '2022-10-01',
                 summary: 'Explains why modernizing legacy core banking systems is critical for financial institutions to compete in the digital age. By migrating to the cloud, banks can enable embedded finance solutions, improve operational efficiency, and offer the seamless, personalized experiences that customers now expect. The article also discusses the challenges of cloud migration and the importance of choosing the right partner for a successful transition.',
                 article_url: '',
-                tags: ['Core Modernization', 'Cloud Migration', 'Banking'],
+                tags: ['Emerging Technology', 'Banking', 'Payments Innovation'],
             },
         ];
