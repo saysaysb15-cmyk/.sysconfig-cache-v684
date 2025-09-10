@@ -8,7 +8,7 @@ const articles = [
                 date: '2019-08-13',
                 summary: "Explains how Application Programming Interfaces (APIs) are driving the banking industry's shift to digital-first models. It covers how APIs enable open banking, foster innovation through collaboration between banks and FinTechs, and streamline payments and other banking operations.",
                 article_url: 'https://www.paymentsjournal.com/what-are-apis-and-how-are-they-changing-banking/',
-                tags: ['APIs', 'Mobile Banking', 'Emerging Technology'],
+                tags: ['Digital Payments', 'Customer Experience', 'Payments Innovation','Mobile Banking', 'Emerging Technology'],
             },
             {
                 id: 'visa-mastercard-dispute-explainer-nov-2019',
@@ -261,7 +261,7 @@ const articles = [
                 date: '2023-04-01',
                 summary: 'Explores the growing scrutiny of the Buy Now, Pay Later (BNPL) industry by regulators worldwide. As BNPL use explodes, concerns are rising around consumer debt, overspending, and data privacy, prompting governments in the U.S., U.K., and Australia to consider new rules that would bring BNPL offerings more in line with traditional credit products.',
                 article_url: '',
-                tags: ['BNPL', 'Regulation', 'FinTech'],
+                tags: ['Traditional & Alternative Credit', 'Rules & Regulations', 'FinTech'],
             },
             {
                 id: 'changing-regulatory-landscape-credit-unions-april-2023',
