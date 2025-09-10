@@ -90,7 +90,7 @@
         }
 
         .work-articles-container {
-            background: linear-gradient(to bottom, #e1e5ea, #f9fafb); /* Adjusted gradient start color */
+            background: linear-gradient(to bottom, #f9fafb), #e1e5ea,); /* Adjusted gradient start color */
             border-radius: 0.75rem; /* 12px */
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             padding: 2rem; /* 32px */
