@@ -472,6 +472,31 @@
                 }
             });
 
+            // --- Copy Email Logic ---
+            const copyEmailBtn = document.getElementById('copy-email-btn');
+            const emailAddress = document.getElementById('email-address').textContent;
+            const copyTooltip = document.getElementById('copy-tooltip');
+
+            copyEmailBtn.addEventListener('mouseenter', () => {
+                if (copyTooltip.textContent !== 'Copied!') {
+                    copyTooltip.textContent = 'Copy to clipboard';
+                }
+                copyTooltip.classList.remove('opacity-0');
+            });
+
+            copyEmailBtn.addEventListener('mouseleave', () => {
+                copyTooltip.classList.add('opacity-0');
+            });
+
+            copyEmailBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(emailAddress).then(() => {
+                    copyTooltip.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyTooltip.textContent = 'Copy to clipboard';
+                    }, 2000);
+                });
+            });
+
             // --- Back to Top Button Logic ---
             const backToTopBtn = document.getElementById('back-to-top-btn');
 
