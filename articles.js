@@ -41,7 +41,7 @@ const articles = [
                 date: '2019-06-17',
                 summary: "Explains how Visa’s AI-powered system, Visa Advanced Authorization (VAA), reviews every transaction on VisaNet in about one millisecond—analyzing over 500 risk signals to differentiate fraud from good behavior. This ultra-fast risk scoring helps issuers stop roughly $25 billion in fraud annually without slowing down customers or triggering false declines..",
                 article_url: 'https://www.paymentsjournal.com/using-artificial-intelligence-visa-is-combatting-fraud-at-nearly-the-speed-of-light/',
-                tags: ['Fraud Prevention/Detection', 'Artificial Intelligence', 'Digital Security', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Artificial Intelligence', 'Cybersecurity', 'Emerging Technology'],
             },
 
             {
@@ -63,7 +63,7 @@ const articles = [
                 date: '2019-10-02',
                 summary: 'Explores the critical need for robust account verification in the era of real-time payments. It covers various methods, from traditional pre-notification and trial deposits to advanced multi-layered identity verification solutions, to help merchants prevent fraud and costly errors.',
                 article_url: 'https://www.paymentsjournal.com/verifying-account-identity-in-the-age-of-real-time-payments/',
-                tags: ['Fraud Prevention/Detection', 'Digital Security', 'Artificial Intelligence', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Cybersecurity', 'Artificial Intelligence', 'Emerging Technology'],
             },
             {
                 id: 'fintech-bank-collaboration-jun-2023',
@@ -134,7 +134,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-03-01',
                 summary: 'An exploration of the heightened fraud and security risks for SMBs due to the rise of remote work. It focuses on payment fraud, business email compromise (BEC), and actionable strategies for defense in a decentralized work environment.',
-                tags: ['SMB', 'Fraud Prevention/Detection', 'Digital Security', 'B2B'],
+                tags: ['SMB', 'Fraud Prevention/Detection', 'Cybersecurity', 'B2B'],
             },
             {
                 id: 'b2b-e-commerce-marketplaces-report-mar-2021',
@@ -217,7 +217,7 @@ const articles = [
                 date: '2019-07-18',
                 summary: 'This outline Mastercard\'s cutting-edge methods for fighting fraud——ditching passwords-only security in favor of real-time, layered authentication. It weaves together biometrics, device fingerprinting, behavioral profiling, location, and machine learning across the entire user journey. This lets companies flag fraudulent activity pre-transaction, minimize friction through smarter risk scoring, and reduce false positives while stopping fraud before it begins.',
                 article_url: 'https://www.paymentsjournal.com/connected-intelligence-a-holistic-approach-to-fighting-fraud/',
-                tags: ['Fraud Prevention/Detection', 'Artificial Intelligence', 'Digital Security', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Artificial Intelligence', 'Cybersecurity', 'Emerging Technology'],
             },
             {
                 id: 'understanding-synthetic-identity-fraud-aug-2019',
@@ -228,7 +228,7 @@ const articles = [
                 date: '2019-08-01',
                 summary: 'Explains how fraudsters create synthetic identities by combining real and fake information to defraud banks and lenders, and explores the technologies and strategies companies can use to detect and prevent this type of fraud.',
                 article_url: 'https://www.paymentsjournal.com/understanding-and-stopping-synthetic-identity-fraud/',
-                tags: ['Fraud Prevention/Detection', 'Digital Security', 'Artificial Intelligence', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Cybersecurity', 'Artificial Intelligence', 'Emerging Technology'],
             },
             {
                 id: '3-payments-trends-dec-2019',
@@ -250,7 +250,7 @@ const articles = [
                 date: '2019-01-15',
                 summary: 'Details the anatomy of account takeover attacks, from automated credential stuffing to sophisticated methods that mimic human behavior. It explains how fraudsters leverage stolen data from breaches to seize control of user accounts for financial gain, and outlines the importance of multi-layered security solutions that analyze user behavior to differentiate legitimate customers from criminals.',
                 article_url: 'https://www.paymentsjournal.com/the-architecture-of-an-attack-nudata-breaks-down-account-takeover-attacks/',
-                tags: ['Fraud Prevention/Detection', 'Emerging Technology', 'Artificial Intelligence', 'Digital Security'],
+                tags: ['Fraud Prevention/Detection', 'Emerging Technology', 'Artificial Intelligence', 'Cybersecurity'],
             },
             {
                 id: 'bnpl-regulation-is-coming-slowly-april-2023',
@@ -272,7 +272,7 @@ const articles = [
                 date: '2023-04-01',
                 summary: 'Analyzes the shifting regulatory landscape for credit unions in the wake of recent banking instability. It covers the potential impacts of new rules from the NCUA and CFPB, the looming threat of interchange fee caps, and the need for CUs to proactively engage with legislators while strengthening member-focused services to stay competitive.',
                 article_url: '',
-                tags: ['Credit Unions', 'Regulation', 'Financial Services'],
+                tags: ['Credit Unions', 'Rules & Regulations', 'Financial Services'],
             },
             {
                 id: 'baas-fis-win-customers-march-2023',
@@ -283,7 +283,7 @@ const articles = [
                 date: '2023-03-01',
                 summary: 'Examines how Banking as a Service (BaaS) is becoming a critical tool for financial institutions to expand their reach and attract new customers. By partnering with non-bank brands, FIs can embed financial products into third-party platforms, offering everything from payment processing to lending services that meet consumers where they are.',
                 article_url: '',
-                tags: ['BaaS', 'Embedded Finance', 'Financial Services'],
+                tags: [ 'Embedded Finance & BaaS', 'FinTech', 'Mobile Banking', 'Financial Services', 'Emerging Technology'],
             },
             {
                 id: 'improving-campus-payments-experience-nov-2022',
