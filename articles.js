@@ -230,4 +230,15 @@ const articles = [
                 article_url: 'https://www.paymentsjournal.com/understanding-and-stopping-synthetic-identity-fraud/',
                 tags: ['Fraud Prevention/Detection', 'Digital Security', 'Artificial Intelligence', 'Emerging Technology'],
             },
+            {
+                id: '3-payments-trends-dec-2019',
+                title: '3 Payments Trends to Keep Track of in 2020',
+                publication: 'PaymentsJournal',
+                employer: 'PaymentsJournal',
+                genre: 'News & Analysis',
+                date: '2019-12-31',
+                summary: 'Explains how fraudsters create synthetic identities by combining real and fake information to defraud banks and lenders, and explores the technologies and strategies companies can use to detect and prevent this type of fraud.',
+                article_url: 'https://www.paymentsjournal.com/3-payments-trends-to-keep-track-of-in-2020/',
+                tags: ['Retail', 'Fraud Prevention/Detection', 'Emerging Technology'],
+            },
         ];
