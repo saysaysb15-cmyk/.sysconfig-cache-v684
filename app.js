@@ -269,6 +269,7 @@
             const modalContent = modal.querySelector('.modal-content');
             modal.classList.remove('opacity-0', 'pointer-events-none');
             modalContent.classList.remove('scale-95');
+            document.body.classList.add('overflow-hidden');
         }
 
         function closeModal(modalId) {
@@ -278,6 +279,7 @@
             modal.classList.add('opacity-0');
             modalContent.classList.add('scale-95');
             setTimeout(() => modal.classList.add('pointer-events-none'), 250);
+            document.body.classList.remove('overflow-hidden');
 
             if (modalId === 'pdf-modal') {
                 const pdfViewer = document.getElementById('pdf-viewer');
@@ -527,6 +529,15 @@
                     }
                 });
             });
+
+            // --- Add listeners for modal buttons that used onclick ---
+            document.getElementById('open-colophon-btn').addEventListener('click', () => openModal('colophon-modal'));
+            document.getElementById('close-colophon-btn').addEventListener('click', () => closeModal('colophon-modal'));
+            document.getElementById('close-pdf-btn').addEventListener('click', () => closeModal('pdf-modal'));
+
+            // --- Dynamic Copyright Year ---
+            const copyrightYear = document.getElementById('copyright-year');
+            if (copyrightYear) copyrightYear.textContent = new Date().getFullYear();
 
             })(); // End of IIFE
         });
