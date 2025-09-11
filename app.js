@@ -530,5 +530,14 @@
                 });
             });
 
+            // --- Add listeners for modal buttons that used onclick ---
+            document.getElementById('open-colophon-btn').addEventListener('click', () => openModal('colophon-modal'));
+            document.getElementById('close-colophon-btn').addEventListener('click', () => closeModal('colophon-modal'));
+            document.getElementById('close-pdf-btn').addEventListener('click', () => closeModal('pdf-modal'));
+
+            // --- Dynamic Copyright Year ---
+            const copyrightYear = document.getElementById('copyright-year');
+            if (copyrightYear) copyrightYear.textContent = new Date().getFullYear();
+
             })(); // End of IIFE
         });
