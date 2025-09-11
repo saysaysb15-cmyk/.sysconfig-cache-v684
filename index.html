@@ -86,9 +86,9 @@
                     <!-- Filter Panel (Initially Hidden) -->
                     <div id="filter-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-0 pointer-events-none transition-opacity duration-300"></div>
                     <div id="filter-panel" class="absolute w-full mt-4 bg-white rounded-xl shadow-2xl p-6 z-50 transform transition-all duration-300 origin-top opacity-0 scale-95 pointer-events-none left-1/2 -translate-x-1/2 max-w-4xl">
-                        <div class="flex flex-col space-y-6">
+                        <div>
                             <!-- Genre Filters -->
-                            <div>
+                            <div class="pb-4">
                                 <div class="flex justify-between items-center mb-3">
                                     <h4 class="text-lg font-semibold text-gray-700">By Genre</h4>
                                     <button id="clear-genre-filter" class="text-sm text-gray-500 hover:text-gray-700 underline">Clear</button>
@@ -97,9 +97,9 @@
                                     <!-- Genre filter buttons will be dynamically inserted here -->
                                 </div>
                             </div>
-                            <hr class="my-6 border-gray-200">
+                            <hr class="border-gray-300">
                             <!-- Topic Filters -->
-                            <div>
+                            <div class="pt-4">
                                 <div class="flex justify-between items-center mb-3">
                                     <h4 class="text-lg font-semibold text-gray-700">By Topic</h4>
                                     <button id="clear-topic-filter" class="text-sm text-gray-500 hover:text-gray-700 underline">Clear</button>
@@ -126,7 +126,7 @@
                 </div>
 
                 <div id="research-warning" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-8 rounded-md shadow-md">
-                    <p class="font-bold">Authorial Note:</p>
+                    <p class="font-bold">Please Note:</p>
                     <p>Mercator was acquired by Escalent (the parent company of Javelin) after I left. And although senior analysts are credited, I was the sole author of these reports (effectively ghostwriting on their behalf). Full versions are behind a paywall. 'Read More' takes you to a PDF of the public landing page. To view the official landing pages, please visit the links below:</p>
                     <ul class="list-disc list-inside mt-2">
                         <li><a href="https://javelinstrategy.com/research/2021-credit-card-data-book-part-one-internal-dynamics" target="_blank" class="underline">Credit Report</a></li>

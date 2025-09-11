@@ -8,7 +8,7 @@ const articles = [
                 date: '2019-08-13',
                 summary: "Explains how Application Programming Interfaces (APIs) are driving the banking industry's shift to digital-first models. It covers how APIs enable open banking, foster innovation through collaboration between banks and FinTechs, and streamline payments and other banking operations.",
                 article_url: 'https://www.paymentsjournal.com/what-are-apis-and-how-are-they-changing-banking/',
-                tags: ['APIs', 'Mobile Banking', 'Emerging Technology'],
+                tags: ['Digital Payments', 'Customer Experience', 'Payments Innovation','Mobile Banking', 'Emerging Technology'],
             },
             {
                 id: 'visa-mastercard-dispute-explainer-nov-2019',
@@ -41,7 +41,7 @@ const articles = [
                 date: '2019-06-17',
                 summary: "Explains how Visa’s AI-powered system, Visa Advanced Authorization (VAA), reviews every transaction on VisaNet in about one millisecond—analyzing over 500 risk signals to differentiate fraud from good behavior. This ultra-fast risk scoring helps issuers stop roughly $25 billion in fraud annually without slowing down customers or triggering false declines..",
                 article_url: 'https://www.paymentsjournal.com/using-artificial-intelligence-visa-is-combatting-fraud-at-nearly-the-speed-of-light/',
-                tags: ['Fraud Prevention/Detection', 'Artificial Intelligence', 'Digital Security', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Artificial Intelligence', 'Cybersecurity', 'Emerging Technology'],
             },
 
             {
@@ -63,7 +63,7 @@ const articles = [
                 date: '2019-10-02',
                 summary: 'Explores the critical need for robust account verification in the era of real-time payments. It covers various methods, from traditional pre-notification and trial deposits to advanced multi-layered identity verification solutions, to help merchants prevent fraud and costly errors.',
                 article_url: 'https://www.paymentsjournal.com/verifying-account-identity-in-the-age-of-real-time-payments/',
-                tags: ['Fraud Prevention/Detection', 'Digital Security', 'Artificial Intelligence', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Cybersecurity', 'Artificial Intelligence', 'Emerging Technology'],
             },
             {
                 id: 'fintech-bank-collaboration-jun-2023',
@@ -102,7 +102,7 @@ const articles = [
                 employer: 'PYMNTS',
                 genre: 'Advertorials',
                 date: '2023-06-01',
-                summary: 'Details how restaurants are increasingly adopting automation, digital payment systems, and other technologies to combat the dual pressures of rising inflation and persistent labor shortages, fundamentally changing their operational models.',
+                summary: 'Investigates how soaring inflation and labor shortages are forcing restaurants to accelerate their adoption of technology. From AI-powered drive-thrus and robotic automation to digital ordering and personalized loyalty programs, technology is no longer a luxury but a critical tool for survival and growth in a challenging economic climate.',
                 tags: ['Industry-Specific Payment Solutions', 'Digital Payments', 'Emerging Technology'],
             },
             {
@@ -134,7 +134,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-03-01',
                 summary: 'An exploration of the heightened fraud and security risks for SMBs due to the rise of remote work. It focuses on payment fraud, business email compromise (BEC), and actionable strategies for defense in a decentralized work environment.',
-                tags: ['SMB', 'Fraud Prevention/Detection', 'Digital Security', 'B2B'],
+                tags: ['SMB', 'Fraud Prevention/Detection', 'Cybersecurity', 'B2B'],
             },
             {
                 id: 'b2b-e-commerce-marketplaces-report-mar-2021',
@@ -217,7 +217,7 @@ const articles = [
                 date: '2019-07-18',
                 summary: 'This outline Mastercard\'s cutting-edge methods for fighting fraud——ditching passwords-only security in favor of real-time, layered authentication. It weaves together biometrics, device fingerprinting, behavioral profiling, location, and machine learning across the entire user journey. This lets companies flag fraudulent activity pre-transaction, minimize friction through smarter risk scoring, and reduce false positives while stopping fraud before it begins.',
                 article_url: 'https://www.paymentsjournal.com/connected-intelligence-a-holistic-approach-to-fighting-fraud/',
-                tags: ['Fraud Prevention/Detection', 'Artificial Intelligence', 'Digital Security', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Artificial Intelligence', 'Cybersecurity', 'Emerging Technology'],
             },
             {
                 id: 'understanding-synthetic-identity-fraud-aug-2019',
@@ -228,7 +228,7 @@ const articles = [
                 date: '2019-08-01',
                 summary: 'Explains how fraudsters create synthetic identities by combining real and fake information to defraud banks and lenders, and explores the technologies and strategies companies can use to detect and prevent this type of fraud.',
                 article_url: 'https://www.paymentsjournal.com/understanding-and-stopping-synthetic-identity-fraud/',
-                tags: ['Fraud Prevention/Detection', 'Digital Security', 'Artificial Intelligence', 'Emerging Technology'],
+                tags: ['Fraud Prevention/Detection', 'Cybersecurity', 'Artificial Intelligence', 'Emerging Technology'],
             },
             {
                 id: '3-payments-trends-dec-2019',
@@ -250,7 +250,7 @@ const articles = [
                 date: '2019-01-15',
                 summary: 'Details the anatomy of account takeover attacks, from automated credential stuffing to sophisticated methods that mimic human behavior. It explains how fraudsters leverage stolen data from breaches to seize control of user accounts for financial gain, and outlines the importance of multi-layered security solutions that analyze user behavior to differentiate legitimate customers from criminals.',
                 article_url: 'https://www.paymentsjournal.com/the-architecture-of-an-attack-nudata-breaks-down-account-takeover-attacks/',
-                tags: ['Fraud Prevention/Detection', 'Emerging Technology', 'Artificial Intelligence', 'Digital Security'],
+                tags: ['Fraud Prevention/Detection', 'Emerging Technology', 'Artificial Intelligence', 'Cybersecurity'],
             },
             {
                 id: 'bnpl-regulation-is-coming-slowly-april-2023',
@@ -261,7 +261,7 @@ const articles = [
                 date: '2023-04-01',
                 summary: 'Explores the growing scrutiny of the Buy Now, Pay Later (BNPL) industry by regulators worldwide. As BNPL use explodes, concerns are rising around consumer debt, overspending, and data privacy, prompting governments in the U.S., U.K., and Australia to consider new rules that would bring BNPL offerings more in line with traditional credit products.',
                 article_url: '',
-                tags: ['BNPL', 'Regulation', 'FinTech'],
+                tags: ['Traditional & Alternative Credit', 'Rules & Regulations', 'FinTech'],
             },
             {
                 id: 'changing-regulatory-landscape-credit-unions-april-2023',
@@ -272,7 +272,7 @@ const articles = [
                 date: '2023-04-01',
                 summary: 'Analyzes the shifting regulatory landscape for credit unions in the wake of recent banking instability. It covers the potential impacts of new rules from the NCUA and CFPB, the looming threat of interchange fee caps, and the need for CUs to proactively engage with legislators while strengthening member-focused services to stay competitive.',
                 article_url: '',
-                tags: ['Credit Unions', 'Regulation', 'Financial Services'],
+                tags: ['Credit Unions', 'Rules & Regulations', 'Financial Services'],
             },
             {
                 id: 'baas-fis-win-customers-march-2023',
@@ -283,7 +283,7 @@ const articles = [
                 date: '2023-03-01',
                 summary: 'Examines how Banking as a Service (BaaS) is becoming a critical tool for financial institutions to expand their reach and attract new customers. By partnering with non-bank brands, FIs can embed financial products into third-party platforms, offering everything from payment processing to lending services that meet consumers where they are.',
                 article_url: '',
-                tags: ['BaaS', 'Embedded Finance', 'Financial Services'],
+                tags: [ 'Embedded Finance & BaaS', 'FinTech', 'Mobile Banking', 'Financial Services', 'Emerging Technology'],
             },
             {
                 id: 'improving-campus-payments-experience-nov-2022',
@@ -292,20 +292,9 @@ const articles = [
                 employer: 'PYMNTS',
                 genre: 'Advertorials',
                 date: '2022-11-01',
-                summary: 'Details the challenges and opportunities in modernizing campus payment systems. With students expecting seamless, mobile-first experiences, universities are moving away from legacy systems and adopting unified platforms that can handle everything from tuition and dining to event tickets and laundry, often going cashless to improve efficiency and security.',
+                summary: 'Details the challenges and opportunities in modernizing campus payment systems. With students expecting seamlss, mobile-first experiences, universities are moving away from legacy systems and adopting unified platforms that can handle everything from tuition and dining to event tickets and laundry, often going cashless to improve efficiency and security.',
                 article_url: '',
-                tags: ['Payments', 'Higher Education', 'B2B'],
-            },
-            {
-                id: 'inflation-technology-restaurants-june-2023',
-                title: 'Inflation Puts Technology on the Menu for Restaurants',
-                publication: 'PYMNTS B2B and Digital Payments Tracker',
-                employer: 'PYMNTS',
-                genre: 'Advertorials',
-                date: '2023-06-01',
-                summary: 'Investigates how soaring inflation and labor shortages are forcing restaurants to accelerate their adoption of technology. From AI-powered drive-thrus and robotic automation to digital ordering and personalized loyalty programs, technology is no longer a luxury but a critical tool for survival and growth in a challenging economic climate.',
-                article_url: '',
-                tags: ['Restaurants', 'Technology', 'Inflation'],
+                tags: ['Emerging Technology', 'Industry-Specific Payment Solutions', 'Digital Payments', 'Customer Experience'],
             },
             {
                 id: 'minimizing-subscription-churn-nov-2022',
@@ -316,7 +305,7 @@ const articles = [
                 date: '2022-11-01',
                 summary: 'Focuses on the strategies subscription-based businesses can use to reduce customer churn in an increasingly competitive market. It highlights the importance of a frictionless customer experience, from easy billing and payment options to personalized content and the ability to pause subscriptions, as key to retaining subscribers.',
                 article_url: '',
-                tags: ['Subscription Commerce', 'Customer Experience', 'Churn'],
+                tags: ['Industry-Specific Payment Solutions', 'Digital Payments', 'Customer Experience'],
             },
             {
                 id: 'money-mobility-property-managers-feb-2023',
@@ -327,7 +316,7 @@ const articles = [
                 date: '2023-02-01',
                 summary: 'Explores how digital payment solutions are helping property managers navigate a difficult economic environment. With rising rents and increasing competition, online platforms that streamline rent collection, vendor payments, and security deposit refunds are essential for improving operational efficiency and tenant satisfaction.',
                 article_url: '',
-                tags: ['Money Mobility', 'Property Management', 'Real Estate'],
+                tags: ['Digital Payments', 'FinTech', 'Customer Experience', 'Industry-Specific Payment Solutions'],
             },
             {
                 id: 'money-mobility-insurance-industry-jan-2023',
@@ -337,8 +326,7 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-01-01',
                 summary: 'Analyzes the insurance industry\'s slow but steady adoption of digital payment solutions. As consumer demand for faster, more convenient claims processing grows, insurers are leveraging money mobility to speed up disbursements, reduce fraud, and improve the overall customer experience in a competitive market.',
-                article_url: '',
-                tags: ['Money Mobility', 'Insurance', 'FinTech'],
+                tags: ['Industry-Specific Payment Solutions', 'Digital Payments', 'FinTech'],
             },
             {
                 id: 'stopping-bank-fraud-cybersecurity-june-2023',
@@ -349,7 +337,7 @@ const articles = [
                 date: '2023-06-01',
                 summary: 'Outlines the growing threat of bank fraud and the cybersecurity solutions financial institutions are using to combat it. With fraud losses mounting, banks are increasingly turning to advanced technologies like AI, machine learning, and biometric authentication to protect their customers and themselves from sophisticated cyberattacks.',
                 article_url: '',
-                tags: ['Bank Fraud', 'Cybersecurity', 'Digital Banking'],
+                tags: ['Fraud Prevention/Detection', 'Cybersecurity', 'Mobile Banking'],
             },
             {
                 id: 'core-modernization-cloud-migration-banks-oct-2022',
@@ -360,6 +348,6 @@ const articles = [
                 date: '2022-10-01',
                 summary: 'Explains why modernizing legacy core banking systems is critical for financial institutions to compete in the digital age. By migrating to the cloud, banks can enable embedded finance solutions, improve operational efficiency, and offer the seamless, personalized experiences that customers now expect. The article also discusses the challenges of cloud migration and the importance of choosing the right partner for a successful transition.',
                 article_url: '',
-                tags: ['Core Modernization', 'Cloud Migration', 'Banking'],
+                tags: ['Emerging Technology', 'Banks & Traditional FIs', 'Embedded Finance & BaaS','Payments Innovation'],
             },
         ];

@@ -64,7 +64,7 @@
             padding-bottom: 0.75rem;
             border-radius: 9999px; /* rounded-full */
             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
-            border: 1px solid #e5e7eb; /* border-gray-200 */
+            border: 1px solid #111827; /* border-gray-900 */
             transition: all 0.2s ease-in-out;
         }
         #portfolio-grid {
