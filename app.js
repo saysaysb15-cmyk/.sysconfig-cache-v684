@@ -391,7 +391,6 @@
             const allTags = articles.flatMap(a => a.tags);
             const allGenres = articles.map(a => a.genre);
             
-            // Special 'Fraud & Security' filter
             const uniqueTags = [...new Set(allTags)];
             renderFilterButtons(tagFiltersContainer, uniqueTags);
             renderFilterButtons(genreFiltersContainer, allGenres);
