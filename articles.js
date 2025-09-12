@@ -9,6 +9,7 @@ const articles = [
                 summary: "Explains how Application Programming Interfaces (APIs) are driving the banking industry's shift to digital-first models. It covers how APIs enable open banking, foster innovation through collaboration between banks and FinTechs, and streamline payments and other banking operations.",
                 article_url: 'https://www.paymentsjournal.com/what-are-apis-and-how-are-they-changing-banking/',
                 tags: ['Digital Payments', 'Customer Experience', 'Payments Innovation','Mobile Banking', 'Emerging Technology'],
+                featured: true,
             },
             {
                 id: 'visa-mastercard-dispute-explainer-nov-2019',
@@ -20,6 +21,7 @@ const articles = [
                 summary: 'An overview of Visa and Mastercard’s dispute resolution changes, including Visa Claims Resolution (VCR) and Mastercard Dispute Resolution Initiative (MDRI), and their impact on merchants and consumers.',
                 article_url: 'https://www.paymentsjournal.com/visa-and-mastercard-changed-their-dispute-resolution-process-heres-what-you-need-to-know/',
                 tags: ['Rules & Regulations', 'Credit Cards'],
+                featured: true,
             },
             {
                 id: 'fed-real-time-payment-announcement-news-aug-2019',
@@ -53,6 +55,7 @@ const articles = [
                 date: '2023-03-01',
                 summary: 'An analysis of the significant shift in the FinTech landscape, where economic headwinds and market corrections are forcing companies, especially in the BNPL sector, to move beyond growth-at-all-costs and focus intensely on achieving sustainable profitability.',
                 tags: ['FinTech', 'Traditional & Alternative Credit'],
+                featured: true,
             },
             {
                 id: 'verify-account-identity-nov-2019',
@@ -84,6 +87,7 @@ const articles = [
                 date: '2021-03-30',
                 summary: 'This report provides a comprehensive, data-driven look the pandemic\'s impact on the credit industry for companies subscribed to Mercator\'s credit practice. It examines trends around credit card profitability, consumer interest in credit, and lender attitudes on credit policy.',
                 tags: ['Credit Cards', 'Traditional & Alternative Credit', 'Banks & Traditional FIs', 'Consumer Behavior'],
+                featured: true,
             },
             {
                 id: 'fintech-lending-access-may-2023',
@@ -135,6 +139,7 @@ const articles = [
                 date: '2023-03-01',
                 summary: 'An exploration of the heightened fraud and security risks for SMBs due to the rise of remote work. It focuses on payment fraud, business email compromise (BEC), and actionable strategies for defense in a decentralized work environment.',
                 tags: ['SMB', 'Fraud Prevention/Detection', 'Cybersecurity', 'B2B'],
+                featured: true,
             },
             {
                 id: 'b2b-e-commerce-marketplaces-report-mar-2021',
@@ -196,6 +201,7 @@ const articles = [
                 summary: 'Explores how Apple’s launch of the Apple Card—with its slick app, seamless onboarding, no fees, and ecosystem-driven rewards—is pushing traditional card issuers to rethink their strategies by focusing squarely on superior customer experience and digital-first design.',
                 article_url: 'https://www.paymentsjournal.com/hey-issuers-big-tech-is-coming-heres-how-to-compete/',
                 tags: ['FinTech', 'Mobile Banking', 'Consumer Behavior', 'Payments Innovation'],
+                featured: true,
             },
             {
                 id: 'improving-customer-experience-oct-2019',

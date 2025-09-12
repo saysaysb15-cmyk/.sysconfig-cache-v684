@@ -4,6 +4,33 @@
         const PDF_DIR = `${ASSET_BASE}/pdfs`;
         const IMG_DIR = `${ASSET_BASE}/images`;
 
+        // --- Curation Data: Map company keywords to specific article IDs for a curated view ---
+        const companyCurationMapping = [
+            { 
+                keywords: ['visa', 'mastercard', 'amex', 'american express', 'discover'], 
+                articleIds: [
+                    'visa-mastercard-dispute-explainer-nov-2019',
+                    'visa-combatting-fraud-news-jun-2019',
+                    'credit-book-report-mercator-research-mar-2021',
+                    'big-tech-is-coming-dec-2019',
+                    'connected-intelligence-fighting-fraud-july-2019',
+                    'api-banking-overview-aug-2019'
+                ] 
+            },
+            { 
+                keywords: ['fintech', 'startup', 'stripe', 'paypal', 'block', 'square'], 
+                articleIds: [
+                    'fintech-bubble-profitability-mar-2023',
+                    'fintech-bank-collaboration-jun-2023',
+                    'fintech-lending-access-may-2023',
+                    'nonfinancial-brands-embedded-finance-april-2023',
+                    'baas-fis-win-customers-march-2023',
+                    'big-tech-is-coming-dec-2019'
+                ]
+            },
+            { keywords: ['fraud', 'security', 'forter', 'nudata'], articleIds: ['smb-fraud-threats-remote-work-mar-2023', 'cyber-attack-architecture-nudata-jan-2020', 'understanding-synthetic-identity-fraud-aug-2019', 'connected-intelligence-fighting-fraud-july-2019', 'visa-combatting-fraud-news-jun-2019', 'stopping-bank-fraud-cybersecurity-june-2023'] }
+        ];
+
         // --- APPLICATION LOGIC ---
         
         // DOM Elements
@@ -23,6 +50,7 @@
         const applyBtnContainer = document.getElementById('apply-btn-container');
         const applyFiltersBtn = document.getElementById('apply-filters-btn');
 
+
         // State
         const ARTICLES_PER_PAGE = 6;
         let activeTopicFilters = [];
@@ -31,6 +59,7 @@
         let tempGenreFilter = 'All';
         let currentArticles = [];
         let articlesToShow = ARTICLES_PER_PAGE;
+        let curatedArticleIds = [];
         let cardObserver;
 
         // Function to render article cards to the DOM
@@ -153,6 +182,7 @@
         function applyFiltersAndRender(withTransition = false) {
             const updateContent = () => {
                 let filteredArticles = [...articles];
+                const isDefaultView = activeTopicFilters.length === 0 && activeGenreFilter === 'All';
 
                 // Apply Topic filters (multi-select)
                 if (activeTopicFilters.length > 0) {
@@ -166,14 +196,35 @@
                     filteredArticles = filteredArticles.filter(a => a.genre === activeGenreFilter);
                 }
 
-                currentArticles = filteredArticles.sort((a, b) => new Date(b.date + 'T00:00:00') - new Date(a.date + 'T00:00:00'));
-                articlesToShow = ARTICLES_PER_PAGE; // Reset pagination
-                
-                if (activeTopicFilters.length === 0 && activeGenreFilter === 'All') {
-                    portfolioHeading.textContent = "All Work";
+                if (isDefaultView) { // No filters are active
+                    if (curatedArticleIds.length > 0) {
+                        // 1. Custom curation sort based on company name
+                        filteredArticles.sort((a, b) => {
+                            const isACurated = curatedArticleIds.includes(a.id);
+                            const isBCurated = curatedArticleIds.includes(b.id);
+
+                            if (isACurated && !isBCurated) return -1; // a comes first
+                            if (!isACurated && isBCurated) return 1;  // b comes first
+
+                            // If both are curated or both are not, sort by date
+                            return new Date(b.date + 'T00:00:00') - new Date(a.date + 'T00:00:00');
+                        });
+                        // Heading is set by curateArticlesByCompany()
+                    } else {
+                        // 2. Default featured sort
+                        filteredArticles.sort((a, b) => {
+                            const featuredSort = (b.featured === true) - (a.featured === true);
+                            if (featuredSort !== 0) return featuredSort;
+                            return new Date(b.date + 'T00:00:00') - new Date(a.date + 'T00:00:00'); // Fallback to date sort
+                        });
+                        portfolioHeading.textContent = "Featured Work";
+                    }
                 } else {
+                    filteredArticles.sort((a, b) => new Date(b.date + 'T00:00:00') - new Date(a.date + 'T00:00:00'));
                     portfolioHeading.textContent = "Filtered Results";
                 }
+                currentArticles = filteredArticles;
+                articlesToShow = ARTICLES_PER_PAGE; // Reset pagination
                 
                 renderArticles();
                 updateURLWithFilters();
@@ -197,6 +248,27 @@
                 setTimeout(updateContent, 200);
             } else {
                 updateContent();
+            }
+        }
+
+        // --- Curation Logic ---
+        function getCuratedIdsForCompany(companyName) {
+            if (!companyName) return [];
+            const lowerCaseName = companyName.toLowerCase();
+            for (const mapping of companyCurationMapping) {
+                if (mapping.keywords.some(keyword => lowerCaseName.includes(keyword))) {
+                    return mapping.articleIds;
+                }
+            }
+            return [];
+        }
+
+        function curateArticlesByCompany(companyName) {
+            curatedArticleIds = getCuratedIdsForCompany(companyName);
+            if (curatedArticleIds.length > 0) {
+                // Sanitize company name for display
+                const displayCompany = companyName.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                portfolioHeading.textContent = `Work Curated for ${displayCompany}`;
             }
         }
 
@@ -324,10 +396,7 @@
             renderFilterButtons(tagFiltersContainer, uniqueTags);
             renderFilterButtons(genreFiltersContainer, allGenres);
 
-            applyFiltersFromURL(); // Read from URL first to set initial state
-            applyFiltersAndRender();
-            
-            // --- New Filter Panel Logic ---
+            // --- Filter Panel & Event Listeners ---
             const filterToggleBtn = document.getElementById('filter-toggle-btn');
             const filterPanel = document.getElementById('filter-panel');
             const filterChevron = document.getElementById('filter-chevron');
@@ -443,6 +512,43 @@
 
             seeMoreBtn.addEventListener('click', handleSeeMore);
             seeLessBtn.addEventListener('click', handleSeeLess);
+
+            // --- Welcome Modal & Initial Render Logic ---
+            const welcomeModal = document.getElementById('welcome-modal');
+            const companyInput = document.getElementById('company-name-input');
+            const submitCompanyBtn = document.getElementById('submit-company-btn');
+            const skipCompanyBtn = document.getElementById('skip-company-btn');
+
+            const handleCompanySubmit = () => {
+                const companyName = companyInput.value.trim();
+                sessionStorage.setItem('welcomeModalSeen', 'true');
+                closeModal('welcome-modal');
+                
+                if (companyName) {
+                    curateArticlesByCompany(companyName);
+                    applyFiltersAndRender(true); // Re-render with curation and transition
+                }
+            };
+
+            submitCompanyBtn.addEventListener('click', handleCompanySubmit);
+            companyInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleCompanySubmit();
+                }
+            });
+            skipCompanyBtn.addEventListener('click', () => {
+                sessionStorage.setItem('welcomeModalSeen', 'true');
+                closeModal('welcome-modal');
+            });
+
+            applyFiltersFromURL(); // Read from URL to set initial filter state
+
+            // Initial Render: Show modal only on first visit without any URL filters
+            if (!sessionStorage.getItem('welcomeModalSeen') && !window.location.search) {
+                openModal('welcome-modal');
+            }
+            applyFiltersAndRender(); // Always render the page
             
             // --- Sticky Header Indicator Logic ---
             const stickyFilterBar = document.querySelector('.sticky');
@@ -519,6 +625,7 @@
                 if (e.key === 'Escape') {
                     closeModal('colophon-modal');
                     closeModal('pdf-modal');
+                    closeModal('welcome-modal');
                 }
             });
 
