@@ -1,92 +1,119 @@
-// --- DATA: The heart of the portfolio ---
+document.addEventListener('DOMContentLoaded', () => {
+    const App = {
+        // --- CONFIGURATION ---
+        config: {
+            ARTICLES_PER_PAGE: 6,
+            ASSET_BASE: "assets",
+            get PDF_DIR() { return `${this.ASSET_BASE}/pdfs`; },
+            get IMG_DIR() { return `${this.ASSET_BASE}/images`; },
+            companyCurationMapping: [
+                 { 
+                    keywords: ['visa', 'mastercard', 'amex', 'american express', 'discover'], 
+                    articleIds: [
+                        'visa-mastercard-dispute-explainer-nov-2019',
+                        'visa-combatting-fraud-news-jun-2019',
+                        'credit-book-report-mercator-research-mar-2021',
+                        'big-tech-is-coming-dec-2019',
+                        'connected-intelligence-fighting-fraud-july-2019',
+                        'api-banking-overview-aug-2019'
+                    ] 
+                },
+                { 
+                    keywords: ['fintech', 'startup', 'stripe', 'paypal', 'block', 'square'], 
+                    articleIds: [
+                        'fintech-bubble-profitability-mar-2023',
+                        'fintech-bank-collaboration-jun-2023',
+                        'fintech-lending-access-may-2023',
+                        'nonfinancial-brands-embedded-finance-april-2023',
+                        'baas-fis-win-customers-march-2023',
+                        'big-tech-is-coming-dec-2019'
+                    ]
+                },
+                { keywords: ['fraud', 'security', 'forter', 'nudata'], articleIds: ['smb-fraud-threats-remote-work-mar-2023', 'cyber-attack-architecture-nudata-jan-2020', 'understanding-synthetic-identity-fraud-aug-2019', 'connected-intelligence-fighting-fraud-july-2019', 'visa-combatting-fraud-news-jun-2019', 'stopping-bank-fraud-cybersecurity-june-2023'] }
+            ]
+        },
 
-        const ASSET_BASE = "assets";
-        const PDF_DIR = `${ASSET_BASE}/pdfs`;
-        const IMG_DIR = `${ASSET_BASE}/images`;
+        // --- STATE ---
+        state: {
+            activeTopicFilters: [],
+            activeGenreFilter: 'All',
+            tempTopicFilters: [],
+            tempGenreFilter: 'All',
+            currentArticles: [],
+            articlesToShow: 0,
+            curatedArticleIds: [],
+            cardObserver: null,
+        },
 
-        // --- Curation Data: Map company keywords to specific article IDs for a curated view ---
-        const companyCurationMapping = [
-            { 
-                keywords: ['visa', 'mastercard', 'amex', 'american express', 'discover'], 
-                articleIds: [
-                    'visa-mastercard-dispute-explainer-nov-2019',
-                    'visa-combatting-fraud-news-jun-2019',
-                    'credit-book-report-mercator-research-mar-2021',
-                    'big-tech-is-coming-dec-2019',
-                    'connected-intelligence-fighting-fraud-july-2019',
-                    'api-banking-overview-aug-2019'
-                ] 
-            },
-            { 
-                keywords: ['fintech', 'startup', 'stripe', 'paypal', 'block', 'square'], 
-                articleIds: [
-                    'fintech-bubble-profitability-mar-2023',
-                    'fintech-bank-collaboration-jun-2023',
-                    'fintech-lending-access-may-2023',
-                    'nonfinancial-brands-embedded-finance-april-2023',
-                    'baas-fis-win-customers-march-2023',
-                    'big-tech-is-coming-dec-2019'
-                ]
-            },
-            { keywords: ['fraud', 'security', 'forter', 'nudata'], articleIds: ['smb-fraud-threats-remote-work-mar-2023', 'cyber-attack-architecture-nudata-jan-2020', 'understanding-synthetic-identity-fraud-aug-2019', 'connected-intelligence-fighting-fraud-july-2019', 'visa-combatting-fraud-news-jun-2019', 'stopping-bank-fraud-cybersecurity-june-2023'] }
-        ];
+        // --- DOM ELEMENTS ---
+        dom: {},
 
-        // --- APPLICATION LOGIC ---
-        
-        // DOM Elements
-        const portfolioGrid = document.getElementById('portfolio-grid');
-        const tagFiltersContainer = document.getElementById('tag-filters');
-        const genreFiltersContainer = document.getElementById('genre-filters');
-        const clearAllFiltersBtn = document.getElementById('clear-all-filters-btn');
-        const clearTopicFilterBtn = document.getElementById('clear-topic-filter');
-        const clearGenreFilterBtn = document.getElementById('clear-genre-filter');
-        const portfolioHeading = document.getElementById('portfolio-heading');
-        const noResultsMessage = document.getElementById('no-results');
-        const seeMoreBtn = document.getElementById('see-more-btn');
-        const seeLessBtn = document.getElementById('see-less-btn');
-        const paginationControls = document.getElementById('pagination-controls');
-        const activeFiltersContainer = document.getElementById('active-filters-container');
-        const clearActiveFiltersBtn = document.getElementById('clear-active-filters-btn');
-        const applyBtnContainer = document.getElementById('apply-btn-container');
-        const applyFiltersBtn = document.getElementById('apply-filters-btn');
+        // --- INITIALIZATION ---
+        init() {
+            this.state.articlesToShow = this.config.ARTICLES_PER_PAGE;
+            this.cacheDom();
+            this.initStateFromURL();
+            this.initCardObserver();
+            this.bindEvents();
+            this.renderFilterButtons();
+            this.applyFiltersAndRender();
+        },
 
+        cacheDom() {
+            this.dom.portfolioGrid = document.getElementById('portfolio-grid');
+            this.dom.tagFiltersContainer = document.getElementById('tag-filters');
+            this.dom.genreFiltersContainer = document.getElementById('genre-filters');
+            this.dom.clearAllFiltersBtn = document.getElementById('clear-all-filters-btn');
+            this.dom.clearTopicFilterBtn = document.getElementById('clear-topic-filter');
+            this.dom.clearGenreFilterBtn = document.getElementById('clear-genre-filter');
+            this.dom.portfolioHeading = document.getElementById('portfolio-heading');
+            this.dom.noResultsMessage = document.getElementById('no-results');
+            this.dom.seeMoreBtn = document.getElementById('see-more-btn');
+            this.dom.seeLessBtn = document.getElementById('see-less-btn');
+            this.dom.paginationControls = document.getElementById('pagination-controls');
+            this.dom.activeFiltersContainer = document.getElementById('active-filters-container');
+            this.dom.clearActiveFiltersBtn = document.getElementById('clear-active-filters-btn');
+            this.dom.applyBtnContainer = document.getElementById('apply-btn-container');
+            this.dom.applyFiltersBtn = document.getElementById('apply-filters-btn');
+            this.dom.filterToggleBtn = document.getElementById('filter-toggle-btn');
+            this.dom.filterPanel = document.getElementById('filter-panel');
+            this.dom.filterChevron = document.getElementById('filter-chevron');
+            this.dom.closeFilterBtn = document.getElementById('close-filter-btn');
+            this.dom.filterOverlay = document.getElementById('filter-overlay');
+            this.dom.researchWarning = document.getElementById('research-warning');
+        },
 
-        // State
-        const ARTICLES_PER_PAGE = 6;
-        let activeTopicFilters = [];
-        let activeGenreFilter = 'All';
-        let tempTopicFilters = [];
-        let tempGenreFilter = 'All';
-        let currentArticles = [];
-        let articlesToShow = ARTICLES_PER_PAGE;
-        let curatedArticleIds = [];
-        let cardObserver;
+        initStateFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const topics = params.get('topics');
+            const genre = params.get('genre');
+            const companyName = params.get('curate');
 
-        // Function to render article cards to the DOM
-        function renderArticles() {
-            const articlesToDisplay = currentArticles.slice(0, articlesToShow);
+            if (companyName) {
+                this.curateArticlesByCompany(companyName);
+            }
+
+            if (topics) {
+                this.state.activeTopicFilters = topics.split(',');
+            }
+            if (genre) {
+                this.state.activeGenreFilter = genre;
+            }
             
-            portfolioGrid.innerHTML = ''; // Clear existing grid
-            
-            if (currentArticles.length === 0) {
-                noResultsMessage.classList.remove('hidden');
-                portfolioGrid.classList.add('hidden');
-                paginationControls.classList.add('hidden');
-                return;
-            } 
-            
-            noResultsMessage.classList.add('hidden');
-            portfolioGrid.classList.remove('hidden');
+            this.state.tempTopicFilters = [...this.state.activeTopicFilters];
+            this.state.tempGenreFilter = this.state.activeGenreFilter;
+        },
 
-            const fragment = document.createDocumentFragment();
+        // --- RENDERING ---
+        createArticleCard(article) {
+            const card = document.createElement('div');
+            card.className = 'article-card bg-gray-50 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-all duration-500 ease-out flex flex-col opacity-0 translate-y-5';
+
+            const imageUrl = article.imageUrl || `${this.config.IMG_DIR}/${article.id}.png`;
+            const articleUrl = article.article_url || `${this.config.PDF_DIR}/${article.id}.pdf`;
             
-            articlesToDisplay.forEach(article => {
-                const imageUrl = article.imageUrl || `${IMG_DIR}/${article.id}.png`;
-                const articleUrl = article.article_url || `${PDF_DIR}/${article.id}.pdf`;
-
-                const card = document.createElement('div');
-                card.className = 'article-card bg-gray-50 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-all duration-500 ease-out flex flex-col opacity-0 translate-y-5';
-
+            // Image
+            const cardImage = () => {
                 const img = document.createElement('img');
                 img.className = 'card-image w-full';
                 img.src = imageUrl;
@@ -96,99 +123,103 @@
                     this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';
                 };
                 card.appendChild(img);
+            };
 
+            // Content
+            const cardContent = () => {
                 const contentDiv = document.createElement('div');
                 contentDiv.className = 'p-6 flex-grow flex flex-col';
 
                 const textContentDiv = document.createElement('div');
                 textContentDiv.className = 'flex-grow';
 
-                const publicationP = document.createElement('p');
-                publicationP.className = 'text-sm text-gray-500 mb-1';
-                publicationP.textContent = `${article.publication} • ${new Date(article.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}`;
-                textContentDiv.appendChild(publicationP);
-
-                const titleH3 = document.createElement('h3');
-                titleH3.className = 'text-2xl font-bold text-gray-800 mb-3';
-                titleH3.textContent = article.title;
-                textContentDiv.appendChild(titleH3);
-
-                const summaryP = document.createElement('p');
-                summaryP.className = 'text-gray-600 leading-relaxed mb-4';
-                summaryP.textContent = article.summary;
-                textContentDiv.appendChild(summaryP);
+                textContentDiv.innerHTML = `
+                    <p class="text-sm text-gray-500 mb-1">${article.publication} • ${new Date(article.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</p>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">${article.title}</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">${article.summary}</p>
+                `;
 
                 contentDiv.appendChild(textContentDiv);
 
+                // Button
                 const buttonContainer = document.createElement('div');
                 buttonContainer.className = 'pt-4 mt-auto bg-gray-50';
-
-                const buttonInnerContainer = document.createElement('div');
-                buttonInnerContainer.className = 'flex items-center';
-
                 const readMoreBtn = document.createElement('button');
                 readMoreBtn.className = 'read-more-btn';
                 readMoreBtn.textContent = 'Read More →';
-                readMoreBtn.addEventListener('click', () => openPdfModal(articleUrl, article.title));
+                readMoreBtn.addEventListener('click', () => this.openPdfModal(articleUrl, article.title));
+                buttonContainer.appendChild(readMoreBtn);
 
-                buttonInnerContainer.appendChild(readMoreBtn);
-                buttonContainer.appendChild(buttonInnerContainer);
                 contentDiv.appendChild(buttonContainer);
-
                 card.appendChild(contentDiv);
-                fragment.appendChild(card);
-            });
+            };
 
+            cardImage();
+            cardContent();
+            return card;
+        },
+
+        renderArticles() {
+            const { currentArticles, articlesToShow } = this.state;
+            const { portfolioGrid, noResultsMessage, paginationControls, seeMoreBtn, seeLessBtn } = this.dom;
+
+            portfolioGrid.innerHTML = '';
+
+            if (currentArticles.length === 0) {
+                noResultsMessage.classList.remove('hidden');
+                portfolioGrid.classList.add('hidden');
+                paginationControls.classList.add('hidden');
+                return;
+            }
+
+            noResultsMessage.classList.add('hidden');
+            portfolioGrid.classList.remove('hidden');
+
+            const articlesToDisplay = currentArticles.slice(0, articlesToShow);
+            const fragment = document.createDocumentFragment();
+            articlesToDisplay.forEach(article => {
+                fragment.appendChild(this.createArticleCard(article));
+            });
             portfolioGrid.appendChild(fragment);
 
             // Observe cards for scroll animations
-            if (cardObserver) {
-                portfolioGrid.querySelectorAll('.article-card').forEach(card => cardObserver.observe(card));
+            if (this.state.cardObserver) {
+                portfolioGrid.querySelectorAll('.article-card').forEach(card => this.state.cardObserver.observe(card));
             }
 
             // Handle pagination controls visibility
-            if (currentArticles.length <= ARTICLES_PER_PAGE) {
+            if (currentArticles.length <= this.config.ARTICLES_PER_PAGE) {
                 paginationControls.classList.add('hidden');
             } else {
                 paginationControls.classList.remove('hidden');
-                
-                // "See More" button visibility
-                if (articlesToShow >= currentArticles.length) {
-                    seeMoreBtn.classList.add('hidden');
-                } else {
-                    seeMoreBtn.classList.remove('hidden');
-                }
-
-                // "See Less" button visibility
-                if (articlesToShow > ARTICLES_PER_PAGE) {
-                    seeLessBtn.classList.remove('hidden');
-                } else {
-                    seeLessBtn.classList.add('hidden');
-                }
+                seeMoreBtn.classList.toggle('hidden', articlesToShow >= currentArticles.length);
+                seeLessBtn.classList.toggle('hidden', articlesToShow <= this.config.ARTICLES_PER_PAGE);
             }
-        }
+        },
 
-        // Generic function to render filter buttons
-        function renderFilterButtons(container, items) {
-            const allItems = [...new Set(items)].sort();
-            container.innerHTML = allItems.map(item => `
+        renderFilterButtons() {
+            const allTags = [...new Set(articles.flatMap(a => a.tags))].sort();
+            const allGenres = [...new Set(articles.map(a => a.genre))].sort();
+
+            const createButtons = (items) => items.map(item => `
                 <button data-filter="${item}" class="tag bg-white text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-full shadow-sm hover:bg-gray-100">
                     ${item}
                 </button>
             `).join('');
-        }
 
-        // Function to apply all active filters and re-render the articles
-        function applyFiltersAndRender(withTransition = false) {
-            const updateContent = () => {
+            this.dom.tagFiltersContainer.innerHTML = createButtons(allTags);
+            this.dom.genreFiltersContainer.innerHTML = createButtons(allGenres);
+        },
+
+        applyFiltersAndRender(withTransition = false) {
+            const performUpdate = () => {
                 let filteredArticles = [...articles];
+                const { activeTopicFilters, activeGenreFilter, curatedArticleIds } = this.state;
                 const isDefaultView = activeTopicFilters.length === 0 && activeGenreFilter === 'All';
 
                 // Apply Topic filters (multi-select)
                 if (activeTopicFilters.length > 0) {
-                    filteredArticles = filteredArticles.filter(article => {
-                        return activeTopicFilters.every(filter => article.tags.includes(filter));
-                    });
+                    filteredArticles = filteredArticles.filter(article => activeTopicFilters.every(filter => article.tags.includes(filter)));
                 }
 
                 // Apply Genre filter (single-select)
@@ -196,9 +227,9 @@
                     filteredArticles = filteredArticles.filter(a => a.genre === activeGenreFilter);
                 }
 
-                if (isDefaultView) { // No filters are active
+                // Sorting logic
+                if (isDefaultView) {
                     if (curatedArticleIds.length > 0) {
-                        // 1. Custom curation sort based on company name
                         filteredArticles.sort((a, b) => {
                             const isACurated = curatedArticleIds.includes(a.id);
                             const isBCurated = curatedArticleIds.includes(b.id);
@@ -206,145 +237,123 @@
                             if (isACurated && !isBCurated) return -1; // a comes first
                             if (!isACurated && isBCurated) return 1;  // b comes first
 
-                            // If both are curated or both are not, sort by date
                             return new Date(b.date + 'T00:00:00') - new Date(a.date + 'T00:00:00');
                         });
-                        // Heading is set by curateArticlesByCompany()
                     } else {
-                        // 2. Default featured sort
                         filteredArticles.sort((a, b) => {
                             const featuredSort = (b.featured === true) - (a.featured === true);
                             if (featuredSort !== 0) return featuredSort;
-                            return new Date(b.date + 'T00:00:00') - new Date(a.date + 'T00:00:00'); // Fallback to date sort
+                            return new Date(b.date + 'T00:00:00') - new Date(a.date + 'T00:00:00');
                         });
-                        portfolioHeading.textContent = "Featured Work";
+                        this.dom.portfolioHeading.textContent = "Featured Work";
                     }
                 } else {
                     filteredArticles.sort((a, b) => new Date(b.date + 'T00:00:00') - new Date(a.date + 'T00:00:00'));
-                    portfolioHeading.textContent = "Filtered Results";
+                    this.dom.portfolioHeading.textContent = "Filtered Results";
                 }
-                currentArticles = filteredArticles;
-                articlesToShow = ARTICLES_PER_PAGE; // Reset pagination
-                
-                renderArticles();
-                updateURLWithFilters();
-                updateActiveButtons();
-                toggleClearActiveFiltersButton();
 
-                const researchWarning = document.getElementById('research-warning');
-                if (activeGenreFilter === 'Research') {
-                    researchWarning.classList.remove('hidden');
-                } else {
-                    researchWarning.classList.add('hidden');
-                }
+                this.state.currentArticles = filteredArticles;
+                this.state.articlesToShow = this.config.ARTICLES_PER_PAGE;
+                
+                this.renderArticles();
+                this.updateURLWithFilters();
+                this.updateActiveButtons();
+                this.toggleClearActiveFiltersButton();
+
+                this.dom.researchWarning.classList.toggle('hidden', this.state.activeGenreFilter !== 'Research');
 
                 if (withTransition) {
-                    portfolioGrid.style.opacity = 1;
+                    this.dom.portfolioGrid.style.opacity = 1;
                 }
             };
 
             if (withTransition) {
-                portfolioGrid.style.opacity = 0;
-                setTimeout(updateContent, 200);
+                this.dom.portfolioGrid.style.opacity = 0;
+                setTimeout(performUpdate, 200);
             } else {
-                updateContent();
+                performUpdate();
             }
-        }
+        },
 
-        // --- Curation Logic ---
-        function getCuratedIdsForCompany(companyName) {
+        // --- CURATION ---
+        getCuratedIdsForCompany(companyName) {
             if (!companyName) return [];
             const lowerCaseName = companyName.toLowerCase();
-            for (const mapping of companyCurationMapping) {
+            for (const mapping of this.config.companyCurationMapping) {
                 if (mapping.keywords.some(keyword => lowerCaseName.includes(keyword))) {
                     return mapping.articleIds;
                 }
             }
             return [];
-        }
+        },
 
-        function curateArticlesByCompany(companyName) {
-            curatedArticleIds = getCuratedIdsForCompany(companyName);
-            if (curatedArticleIds.length > 0) {
-                // Sanitize company name for display
+        curateArticlesByCompany(companyName) {
+            this.state.curatedArticleIds = this.getCuratedIdsForCompany(companyName);
+            if (this.state.curatedArticleIds.length > 0) {
                 const displayCompany = companyName.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                portfolioHeading.textContent = `Work Curated for ${displayCompany}`;
+                this.dom.portfolioHeading.textContent = `Work Curated for ${displayCompany}`;
             }
-        }
+        },
 
-        // Function to handle "See More" click
-        function handleSeeMore() {
-            articlesToShow += ARTICLES_PER_PAGE;
-            renderArticles();
-        }
+        // --- UI & STATE UPDATES ---
+        handleSeeMore() {
+            this.state.articlesToShow += this.config.ARTICLES_PER_PAGE;
+            this.renderArticles();
+        },
 
-        // Function to handle "See Less" click
-        function handleSeeLess() {
-            articlesToShow = ARTICLES_PER_PAGE;
-            renderArticles();
-            window.scrollTo({ top: portfolioGrid.offsetTop - 100, behavior: 'smooth' });
-        }
-        
-        // Updates all filter groups
-        function updateActiveButtons() {
-            // Update multi-select topic buttons
+        handleSeeLess() {
+            this.state.articlesToShow = this.config.ARTICLES_PER_PAGE;
+            this.renderArticles();
+            window.scrollTo({ top: this.dom.portfolioGrid.offsetTop - 100, behavior: 'smooth' });
+        },
+
+        updateActiveButtons() {
+            const { tempTopicFilters, tempGenreFilter } = this.state;
+            const { tagFiltersContainer, genreFiltersContainer } = this.dom;
+
             const topicButtons = tagFiltersContainer.querySelectorAll('button');
             topicButtons.forEach(button => {
                 button.classList.toggle('active-tag', tempTopicFilters.includes(button.dataset.filter));
             });
-            // Update single-select genre buttons
+
             const genreButtons = genreFiltersContainer.querySelectorAll('button');
             genreButtons.forEach(button => {
                 button.classList.toggle('active-tag', button.dataset.filter === tempGenreFilter);
             });
-        }
+        },
 
-        function toggleClearActiveFiltersButton() {
+        toggleClearActiveFiltersButton() {
+            const { activeTopicFilters, activeGenreFilter } = this.state;
             const areFiltersActive = activeTopicFilters.length > 0 || activeGenreFilter !== 'All';
-            activeFiltersContainer.classList.toggle('hidden', !areFiltersActive);
-        }
+            this.dom.activeFiltersContainer.classList.toggle('hidden', !areFiltersActive);
+        },
 
-        // --- URL State Management ---
-        function updateURLWithFilters() {
+        updateURLWithFilters() {
+            const { activeTopicFilters, activeGenreFilter } = this.state;
             const params = new URLSearchParams();
+
             if (activeTopicFilters.length > 0) {
                 params.set('topics', activeTopicFilters.join(','));
             }
             if (activeGenreFilter !== 'All') {
                 params.set('genre', activeGenreFilter);
             }
-            
+
             const newUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ''}`;
             history.pushState({path: newUrl}, '', newUrl);
-        }
+        },
 
-        function applyFiltersFromURL() {
-            const params = new URLSearchParams(window.location.search);
-            const topics = params.get('topics');
-            const genre = params.get('genre');
-
-            if (topics) {
-                activeTopicFilters = topics.split(',');
-            }
-            if (genre) {
-                activeGenreFilter = genre;
-            }
-            
-            tempTopicFilters = [...activeTopicFilters];
-            tempGenreFilter = activeGenreFilter;
-        }
-
-        // --- Modal Control ---
-        function openModal(modalId) {
+        // --- MODAL CONTROL ---
+        openModal(modalId) {
             const modal = document.getElementById(modalId);
             if (!modal) return;
             const modalContent = modal.querySelector('.modal-content');
             modal.classList.remove('opacity-0', 'pointer-events-none');
             modalContent.classList.remove('scale-95');
             document.body.classList.add('overflow-hidden');
-        }
+        },
 
-        function closeModal(modalId) {
+        closeModal(modalId) {
             const modal = document.getElementById(modalId);
             if (!modal) return;
             const modalContent = modal.querySelector('.modal-content');
@@ -354,296 +363,218 @@
             document.body.classList.remove('overflow-hidden');
 
             if (modalId === 'pdf-modal') {
-                const pdfViewer = document.getElementById('pdf-viewer');
-                pdfViewer.src = '';
+                document.getElementById('pdf-viewer').src = '';
             }
-        }
+        },
 
-        function openPdfModal(pdfUrl, title) {
+        openPdfModal(pdfUrl, title) {
             const pdfViewer = document.getElementById('pdf-viewer');
             const pdfTitle = document.getElementById('pdf-title');
             
             pdfTitle.textContent = title;
             pdfViewer.src = pdfUrl;
             
-            openModal('pdf-modal');
-        }
+            this.openModal('pdf-modal');
+        },
 
-        // --- Initial Setup ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // Wrap all logic in an IIFE to avoid polluting the global namespace
-            (function() {
-
-            // --- Animation on Scroll Logic ---
-            cardObserver = new IntersectionObserver((entries, observer) => {
+        // --- EVENT BINDING & OBSERVERS ---
+        initCardObserver() {
+            this.state.cardObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
-                    // When the element is in view, animate it by removing the initial state classes
                     if (entry.isIntersecting) {
                         entry.target.classList.remove('opacity-0', 'translate-y-5');
-                        observer.unobserve(entry.target); // Stop observing it once it's visible to save resources
+                        observer.unobserve(entry.target);
                     }
                 });
             }, {
-                rootMargin: '0px 0px -100px 0px' // Start animation when the element is 100px up from the bottom of the viewport
+                rootMargin: '0px 0px -100px 0px'
             });
+        },
 
-            // Render all filter buttons
-            const allTags = articles.flatMap(a => a.tags);
-            const allGenres = articles.map(a => a.genre);
-            
-            const uniqueTags = [...new Set(allTags)];
-            renderFilterButtons(tagFiltersContainer, uniqueTags);
-            renderFilterButtons(genreFiltersContainer, allGenres);
-
-            // --- Filter Panel & Event Listeners ---
-            const filterToggleBtn = document.getElementById('filter-toggle-btn');
-            const filterPanel = document.getElementById('filter-panel');
-            const filterChevron = document.getElementById('filter-chevron');
-            const closeFilterBtn = document.getElementById('close-filter-btn');
-            const filterOverlay = document.getElementById('filter-overlay');
-
+        bindEvents() {
+            // Filter Panel
             const openFilterPanel = () => {
-                // Reset temp filters to match active filters whenever panel is opened
-                tempTopicFilters = [...activeTopicFilters];
-                tempGenreFilter = activeGenreFilter;
-                updateActiveButtons();
-                applyBtnContainer.classList.add('hidden'); // Hide apply button initially
+                this.state.tempTopicFilters = [...this.state.activeTopicFilters];
+                this.state.tempGenreFilter = this.state.activeGenreFilter;
+                this.updateActiveButtons();
+                this.dom.applyBtnContainer.classList.add('hidden');
 
-                filterPanel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
-                filterPanel.classList.add('is-open');
-                filterOverlay.classList.remove('opacity-0', 'pointer-events-none');
-                filterChevron.classList.add('rotate-180');
-                filterToggleBtn.setAttribute('aria-expanded', 'true');
+                this.dom.filterPanel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                this.dom.filterPanel.classList.add('is-open');
+                this.dom.filterOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                this.dom.filterChevron.classList.add('rotate-180');
+                this.dom.filterToggleBtn.setAttribute('aria-expanded', 'true');
                 document.body.classList.add('overflow-hidden');
 
-                // Scroll to the filter panel after it becomes visible
                 setTimeout(() => {
-                    const filterPanelTop = filterPanel.getBoundingClientRect().top + window.scrollY;
+                    const filterPanelTop = this.dom.filterPanel.getBoundingClientRect().top + window.scrollY;
                     window.scrollTo({ top: filterPanelTop - 20, behavior: 'smooth' });
                 }, 100);
             };
 
             const closeFilterPanel = () => {
-                filterPanel.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-                filterPanel.classList.remove('is-open');
-                filterOverlay.classList.add('opacity-0', 'pointer-events-none');
-                filterChevron.classList.remove('rotate-180');
-                filterToggleBtn.setAttribute('aria-expanded', 'false');
+                this.dom.filterPanel.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                this.dom.filterPanel.classList.remove('is-open');
+                this.dom.filterOverlay.classList.add('opacity-0', 'pointer-events-none');
+                this.dom.filterChevron.classList.remove('rotate-180');
+                this.dom.filterToggleBtn.setAttribute('aria-expanded', 'false');
                 document.body.classList.remove('overflow-hidden');
-                toggleClearActiveFiltersButton();
+                this.toggleClearActiveFiltersButton();
             };
 
-            filterToggleBtn.addEventListener('click', (e) => {
+            this.dom.filterToggleBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const isExpanded = filterToggleBtn.getAttribute('aria-expanded') === 'true';
+                const isExpanded = this.dom.filterToggleBtn.getAttribute('aria-expanded') === 'true';
                 isExpanded ? closeFilterPanel() : openFilterPanel();
             });
 
-            closeFilterBtn.addEventListener('click', () => {
+            this.dom.closeFilterBtn.addEventListener('click', () => {
                 closeFilterPanel();
             });
 
-            // Close panel when clicking outside
             document.addEventListener('click', (e) => {
-                const isExpanded = filterToggleBtn.getAttribute('aria-expanded') === 'true';
-                if (isExpanded && !filterPanel.contains(e.target) && !filterToggleBtn.contains(e.target)) {
+                const isExpanded = this.dom.filterToggleBtn.getAttribute('aria-expanded') === 'true';
+                if (isExpanded && !this.dom.filterPanel.contains(e.target) && !this.dom.filterToggleBtn.contains(e.target)) {
                     closeFilterPanel();
                 }
             });
 
-            // Add event listeners
-            tagFiltersContainer.addEventListener('click', e => {
+            // Filter buttons
+            this.dom.tagFiltersContainer.addEventListener('click', e => {
                 if (e.target.tagName !== 'BUTTON') return;
                 const clickedFilter = e.target.dataset.filter;
-                const filterIndex = tempTopicFilters.indexOf(clickedFilter);
+                const filterIndex = this.state.tempTopicFilters.indexOf(clickedFilter);
 
                 if (filterIndex > -1) {
-                    tempTopicFilters.splice(filterIndex, 1); // Deselect if already active
+                    this.state.tempTopicFilters.splice(filterIndex, 1);
                 } else {
-                    tempTopicFilters.push(clickedFilter); // Select if not active
+                    this.state.tempTopicFilters.push(clickedFilter);
                 }
-                updateActiveButtons();
-                applyBtnContainer.classList.remove('hidden');
+                this.updateActiveButtons();
+                this.dom.applyBtnContainer.classList.remove('hidden');
             });
 
-            genreFiltersContainer.addEventListener('click', e => {
+            this.dom.genreFiltersContainer.addEventListener('click', e => {
                 if (e.target.tagName !== 'BUTTON') return;
-                tempGenreFilter = tempGenreFilter === e.target.dataset.filter ? 'All' : e.target.dataset.filter;
-                updateActiveButtons();
-                applyBtnContainer.classList.remove('hidden');
+                this.state.tempGenreFilter = this.state.tempGenreFilter === e.target.dataset.filter ? 'All' : e.target.dataset.filter;
+                this.updateActiveButtons();
+                this.dom.applyBtnContainer.classList.remove('hidden');
             });
             
-            applyFiltersBtn.addEventListener('click', () => {
-                activeTopicFilters = [...tempTopicFilters];
-                activeGenreFilter = tempGenreFilter;
-                applyFiltersAndRender(true);
-                applyBtnContainer.classList.add('hidden');
+            this.dom.applyFiltersBtn.addEventListener('click', () => {
+                this.state.activeTopicFilters = [...this.state.tempTopicFilters];
+                this.state.activeGenreFilter = this.state.tempGenreFilter;
+                this.applyFiltersAndRender(true);
+                this.dom.applyBtnContainer.classList.add('hidden');
                 closeFilterPanel();
             });
 
-            clearTopicFilterBtn.addEventListener('click', () => {
-                tempTopicFilters = [];
-                updateActiveButtons();
-                applyBtnContainer.classList.remove('hidden');
+            this.dom.clearTopicFilterBtn.addEventListener('click', () => {
+                this.state.tempTopicFilters = [];
+                this.updateActiveButtons();
+                this.dom.applyBtnContainer.classList.remove('hidden');
             });
 
-            clearGenreFilterBtn.addEventListener('click', () => {
-                tempGenreFilter = 'All';
-                updateActiveButtons();
-                applyBtnContainer.classList.remove('hidden');
+            this.dom.clearGenreFilterBtn.addEventListener('click', () => {
+                this.state.tempGenreFilter = 'All';
+                this.updateActiveButtons();
+                this.dom.applyBtnContainer.classList.remove('hidden');
             });
 
-            clearAllFiltersBtn.addEventListener('click', () => {
-                tempTopicFilters = [];
-                tempGenreFilter = 'All';
-                updateActiveButtons();
-                applyBtnContainer.classList.remove('hidden');
+            this.dom.clearAllFiltersBtn.addEventListener('click', () => {
+                this.state.tempTopicFilters = [];
+                this.state.tempGenreFilter = 'All';
+                this.updateActiveButtons();
+                this.dom.applyBtnContainer.classList.remove('hidden');
             });
 
-            clearActiveFiltersBtn.addEventListener('click', () => {
-                activeTopicFilters = [];
-                activeGenreFilter = 'All';
-                tempTopicFilters = [];
-                tempGenreFilter = 'All';
-                applyFiltersAndRender(true);
-                updateActiveButtons();
+            this.dom.clearActiveFiltersBtn.addEventListener('click', () => {
+                this.state.activeTopicFilters = [];
+                this.state.activeGenreFilter = 'All';
+                this.state.tempTopicFilters = [];
+                this.state.tempGenreFilter = 'All';
+                this.applyFiltersAndRender(true);
+                this.updateActiveButtons();
             });
 
-            seeMoreBtn.addEventListener('click', handleSeeMore);
-            seeLessBtn.addEventListener('click', handleSeeLess);
+            // Pagination
+            this.dom.seeMoreBtn.addEventListener('click', () => this.handleSeeMore());
+            this.dom.seeLessBtn.addEventListener('click', () => this.handleSeeLess());
 
-            // --- Welcome Modal & Initial Render Logic ---
-            const welcomeModal = document.getElementById('welcome-modal');
-            const companyInput = document.getElementById('company-name-input');
-            const submitCompanyBtn = document.getElementById('submit-company-btn');
-            const skipCompanyBtn = document.getElementById('skip-company-btn');
-
-            const handleCompanySubmit = () => {
-                const companyName = companyInput.value.trim();
-                sessionStorage.setItem('welcomeModalSeen', 'true');
-                closeModal('welcome-modal');
-                
-                if (companyName) {
-                    curateArticlesByCompany(companyName);
-                    applyFiltersAndRender(true); // Re-render with curation and transition
-                }
-            };
-
-            submitCompanyBtn.addEventListener('click', handleCompanySubmit);
-            companyInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleCompanySubmit();
-                }
-            });
-            skipCompanyBtn.addEventListener('click', () => {
-                sessionStorage.setItem('welcomeModalSeen', 'true');
-                closeModal('welcome-modal');
-            });
-
-            applyFiltersFromURL(); // Read from URL to set initial filter state
-
-            // Initial Render: Show modal only on first visit without any URL filters
-            if (!sessionStorage.getItem('welcomeModalSeen') && !window.location.search) {
-                openModal('welcome-modal');
-            }
-            applyFiltersAndRender(); // Always render the page
-            
-            // --- Sticky Header Indicator Logic ---
-            const stickyFilterBar = document.querySelector('.sticky');
+            // Sticky filter bar
+            const stickyFilterBar = document.querySelector('.sticky'); // This is fine as a one-off
             const observer = new IntersectionObserver(
-                ([e]) => {
-                    // e.intersectionRatio < 1 means the top of the element is no longer visible in the viewport
-                    stickyFilterBar.classList.toggle('is-sticky', e.intersectionRatio < 1);
-                },
-                {
-                    threshold: [1], // Fire event when element is fully in/out of view
-                    rootMargin: "-1px 0px 0px 0px" // Trigger just before it's flush with the top
-                }
+                ([e]) => stickyFilterBar.classList.toggle('is-sticky', e.intersectionRatio < 1),
+                { threshold: [1], rootMargin: "-1px 0px 0px 0px" }
             );
             observer.observe(stickyFilterBar);
 
-            // --- Contact Me Button Logic ---
+            // Contact button
             const contactBtn = document.getElementById('contact-btn');
             const emailInfo = document.getElementById('email-info');
             const contactContainer = document.getElementById('contact-container');
-
             contactBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 emailInfo.classList.toggle('hidden');
             });
-
             document.addEventListener('click', (e) => {
                 if (!contactContainer.contains(e.target)) {
                     emailInfo.classList.add('hidden');
                 }
             });
 
-            // --- Copy Email Logic ---
+            // Copy email
             const copyEmailBtn = document.getElementById('copy-email-btn');
             const emailAddress = document.getElementById('email-address').textContent;
             const copyTooltip = document.getElementById('copy-tooltip');
-
             copyEmailBtn.addEventListener('mouseenter', () => {
                 if (copyTooltip.textContent !== 'Copied!') {
                     copyTooltip.textContent = 'Copy to clipboard';
                 }
                 copyTooltip.classList.remove('opacity-0');
             });
-
             copyEmailBtn.addEventListener('mouseleave', () => {
                 copyTooltip.classList.add('opacity-0');
             });
-
             copyEmailBtn.addEventListener('click', () => {
                 navigator.clipboard.writeText(emailAddress).then(() => {
                     copyTooltip.textContent = 'Copied!';
-                    setTimeout(() => {
-                        copyTooltip.textContent = 'Copy to clipboard';
-                    }, 2000);
+                    setTimeout(() => { copyTooltip.textContent = 'Copy to clipboard'; }, 2000);
                 });
             });
 
-            // --- Back to Top Button Logic ---
+            // Back to top
             const backToTopBtn = document.getElementById('back-to-top-btn');
-
             window.addEventListener('scroll', () => {
-                // Show button after scrolling down 400px
-                if (window.scrollY > 400) {
-                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
-                } else {
-                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
-                }
+                backToTopBtn.classList.toggle('opacity-0', window.scrollY <= 400);
+                backToTopBtn.classList.toggle('pointer-events-none', window.scrollY <= 400);
             });
-
             backToTopBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
             
+            // Global keydown and modal clicks
             window.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
-                    closeModal('colophon-modal');
-                    closeModal('pdf-modal');
-                    closeModal('welcome-modal');
+                    this.closeModal('colophon-modal');
+                    this.closeModal('pdf-modal');
                 }
             });
-
             document.querySelectorAll('.modal').forEach(modal => {
                 modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        closeModal(modal.id);
-                    }
+                    if (e.target === modal) this.closeModal(modal.id);
                 });
             });
 
-            // --- Add listeners for modal buttons that used onclick ---
-            document.getElementById('open-colophon-btn').addEventListener('click', () => openModal('colophon-modal'));
-            document.getElementById('close-colophon-btn').addEventListener('click', () => closeModal('colophon-modal'));
-            document.getElementById('close-pdf-btn').addEventListener('click', () => closeModal('pdf-modal'));
+            // Static modal buttons
+            document.getElementById('open-colophon-btn').addEventListener('click', () => this.openModal('colophon-modal'));
+            document.getElementById('close-colophon-btn').addEventListener('click', () => this.closeModal('colophon-modal'));
+            document.getElementById('close-pdf-btn').addEventListener('click', () => this.closeModal('pdf-modal'));
 
-            // --- Dynamic Copyright Year ---
-            const copyrightYear = document.getElementById('copyright-year');
-            if (copyrightYear) copyrightYear.textContent = new Date().getFullYear();
+            // Copyright year
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        }
+    };
 
-            })(); // End of IIFE
-        });
+    App.init();
+});
