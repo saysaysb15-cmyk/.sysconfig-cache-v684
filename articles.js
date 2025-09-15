@@ -18,13 +18,13 @@ const curatedViews = {
         'nonfinancial-brands-embedded-finance-april-2023',
         'cyber-attack-architecture-nudata-jan-2020'
     ],
-    'view-asdfgh123': [
+    'view-asd123': [
         'fed-real-time-payment-announcement-news-aug-2019',
-        'visa-mastercard-dispute-explainer-nov-2019',
+        'restaurants-technology-inflation-jun-2023',
         'api-banking-overview-aug-2019',
         'visa-combatting-fraud-news-jun-2019',
         'consumer-covid-response-news-mar-2020',
-        '3-payments-trends-dec-2019'
+        'fintech-bank-collaboration-jun-2023'
     ]
 };
 
