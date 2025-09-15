@@ -17,6 +17,14 @@ const curatedViews = {
         'fintech-bank-collaboration-jun-2023',
         'nonfinancial-brands-embedded-finance-april-2023',
         'cyber-attack-architecture-nudata-jan-2020'
+    ],
+    'view-asdfgh123': [
+        'fed-real-time-payment-announcement-news-aug-2019',
+        'Visa and Mastercard Changed Their Dispute Resolution Process. Here’s What You Need to Know',
+        'What Are APIs and How Are They Changing Banking',
+        'Using Artificial Intelligence, Visa Is Combatting Fraud at Nearly the Speed of Light',
+        'consumer-covid-response-news-mar-2020',
+        '3-payments-trends-dec-2019'
     ]
 };
 
