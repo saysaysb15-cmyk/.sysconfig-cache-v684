@@ -209,7 +209,7 @@ const articles = [
                 tags: ['FinTech', 'Customer Experience', 'Consumer Behavior', 'Mobile Banking'],
             },
             {
-                id: 'connected-intelligence-fighting-fraud-july-2019',
+                id: 'connected-intelli gence-fighting-fraud-july-2019',
                 title: 'Connected Intelligence: A Holistic Approach to Fighting Fraud',
                 publication: 'PaymentsJournal',
                 employer: 'PaymentsJournal',
@@ -260,7 +260,6 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-04-01',
                 summary: 'Explores the growing scrutiny of the Buy Now, Pay Later (BNPL) industry by regulators worldwide. As BNPL use explodes, concerns are rising around consumer debt, overspending, and data privacy, prompting governments in the U.S., U.K., and Australia to consider new rules that would bring BNPL offerings more in line with traditional credit products.',
-                article_url: '',
                 tags: ['Traditional & Alternative Credit', 'Rules & Regulations', 'FinTech'],
             },
             {
@@ -271,7 +270,6 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-04-01',
                 summary: 'Analyzes the shifting regulatory landscape for credit unions in the wake of recent banking instability. It covers the potential impacts of new rules from the NCUA and CFPB, the looming threat of interchange fee caps, and the need for CUs to proactively engage with legislators while strengthening member-focused services to stay competitive.',
-                article_url: '',
                 tags: ['Credit Unions', 'Rules & Regulations', 'Financial Services'],
             },
             {
@@ -282,7 +280,6 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-03-01',
                 summary: 'Examines how Banking as a Service (BaaS) is becoming a critical tool for financial institutions to expand their reach and attract new customers. By partnering with non-bank brands, FIs can embed financial products into third-party platforms, offering everything from payment processing to lending services that meet consumers where they are.',
-                article_url: '',
                 tags: [ 'Embedded Finance & BaaS', 'FinTech', 'Mobile Banking', 'Financial Services', 'Emerging Technology'],
             },
             {
@@ -292,8 +289,7 @@ const articles = [
                 employer: 'PYMNTS',
                 genre: 'Advertorials',
                 date: '2022-11-01',
-                summary: 'Details the challenges and opportunities in modernizing campus payment systems. With students expecting seamlss, mobile-first experiences, universities are moving away from legacy systems and adopting unified platforms that can handle everything from tuition and dining to event tickets and laundry, often going cashless to improve efficiency and security.',
-                article_url: '',
+                summary: 'Details the challenges and opportunities in modernizing campus payment systems. With students expecting seamless, mobile-first experiences, universities are moving away from legacy systems and adopting unified platforms that can handle everything from tuition and dining to event tickets and laundry, often going cashless to improve efficiency and security.',
                 tags: ['Emerging Technology', 'Industry-Specific Payment Solutions', 'Digital Payments', 'Customer Experience'],
             },
             {
@@ -304,7 +300,6 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2022-11-01',
                 summary: 'Focuses on the strategies subscription-based businesses can use to reduce customer churn in an increasingly competitive market. It highlights the importance of a frictionless customer experience, from easy billing and payment options to personalized content and the ability to pause subscriptions, as key to retaining subscribers.',
-                article_url: '',
                 tags: ['Industry-Specific Payment Solutions', 'Digital Payments', 'Customer Experience'],
             },
             {
@@ -315,7 +310,6 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-02-01',
                 summary: 'Explores how digital payment solutions are helping property managers navigate a difficult economic environment. With rising rents and increasing competition, online platforms that streamline rent collection, vendor payments, and security deposit refunds are essential for improving operational efficiency and tenant satisfaction.',
-                article_url: '',
                 tags: ['Digital Payments', 'FinTech', 'Customer Experience', 'Industry-Specific Payment Solutions'],
             },
             {
@@ -336,7 +330,6 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2023-06-01',
                 summary: 'Outlines the growing threat of bank fraud and the cybersecurity solutions financial institutions are using to combat it. With fraud losses mounting, banks are increasingly turning to advanced technologies like AI, machine learning, and biometric authentication to protect their customers and themselves from sophisticated cyberattacks.',
-                article_url: '',
                 tags: ['Fraud Prevention/Detection', 'Cybersecurity', 'Mobile Banking'],
             },
             {
@@ -347,7 +340,6 @@ const articles = [
                 genre: 'Advertorials',
                 date: '2022-10-01',
                 summary: 'Explains why modernizing legacy core banking systems is critical for financial institutions to compete in the digital age. By migrating to the cloud, banks can enable embedded finance solutions, improve operational efficiency, and offer the seamless, personalized experiences that customers now expect. The article also discusses the challenges of cloud migration and the importance of choosing the right partner for a successful transition.',
-                article_url: '',
                 tags: ['Emerging Technology', 'Banks & Traditional FIs', 'Embedded Finance & BaaS','Payments Innovation'],
             },
         ];
