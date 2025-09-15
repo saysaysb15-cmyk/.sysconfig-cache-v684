@@ -4,6 +4,12 @@
         const PDF_DIR = `${ASSET_BASE}/pdfs`;
         const IMG_DIR = `${ASSET_BASE}/images`;
 
+        // Pre-process articles to convert date strings to Date objects for efficient sorting/filtering
+        const processedArticles = articles.map(article => ({
+            ...article,
+            dateObj: new Date(article.date + 'T00:00:00')
+        }));
+
         // --- APPLICATION LOGIC ---
         
         // DOM Elements
@@ -33,6 +39,56 @@
         let articlesToShow = ARTICLES_PER_PAGE;
         let cardObserver;
 
+        // Function to create a single article card element
+        function createArticleCard(article) {
+            const imageUrl = article.imageUrl || `${IMG_DIR}/${article.id}.png`;
+            const articleUrl = article.article_url || `${PDF_DIR}/${article.id}.pdf`;
+
+            const card = document.createElement('div');
+            card.className = 'article-card bg-gray-50 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-all duration-500 ease-out flex flex-col opacity-0 translate-y-5';
+
+            const img = document.createElement('img');
+            img.className = 'card-image w-full';
+            img.src = imageUrl;
+            img.alt = `Abstract image representing ${article.title}`;
+            img.onerror = function() {
+                this.onerror=null;
+                this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';
+            };
+            card.appendChild(img);
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'p-6 flex-grow flex flex-col';
+
+            const textContentDiv = document.createElement('div');
+            textContentDiv.className = 'flex-grow';
+
+            const publicationP = document.createElement('p');
+            publicationP.className = 'text-sm text-gray-500 mb-1';
+            publicationP.textContent = `${article.publication} • ${article.dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}`;
+            textContentDiv.appendChild(publicationP);
+
+            const titleH3 = document.createElement('h3');
+            titleH3.className = 'text-2xl font-bold text-gray-800 mb-3';
+            titleH3.textContent = article.title;
+            textContentDiv.appendChild(titleH3);
+
+            const summaryP = document.createElement('p');
+            summaryP.className = 'text-gray-600 leading-relaxed mb-4';
+            summaryP.textContent = article.summary;
+            textContentDiv.appendChild(summaryP);
+
+            contentDiv.appendChild(textContentDiv);
+
+            const readMoreBtn = document.createElement('button');
+            readMoreBtn.className = 'read-more-btn mt-auto';
+            readMoreBtn.textContent = 'Read More →';
+            readMoreBtn.addEventListener('click', () => openPdfModal(articleUrl, article.title));
+            contentDiv.appendChild(readMoreBtn);
+
+            card.appendChild(contentDiv);
+            return card;
+        }
         // Function to render article cards to the DOM
         function renderArticles() {
             const articlesToDisplay = currentArticles.slice(0, articlesToShow);
@@ -52,61 +108,7 @@
             const fragment = document.createDocumentFragment();
             
             articlesToDisplay.forEach(article => {
-                const imageUrl = article.imageUrl || `${IMG_DIR}/${article.id}.png`;
-                const articleUrl = article.article_url || `${PDF_DIR}/${article.id}.pdf`;
-
-                const card = document.createElement('div');
-                card.className = 'article-card bg-gray-50 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-all duration-500 ease-out flex flex-col opacity-0 translate-y-5';
-
-                const img = document.createElement('img');
-                img.className = 'card-image w-full';
-                img.src = imageUrl;
-                img.alt = `Abstract image representing ${article.title}`;
-                img.onerror = function() {
-                    this.onerror=null;
-                    this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';
-                };
-                card.appendChild(img);
-
-                const contentDiv = document.createElement('div');
-                contentDiv.className = 'p-6 flex-grow flex flex-col';
-
-                const textContentDiv = document.createElement('div');
-                textContentDiv.className = 'flex-grow';
-
-                const publicationP = document.createElement('p');
-                publicationP.className = 'text-sm text-gray-500 mb-1';
-                publicationP.textContent = `${article.publication} • ${new Date(article.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}`;
-                textContentDiv.appendChild(publicationP);
-
-                const titleH3 = document.createElement('h3');
-                titleH3.className = 'text-2xl font-bold text-gray-800 mb-3';
-                titleH3.textContent = article.title;
-                textContentDiv.appendChild(titleH3);
-
-                const summaryP = document.createElement('p');
-                summaryP.className = 'text-gray-600 leading-relaxed mb-4';
-                summaryP.textContent = article.summary;
-                textContentDiv.appendChild(summaryP);
-
-                contentDiv.appendChild(textContentDiv);
-
-                const buttonContainer = document.createElement('div');
-                buttonContainer.className = 'pt-4 mt-auto bg-gray-50';
-
-                const buttonInnerContainer = document.createElement('div');
-                buttonInnerContainer.className = 'flex items-center';
-
-                const readMoreBtn = document.createElement('button');
-                readMoreBtn.className = 'read-more-btn';
-                readMoreBtn.textContent = 'Read More →';
-                readMoreBtn.addEventListener('click', () => openPdfModal(articleUrl, article.title));
-
-                buttonInnerContainer.appendChild(readMoreBtn);
-                buttonContainer.appendChild(buttonInnerContainer);
-                contentDiv.appendChild(buttonContainer);
-
-                card.appendChild(contentDiv);
+                const card = createArticleCard(article);
                 fragment.appendChild(card);
             });
 
@@ -152,7 +154,7 @@
         // Function to apply all active filters and re-render the articles
         function applyFiltersAndRender(withTransition = false) {
             const updateContent = () => {
-                let filteredArticles = [...articles];
+                let filteredArticles = [...processedArticles];
 
                 // Apply Topic filters (multi-select)
                 if (activeTopicFilters.length > 0) {
@@ -166,7 +168,7 @@
                     filteredArticles = filteredArticles.filter(a => a.genre === activeGenreFilter);
                 }
 
-                currentArticles = filteredArticles.sort((a, b) => new Date(b.date + 'T00:00:00') - new Date(a.date + 'T00:00:00'));
+                currentArticles = filteredArticles.sort((a, b) => b.dateObj - a.dateObj);
                 articlesToShow = ARTICLES_PER_PAGE; // Reset pagination
                 
                 if (activeTopicFilters.length === 0 && activeGenreFilter === 'All') {
@@ -299,9 +301,6 @@
 
         // --- Initial Setup ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Wrap all logic in an IIFE to avoid polluting the global namespace
-            (function() {
-
             // --- Animation on Scroll Logic ---
             cardObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
@@ -316,12 +315,9 @@
             });
 
             // Render all filter buttons
-            const allTags = articles.flatMap(a => a.tags);
-            const allGenres = articles.map(a => a.genre);
-            
-            // Special 'Fraud & Security' filter
-            const uniqueTags = [...new Set(allTags)];
-            renderFilterButtons(tagFiltersContainer, uniqueTags);
+            const allTags = processedArticles.flatMap(a => a.tags);
+            const allGenres = processedArticles.map(a => a.genre);
+            renderFilterButtons(tagFiltersContainer, [...new Set(allTags)]);
             renderFilterButtons(genreFiltersContainer, allGenres);
 
             applyFiltersFromURL(); // Read from URL first to set initial state
@@ -538,6 +534,4 @@
             // --- Dynamic Copyright Year ---
             const copyrightYear = document.getElementById('copyright-year');
             if (copyrightYear) copyrightYear.textContent = new Date().getFullYear();
-
-            })(); // End of IIFE
         });
