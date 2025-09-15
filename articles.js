@@ -239,7 +239,7 @@ const articles = [
                 tags: ['FinTech', 'Customer Experience', 'Consumer Behavior', 'Mobile Banking'],
             },
             {
-                id: 'connected-intelli gence-fighting-fraud-july-2019',
+                id: 'connected-intelligence-fighting-fraud-july-2019',
                 title: 'Connected Intelligence: A Holistic Approach to Fighting Fraud',
                 publication: 'PaymentsJournal',
                 employer: 'PaymentsJournal',
