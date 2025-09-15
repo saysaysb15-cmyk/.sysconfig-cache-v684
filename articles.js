@@ -20,9 +20,9 @@ const curatedViews = {
     ],
     'view-asdfgh123': [
         'fed-real-time-payment-announcement-news-aug-2019',
-        'Visa and Mastercard Changed Their Dispute Resolution Process. Here’s What You Need to Know',
-        'What Are APIs and How Are They Changing Banking',
-        'Using Artificial Intelligence, Visa Is Combatting Fraud at Nearly the Speed of Light',
+        'visa-mastercard-dispute-explainer-nov-2019',
+        'api-banking-overview-aug-2019',
+        'visa-combatting-fraud-news-jun-2019',
         'consumer-covid-response-news-mar-2020',
         '3-payments-trends-dec-2019'
     ]
