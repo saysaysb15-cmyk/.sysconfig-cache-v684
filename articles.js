@@ -1,3 +1,33 @@
+const curatedViews = {
+    // These keys are anonymous identifiers for your curated lists.
+    // For your own reference, keep a separate, private note of which key corresponds to which company.
+    // Example private note: 'view-a8b3' -> Google, 'view-c4d7' -> Apple
+    'view-a8b3': [
+        'api-banking-overview-aug-2019',
+        'visa-combatting-fraud-news-jun-2019',
+        'fintech-bank-collaboration-jun-2023',
+        'big-tech-is-coming-dec-2019',
+        'connected-intelli gence-fighting-fraud-july-2019',
+        'core-modernization-cloud-migration-banks-oct-2022'
+    ],
+    'view-c4d7': [
+        'big-tech-is-coming-dec-2019',
+        'improving-customer-experience-oct-2019',
+        'consumer-covid-response-news-mar-2020',
+        'fintech-bank-collaboration-jun-2023',
+        'nonfinancial-brands-embedded-finance-april-2023',
+        'cyber-attack-architecture-nudata-jan-2020'
+    ],
+    'view-asdfgh123': [
+        'fed-real-time-payment-announcement-news-aug-2019',
+        'visa-mastercard-dispute-explainer-nov-2019',
+        'api-banking-overview-aug-2019',
+        'visa-combatting-fraud-news-jun-2019',
+        'consumer-covid-response-news-mar-2020',
+        '3-payments-trends-dec-2019'
+    ]
+};
+
 const articles = [
             {
                 id: 'api-banking-overview-aug-2019',
