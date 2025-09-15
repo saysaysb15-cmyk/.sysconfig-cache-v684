@@ -20,6 +20,7 @@
         const paginationControls = document.getElementById('pagination-controls');
         const activeFiltersContainer = document.getElementById('active-filters-container');
         const clearActiveFiltersBtn = document.getElementById('clear-active-filters-btn');
+        const restoreViewBtn = document.getElementById('restore-view-btn');
         const applyBtnContainer = document.getElementById('apply-btn-container');
         const applyFiltersBtn = document.getElementById('apply-filters-btn');
 
@@ -32,6 +33,8 @@
         let currentArticles = [];
         let articlesToShow = ARTICLES_PER_PAGE;
         let isCuratedView = false;
+        let wasInitiallyCurated = false;
+        let initialCuratedUrl = '';
         let cardObserver;
 
         // Function to render article cards to the DOM
@@ -152,10 +155,6 @@
 
         // Function to apply all active filters and re-render the articles
         function applyFiltersAndRender(withTransition = false) {
-            // Any call to this function implies the user is actively filtering,
-            // so we exit any special "curated" view.
-            isCuratedView = false;
-
             const updateContent = () => {
                 let filteredArticles = [...articles];
 
@@ -184,6 +183,12 @@
                 updateURLWithFilters();
                 updateActiveButtons();
                 toggleClearActiveFiltersButton();
+
+                // If the user has filtered away from an initial curated view, show the restore button.
+                // Otherwise, ensure it's hidden.
+                const showRestoreBtn = wasInitiallyCurated && !isCuratedView;
+                restoreViewBtn.classList.toggle('hidden', !showRestoreBtn);
+
 
                 const researchWarning = document.getElementById('research-warning');
                 if (activeGenreFilter === 'Research') {
@@ -275,6 +280,9 @@
 
             // Check for a valid 'view' parameter to show a curated view
             if (viewKey && typeof curatedViews !== 'undefined' && curatedViews[viewKey]) {
+                wasInitiallyCurated = true;
+                initialCuratedUrl = window.location.href;
+
                 isCuratedView = true;
                 const articleIds = curatedViews[viewKey];
                 
@@ -459,6 +467,7 @@
             });
             
             applyFiltersBtn.addEventListener('click', () => {
+                isCuratedView = false; // User is now actively filtering, exit curated view.
                 activeTopicFilters = [...tempTopicFilters];
                 activeGenreFilter = tempGenreFilter;
                 applyFiltersAndRender(true);
@@ -486,12 +495,17 @@
             });
 
             clearActiveFiltersBtn.addEventListener('click', () => {
+                isCuratedView = false; // User is clearing filters, exit curated view.
                 activeTopicFilters = [];
                 activeGenreFilter = 'All';
                 tempTopicFilters = [];
                 tempGenreFilter = 'All';
                 applyFiltersAndRender(true);
                 updateActiveButtons();
+            });
+
+            restoreViewBtn.addEventListener('click', () => {
+                if (initialCuratedUrl) window.location.href = initialCuratedUrl;
             });
 
             seeMoreBtn.addEventListener('click', handleSeeMore);

@@ -18,7 +18,7 @@ const curatedViews = {
         'nonfinancial-brands-embedded-finance-april-2023',
         'cyber-attack-architecture-nudata-jan-2020'
     ],
-    'view-asdfgh123': [
+    'view-asd123': [
         'fed-real-time-payment-announcement-news-aug-2019',
         'visa-mastercard-dispute-explainer-nov-2019',
         'api-banking-overview-aug-2019',
