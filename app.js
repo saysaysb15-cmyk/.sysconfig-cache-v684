@@ -31,6 +31,7 @@
         let tempGenreFilter = 'All';
         let currentArticles = [];
         let articlesToShow = ARTICLES_PER_PAGE;
+        let isCuratedView = false;
         let cardObserver;
 
         // Function to render article cards to the DOM
@@ -118,7 +119,7 @@
             }
 
             // Handle pagination controls visibility
-            if (currentArticles.length <= ARTICLES_PER_PAGE) {
+            if (isCuratedView || currentArticles.length <= ARTICLES_PER_PAGE) {
                 paginationControls.classList.add('hidden');
             } else {
                 paginationControls.classList.remove('hidden');
@@ -151,6 +152,10 @@
 
         // Function to apply all active filters and re-render the articles
         function applyFiltersAndRender(withTransition = false) {
+            // Any call to this function implies the user is actively filtering,
+            // so we exit any special "curated" view.
+            isCuratedView = false;
+
             const updateContent = () => {
                 let filteredArticles = [...articles];
 
@@ -262,6 +267,55 @@
             tempGenreFilter = activeGenreFilter;
         }
 
+        // --- Initial Page Load Logic ---
+        function initializePortfolio() {
+            const params = new URLSearchParams(window.location.search);
+            const viewKey = params.get('view');
+            const companyName = params.get('for');
+
+            // Check for a valid 'view' parameter to show a curated view
+            if (viewKey && typeof curatedViews !== 'undefined' && curatedViews[viewKey]) {
+                isCuratedView = true;
+                const articleIds = curatedViews[viewKey];
+                
+                // Filter and order articles based on the curated list
+                const curatedArticles = articleIds
+                    .map(id => articles.find(article => article.id === id))
+                    .filter(Boolean); // Remove any undefined if an ID wasn't found
+
+                currentArticles = curatedArticles;
+                articlesToShow = curatedArticles.length; // Show all curated articles at once
+
+                // Update heading. Use the 'for' parameter if available, otherwise use a generic title.
+                if (companyName) {
+                    // Sanitize the display name to prevent potential HTML injection
+                    const tempDiv = document.createElement('div');
+                    tempDiv.textContent = companyName;
+                    const safeDisplayName = tempDiv.innerHTML.charAt(0).toUpperCase() + tempDiv.innerHTML.slice(1);
+                    portfolioHeading.textContent = `Selected for ${safeDisplayName}`;
+                } else {
+                    portfolioHeading.textContent = 'Curated Selection';
+                }
+
+                // A curated view starts with no active filters
+                activeTopicFilters = [];
+                activeGenreFilter = 'All';
+                tempTopicFilters = [];
+                tempGenreFilter = 'All';
+                
+                renderArticles();
+                updateActiveButtons(); // Ensure filter buttons show default state
+                toggleClearActiveFiltersButton(); // Hide clear button as no filters are active
+                document.getElementById('research-warning').classList.add('hidden');
+
+            } else {
+                // --- Default or Filtered-from-URL View ---
+                isCuratedView = false;
+                applyFiltersFromURL(); // Read topic/genre filters from URL
+                applyFiltersAndRender(); // Apply filters and render the initial view
+            }
+        }
+
         // --- Modal Control ---
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
@@ -324,8 +378,7 @@
             renderFilterButtons(tagFiltersContainer, uniqueTags);
             renderFilterButtons(genreFiltersContainer, allGenres);
 
-            applyFiltersFromURL(); // Read from URL first to set initial state
-            applyFiltersAndRender();
+            initializePortfolio(); // Set up the initial view (curated or default)
             
             // --- New Filter Panel Logic ---
             const filterToggleBtn = document.getElementById('filter-toggle-btn');
