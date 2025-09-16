@@ -1,7 +1,6 @@
 const curatedViews = {
-    // These keys are anonymous identifiers for your curated lists.
-    // For your own reference, keep a separate, private note of which key corresponds to which company.
-    // Example private note: 'view-a8b3' -> Google, 'view-c4d7' -> Apple
+    // These keys are identifiers to enable industry or company-specific customization for the initial articles displayed.
+    // Example key decoding: 'view-a8b3' -> Google, 'view-c4d7' -> E-Commerce
     'view-a8b3': [
         'api-banking-overview-aug-2019',
         'visa-combatting-fraud-news-jun-2019',
@@ -17,14 +16,6 @@ const curatedViews = {
         'fintech-bank-collaboration-jun-2023',
         'nonfinancial-brands-embedded-finance-april-2023',
         'cyber-attack-architecture-nudata-jan-2020'
-    ],
-    'view-asd123': [
-        'fed-real-time-payment-announcement-news-aug-2019',
-        'restaurants-technology-inflation-jun-2023',
-        'api-banking-overview-aug-2019',
-        'visa-combatting-fraud-news-jun-2019',
-        'consumer-covid-response-news-mar-2020',
-        'fintech-bank-collaboration-jun-2023'
     ]
 };
 
