@@ -7,7 +7,7 @@ const curatedViews = {
         'visa-combatting-fraud-news-jun-2019',
         'fintech-bank-collaboration-jun-2023',
         'big-tech-is-coming-dec-2019',
-        'connected-intelli gence-fighting-fraud-july-2019',
+        'connected-intelligence-fighting-fraud-july-2019',
         'core-modernization-cloud-migration-banks-oct-2022'
     ],
     'view-c4d7': [
@@ -224,7 +224,7 @@ const articles = [
                 publication: 'PaymentsJournal',
                 genre: 'Advertorials',
                 date: '2019-07-18',
-                summary: 'This outline Mastercard\'s cutting-edge methods for fighting fraud——ditching passwords-only security in favor of real-time, layered authentication. It weaves together biometrics, device fingerprinting, behavioral profiling, location, and machine learning across the entire user journey. This lets companies flag fraudulent activity pre-transaction, minimize friction through smarter risk scoring, and reduce false positives while stopping fraud before it begins.',
+                summary: "This outlines Mastercard's cutting-edge methods for fighting fraud by ditching passwords-only security in favor of real-time, layered authentication. It weaves together biometrics, device fingerprinting, behavioral profiling, location, and machine learning across the entire user journey. This lets companies flag fraudulent activity pre-transaction, minimize friction through smarter risk scoring, and reduce false positives while stopping fraud before it begins.",
                 article_url: 'https://www.paymentsjournal.com/connected-intelligence-a-holistic-approach-to-fighting-fraud/',
                 tags: ['Fraud Prevention/Detection', 'Artificial Intelligence', 'Cybersecurity', 'Emerging Technology'],
             },
@@ -244,7 +244,7 @@ const articles = [
                 publication: 'PaymentsJournal Article',
                 genre: 'News & Analysis',
                 date: '2019-12-31',
-                summary: 'Explains how fraudsters create synthetic identities by combining real and fake information to defraud banks and lenders, and explores the technologies and strategies companies can use to detect and prevent this type of fraud.',
+                summary: 'A forward-looking analysis of the key payments trends poised to shape 2020. The article identifies three major shifts: the rise of real-time payments, the increasing importance of data-driven fraud prevention, and the growing consumer demand for seamless, integrated payment experiences across all channels.',
                 article_url: 'https://www.paymentsjournal.com/3-payments-trends-to-keep-track-of-in-2020/',
                 tags: ['Retail', 'Fraud Prevention/Detection', 'Emerging Technology'],
             },

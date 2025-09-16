@@ -476,26 +476,33 @@
             });
 
             clearTopicFilterBtn.addEventListener('click', () => {
+                isCuratedView = false; // User is clearing filters, exit curated view.
+                activeTopicFilters = [];
                 tempTopicFilters = [];
-                updateActiveButtons();
-                applyBtnContainer.classList.remove('hidden');
+                applyFiltersAndRender(true);
+                closeFilterPanel();
             });
 
             clearGenreFilterBtn.addEventListener('click', () => {
+                isCuratedView = false; // User is clearing filters, exit curated view.
+                activeGenreFilter = 'All';
                 tempGenreFilter = 'All';
-                updateActiveButtons();
-                applyBtnContainer.classList.remove('hidden');
+                applyFiltersAndRender(true);
+                closeFilterPanel();
             });
 
             clearAllFiltersBtn.addEventListener('click', () => {
+                isCuratedView = false; // User is clearing filters, exit curated view.
+                activeTopicFilters = [];
                 tempTopicFilters = [];
+                activeGenreFilter = 'All';
                 tempGenreFilter = 'All';
-                updateActiveButtons();
-                applyBtnContainer.classList.remove('hidden');
+                applyFiltersAndRender(true);
+                closeFilterPanel();
             });
 
             clearActiveFiltersBtn.addEventListener('click', () => {
-                isCuratedView = false; // User is clearing filters, exit curated view.
+                isCuratedView = false; // User is clearing filters, exit curated view
                 activeTopicFilters = [];
                 activeGenreFilter = 'All';
                 tempTopicFilters = [];
