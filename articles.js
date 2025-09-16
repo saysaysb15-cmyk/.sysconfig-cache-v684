@@ -1,5 +1,5 @@
 const curatedViews = {
-    // These keys are identifiers to enable industry or company-specific customization for the initial articles displayed.
+    // These are identifiers to enable industry or company-specific customization for the initial articles shown on the website.
     // Example key decoding: 'view-a8b3' -> Google, 'view-c4d7' -> E-Commerce
     'view-a8b3': [
         'api-banking-overview-aug-2019',
