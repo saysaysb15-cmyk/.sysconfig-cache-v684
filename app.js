@@ -388,6 +388,10 @@
 
             initializePortfolio(); // Set up the initial view (curated or default)
             
+            // Define floating button elements early so they can be controlled by the filter panel
+            const contactContainer = document.getElementById('contact-container');
+            const backToTopBtn = document.getElementById('back-to-top-btn');
+
             // --- New Filter Panel Logic ---
             const filterToggleBtn = document.getElementById('filter-toggle-btn');
             const filterPanel = document.getElementById('filter-panel');
@@ -409,6 +413,10 @@
                 filterToggleBtn.setAttribute('aria-expanded', 'true');
                 document.body.classList.add('overflow-hidden');
 
+                // Hide floating buttons to prevent them from overlapping the modal
+                contactContainer.classList.add('hidden');
+                backToTopBtn.classList.add('hidden');
+
                 // On desktop, scroll to the filter panel. On mobile, it's a full-screen modal, so no scroll is needed.
                 if (window.innerWidth >= 768) { // Corresponds to Tailwind's 'md' breakpoint
                     setTimeout(() => {
@@ -425,6 +433,10 @@
                 filterChevron.classList.remove('rotate-180');
                 filterToggleBtn.setAttribute('aria-expanded', 'false');
                 document.body.classList.remove('overflow-hidden');
+
+                // Restore floating buttons
+                contactContainer.classList.remove('hidden');
+                backToTopBtn.classList.remove('hidden');
                 toggleClearActiveFiltersButton();
             };
 
@@ -522,7 +534,7 @@
             
             // --- Sticky Header Indicator Logic ---
             const stickyFilterBar = document.querySelector('.sticky');
-            const observer = new IntersectionObserver(
+            const stickyObserver = new IntersectionObserver(
                 ([e]) => {
                     // e.intersectionRatio < 1 means the top of the element is no longer visible in the viewport
                     stickyFilterBar.classList.toggle('is-sticky', e.intersectionRatio < 1);
@@ -532,12 +544,11 @@
                     rootMargin: "-1px 0px 0px 0px" // Trigger just before it's flush with the top
                 }
             );
-            observer.observe(stickyFilterBar);
+            stickyObserver.observe(stickyFilterBar);
 
             // --- Contact Me Button Logic ---
             const contactBtn = document.getElementById('contact-btn');
             const emailInfo = document.getElementById('email-info');
-            const contactContainer = document.getElementById('contact-container');
 
             contactBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -576,8 +587,6 @@
             });
 
             // --- Back to Top Button Logic ---
-            const backToTopBtn = document.getElementById('back-to-top-btn');
-
             window.addEventListener('scroll', () => {
                 // Show button after scrolling down 400px
                 if (window.scrollY > 400) {
