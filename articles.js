@@ -167,7 +167,7 @@ const articles = [
                 title: 'The Healthcare Industry Needs a Dose of Money Mobility',
                 publication: 'PYMNTS-Ingo Money Money Mobility Tracker',
                 genre: 'Advertorials',
-                date: '2023-01-15',
+                date: '2023-06-15',
                 summary: 'Highlights the significant friction in the healthcare payments system, where a reliance on manual processes and paper-based billing creates confusion and delays for patients. It explores how the adoption of digital platforms and real-time payments can improve the patient experience, reduce costs for providers, and increase overall satisfaction.',
                 tags: ['Industry-Specific Payment Solutions', 'Back-Office Solutions', 'Digital Payments', 'Consumer Behavior'],
             },
