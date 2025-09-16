@@ -409,11 +409,13 @@
                 filterToggleBtn.setAttribute('aria-expanded', 'true');
                 document.body.classList.add('overflow-hidden');
 
-                // Scroll to the filter panel after it becomes visible
-                setTimeout(() => {
-                    const filterPanelTop = filterPanel.getBoundingClientRect().top + window.scrollY;
-                    window.scrollTo({ top: filterPanelTop - 20, behavior: 'smooth' });
-                }, 100);
+                // On desktop, scroll to the filter panel. On mobile, it's a full-screen modal, so no scroll is needed.
+                if (window.innerWidth >= 768) { // Corresponds to Tailwind's 'md' breakpoint
+                    setTimeout(() => {
+                        const filterPanelTop = filterPanel.getBoundingClientRect().top + window.scrollY;
+                        window.scrollTo({ top: filterPanelTop - 20, behavior: 'smooth' });
+                    }, 100);
+                }
             };
 
             const closeFilterPanel = () => {
