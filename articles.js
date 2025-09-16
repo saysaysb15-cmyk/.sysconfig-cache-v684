@@ -174,7 +174,7 @@ const articles = [
             {
                 id: 'smb-cash-flow-2023-nov-dec-2022',
                 title: "Improving SMBs' Cash Flow Management In 2023",
-                publication: 'PYMNTS-American ExpressB2B and Digital Payments Tracker',
+                publication: 'PYMNTS-American Express B2B and Digital Payments Tracker',
                 genre: 'Advertorials',
                 date: '2022-11-15',
                 summary: 'A forward-looking piece on the critical nature of cash flow management for SMBs entering 2023. It discusses how technology and strategic partnerships can help businesses navigate economic uncertainty and late payment challenges.',
