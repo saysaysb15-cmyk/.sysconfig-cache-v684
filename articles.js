@@ -2,12 +2,12 @@ const curatedViews = {
     // These are identifiers to enable industry or company-specific customization for the initial articles shown on the website.
     // Example key decoding: 'view-a8b3' -> Google, 'view-c4d7' -> E-Commerce
     'view-a8b3': [
-        'api-banking-overview-aug-2019',
-        'visa-combatting-fraud-news-jun-2019',
-        'fintech-bank-collaboration-jun-2023',
-        'big-tech-is-coming-dec-2019',
-        'connected-intelligence-fighting-fraud-july-2019',
-        'core-modernization-cloud-migration-banks-oct-2022'
+        'money-mobility-insurance-industry-jan-2023',
+        'fintech-lending-access-may-2023',
+        'beauty-wellness-transformation-may-2023',
+        'nonfinancial-brands-embedded-finance-april-2023',
+        'consumer-covid-response-news-mar-2020',
+        'fintech-bubble-profitability-mar-2023'
     ],
     'view-c4d7': [
         'big-tech-is-coming-dec-2019',
